@@ -13,6 +13,128 @@
 @media(max-width:1000px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-content{padding:50px}.hero{grid-template-columns:1fr 45%}}
 @media(max-width:700px){.shell{padding:0 18px}.header-inner{height:68px}.brand-name{font-size:16px}.mark{width:40px;height:40px;border-width:4px}.mark b{font-size:20px}.nav{display:none}.icon-btn{width:40px;height:40px}.preview{font-size:10px}.header-actions .account{display:none}.hero{margin-top:15px;min-height:425px;display:block;border-radius:23px;position:relative;background:#211517}.hero-image{position:absolute;inset:0;width:100%;height:100%;min-height:0;opacity:.82}.hero::after{background:linear-gradient(90deg,#161011 0%,rgba(22,16,17,.91) 30%,rgba(22,16,17,.24) 100%),linear-gradient(0deg,#161011 0%,transparent 60%)}.hero-content{position:relative;padding:47px 26px;min-height:425px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.hero h1{font-size:clamp(35px,10vw,47px);max-width:320px}.hero p{font-size:13px;max-width:240px}.hero .cta{margin-top:4px}.intro{padding:18px 0}.facts{gap:12px}.facts span{font-size:11px}.note{max-width:100%}.section{padding-top:39px}.section-head h2{font-size:27px}.categories{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px;scrollbar-width:none}.categories::-webkit-scrollbar{display:none}.chip{padding:9px 16px;font-size:12px}.search-row{margin:20px 0;gap:9px}.sort{font-size:11px;max-width:120px;padding:15px 8px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.product{border-radius:17px}.photo{aspect-ratio:1.12}.product-info{padding:12px}.product h3{font-size:14px;min-height:36px}.desc{font-size:10px;min-height:30px}.price{font-size:15px}.add{width:34px;height:34px;font-size:22px}.section-head .subtle-link{font-size:12px}.footer{display:block;padding-bottom:144px}.footer div+div{margin-top:12px}.bottomspace{height:125px}.mobile-tabs{display:flex;position:fixed;z-index:40;bottom:0;left:0;right:0;justify-content:space-around;align-items:center;background:rgba(17,17,18,.96);border-top:1px solid #373031;padding:11px 8px max(12px,env(safe-area-inset-bottom));backdrop-filter:blur(20px)}.mobile-tabs button{border:0;background:none;color:#aaa4a3;display:flex;flex-direction:column;gap:5px;align-items:center;font-size:10px;font-weight:700;min-width:66px}.mobile-tabs button.active{color:#f04b50}.mobile-tabs .icon{width:22px;height:22px}.fixed-cart{display:flex;position:fixed;z-index:39;bottom:79px;left:16px;right:16px;background:#b92e33;color:#fff;border:0;box-shadow:0 10px 32px rgba(0,0,0,.5);border-radius:14px;padding:14px 17px;align-items:center;justify-content:space-between;font-weight:800;font-size:13px}.fixed-cart[hidden]{display:none}.content-title{font-size:34px;margin-top:24px}.content-sub{font-size:12px}.cart-layout,.checkout-layout{grid-template-columns:1fr}.panel{padding:18px;border-radius:17px}.cart-item{gap:12px}.cart-thumb{width:70px;height:70px}.fields-2{gap:9px}.success h1{font-size:34px}.detail{display:block;width:100%;max-height:90vh;border-radius:19px}.detail>img{width:100%;height:220px;min-height:0}.detail-body{padding:23px}.detail h2{font-size:29px;margin:9px 0}.detail .desc-full{font-size:13px;margin:9px 0 12px}.photo-credit{font-size:10px}}
 @media(max-width:380px){.shell{padding:0 14px}.product-grid{gap:8px}.product-info{padding:11px}.hero h1{font-size:36px}.method{font-size:11px}}
+
+/* CK Sushi V2 — referências 11–16: foco mobile, leitura e pedido rápido */
+:root{--bg:#f7f5f2;--surface:#fff;--surface2:#f0edeb;--surface3:#e9e3e0;--ink:#211c1e;--dim:#776e71;--red:#c32935;--red-dark:#931d29;--border:#e9e3e0;--green:#31805c}
+body{background:var(--bg);color:var(--ink)}
+.preview{background:#231619;border:0;color:#ffede7}
+.header{background:rgba(255,255,255,.94);border-color:#ede7e3}
+.brand-name{color:#1e1719}.brand-name small{color:#888084}
+.mark{color:#251b1d;border-color:#c32935;border-left-color:transparent}
+.nav button{color:#655c60}.nav button.active,.nav button:hover{color:#1e181a}.nav button.active{box-shadow:0 2px 0 var(--red)}
+.icon-btn{background:#f6f3f1;color:#30262a;border-color:#e5dfdb}.bubble{background:#c32935}
+.hero{margin-top:22px;border:0;min-height:330px;grid-template-columns:1fr 54%;border-radius:24px;background:#28181c}
+.hero-image{min-height:330px;filter:saturate(.93)}
+.hero::after{background:linear-gradient(90deg,#28181c 4%,rgba(40,24,28,.98) 30%,rgba(40,24,28,.43) 72%,transparent)}
+.hero-content{padding:42px 55px}
+.hero h1{font-size:clamp(38px,4.5vw,63px);color:#fff;margin:12px 0 12px}
+.hero h1 em{color:#ff9193}
+.hero p{color:#e2d7d6;margin-bottom:18px}
+.eyebrow{color:#b72b35;font-size:10px;letter-spacing:.12em}.hero .eyebrow{color:#ffadae}
+.cta{background:#c32935;border-radius:12px}.cta:hover{background:#aa1f2e}
+.cta.secondary{background:#fff;color:#302326;border:1px solid #e9e0dd}.cta.secondary:hover{background:#f4eeed}
+.intro{border-color:#e8e1de;color:#756d6e;padding:18px 0}
+.facts strong{color:#33292c}.facts span{font-size:12px}.facts i{background:#2e8e64}.note{color:#897e80}
+.section{padding-top:35px}.section-head{margin-bottom:17px}
+.section-head h2{color:#252022;font-size:30px;letter-spacing:-.02em}
+.section-head p{color:#8a8183;font-size:12px}
+.subtle-link{color:#a51f2e}
+.search-row{margin:16px 0}.search-box{background:#fff;color:#888;border-color:#ece5e1;border-radius:13px}
+.search-box input{color:#292124}.search-box input::placeholder{color:#968e90}
+.sort{background:#fff;border-color:#e9e2df;color:#3d3337}
+.categories{gap:8px;margin:15px 0 19px}
+.chip{background:#fff;color:#4c4345;border-color:#e9e1de;border-radius:12px}
+.chip.active,.chip:hover{background:#251c20;color:#fff;border-color:#251c20}
+.catalog-info{color:#8a8082}
+.product-grid{gap:15px}.product-grid.home-picks{grid-template-columns:repeat(4,minmax(0,1fr))}
+.product-grid.menu-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+.product{background:#fff;border-color:#ece5e1;border-radius:17px;box-shadow:0 3px 18px rgba(35,16,20,.03)}
+.product:hover{border-color:#d4b6b9;box-shadow:0 9px 25px rgba(40,16,19,.06)}
+.photo{display:block;width:100%;padding:0;border:0;cursor:pointer;appearance:none;aspect-ratio:1.29}
+.photo img{width:100%;height:100%}
+.flag{background:rgba(255,255,255,.96);color:#9d2a35}
+.product-name{background:none;padding:0;border:0;text-align:left;color:#292226;cursor:pointer;display:block;font:700 17px/1.2 "Outfit",sans-serif;min-height:40px}
+.product-name:hover{color:var(--red)}
+.product .desc{color:#91898a;font-size:11px}
+.product-info{padding:15px 15px 13px}.product-foot{margin-top:12px}
+.price,.product .price{color:#b72733;font-weight:800}
+.add{background:#bc2833;border-radius:11px;width:35px;height:35px}.add:hover{background:#a51e2a}
+.content-title{color:#2b2225;margin-top:35px}.content-sub{color:#807679}.back{color:#7c7174}
+.footer{border-color:#e9e1dd;color:#8b8284}.footer strong{color:#2a2124}
+.panel{background:#fff;border-color:#ece5e1;box-shadow:0 5px 22px rgba(35,18,21,.03)}.panel h3{color:#281f22}
+.cart-item{border-color:#eae3df}.cart-data b,.cart-data strong{color:#292124}.cart-data p{color:#8b8284}
+.quantity{background:#f9f6f4;border-color:#e6dfdc}.quantity button{color:#2a2124}
+.summary-row{color:#786e70}.summary-row strong{color:#272023}
+.summary-total{color:#241d20;border-color:#e6dfdb}
+.warning{background:#fff5e9;border-color:#ecd9c4;color:#7f5222}.good{color:#277850}
+.empty{background:#fff;color:#777074;border-color:#d9cfcb}.empty h2{color:#292225}
+.field label{color:#5f5357}
+.field input,.field textarea{background:#faf8f6;color:#292124;border-color:#e8dfdc}
+.method{background:#faf7f6;color:#5b5154;border-color:#e7dfdb}.method.active{background:#2e1e23;color:#fff;border-color:#2e1e23}
+.steps{color:#8a8082}.steps .on{color:#a8212c}
+.success h1{color:#2a2024}.timeline-line{color:#393034;border-color:#ebe3df!important}
+.success-icon{background:#e8f6ec;color:#278052;border-color:#c3decd}
+.detail{background:#fff;color:#2a2326;border-color:#e8dfdb;box-shadow:0 20px 70px rgba(21,7,11,.3)}
+.detail-close{background:#fff;color:#34272b;border-color:#e5dcda}
+.detail h2{color:#2a2226}.detail .desc-full{color:#7f7477}
+.detail .price{color:#b42733}
+.detail-kicker{font-size:11px;font-weight:800;letter-spacing:.12em;color:#ae2c37;text-transform:uppercase}
+.detail-note{margin:17px 0 10px}.detail-note label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
+.detail-note textarea{width:100%;min-height:66px;border-radius:12px;resize:vertical;border:1px solid #e7dedb;background:#fbf9f7;color:#211c20;padding:11px}
+.detail-actions{display:flex;gap:11px;align-items:center;margin-top:16px}
+.detail-actions .quantity{margin:0}
+.detail-actions .cta{flex:1;margin:0}
+.fixed-cart{background:#bb2933}.product-list-caption{color:#8a8082;font-size:11px;margin-top:16px}
+.mobile-tabs{background:#1c171b;border:1px solid #32292e;box-shadow:0 15px 35px rgba(20,9,14,.24)}
+@media(max-width:1000px){.product-grid.home-picks{grid-template-columns:repeat(3,minmax(0,1fr))}.product-grid.menu-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+.shell{padding:0 17px}
+.header-inner{height:67px}.brand-name{font-size:16px}
+.hero{min-height:278px;margin-top:16px;border-radius:19px;box-shadow:none}
+.hero-image{height:100%;min-height:0}
+.hero::after{background:linear-gradient(90deg,#241719 2%,rgba(36,23,25,.95) 33%,rgba(36,23,25,.2) 100%),linear-gradient(0deg,rgba(24,14,17,.38),transparent 78%)}
+.hero-content{min-height:278px;padding:26px 22px}
+.hero h1{font-size:clamp(31px,9vw,40px);max-width:310px;margin:12px 0 9px}
+.hero p{font-size:12px;max-width:223px;line-height:1.45;margin-bottom:15px}
+.hero .cta{font-size:12px;padding:12px 15px}
+.intro{padding:14px 0}.facts{gap:9px}.facts span{font-size:10px}.intro .note{font-size:10px}
+.section{padding-top:27px}.section-head h2{font-size:24px}.section-head p{margin-top:5px}
+.categories{margin:14px -17px 16px;padding:0 17px 4px}.chip{font-size:12px;padding:9px 14px}
+.search-row{margin:12px 0}.search-box{min-height:47px}.sort{padding:12px 8px}
+.product-grid.home-picks{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.product-grid.home-picks .photo{aspect-ratio:1.08}
+.product-grid.home-picks .product-name{font-size:14px;min-height:34px}
+.product-grid.home-picks .product-info{padding:12px}
+.product-grid.home-picks .desc{font-size:10px}
+.product-grid.menu-list{grid-template-columns:1fr;gap:10px}
+.product-grid.menu-list .product{display:flex;align-items:stretch;min-height:133px;border-radius:16px}
+.product-grid.menu-list .photo{flex:0 0 126px;width:126px;aspect-ratio:auto;min-height:133px;border-radius:16px 0 0 16px}
+.product-grid.menu-list .photo img{height:100%;width:100%}
+.product-grid.menu-list .flag{font-size:8px;padding:3px 6px;top:8px;left:8px}
+.product-grid.menu-list .product-info{min-width:0;flex:1;padding:13px 12px}
+.product-grid.menu-list .product-name{font-size:16px;min-height:0}
+.product-grid.menu-list .desc{min-height:0;margin-top:4px;font-size:11px;line-height:1.3;-webkit-line-clamp:2}
+.product-grid.menu-list .product-foot{margin-top:10px}
+.product-grid.menu-list .price{font-size:16px}.product-grid.menu-list .add{width:34px;height:34px}
+.content-title{font-size:34px;margin:24px 0 6px}.content-sub{font-size:12px}
+.panel{padding:18px;border-radius:17px}.footer{padding-bottom:140px}
+.mobile-tabs{left:12px;right:12px;bottom:max(11px,env(safe-area-inset-bottom));border-radius:100px;padding:9px 6px}
+.mobile-tabs button{color:#aba1a4;font-size:10px;padding:3px}
+.mobile-tabs button.active{color:#ff7377}
+.fixed-cart{bottom:83px;left:17px;right:17px}
+.bottomspace{height:110px}
+.overlay{align-items:end;padding:0;background:rgba(28,11,17,.69)}
+.detail{display:block;width:100%;border-radius:24px 24px 0 0;max-height:92dvh;overflow:auto;padding-bottom:max(16px,env(safe-area-inset-bottom))}
+.detail>img{height:209px;width:100%;border-radius:24px 24px 0 0;min-height:0}
+.detail-body{padding:23px 20px 16px}
+.detail h2{font-size:28px;margin:9px 0}
+.detail .desc-full{font-size:13px;margin:10px 0 15px}
+.detail .quantity button{padding:10px 12px}
+.detail .quantity span{min-width:24px}
+.detail .cta{padding:13px 8px;font-size:12px}
+.detail-actions{gap:8px}
+}
+@media(max-width:390px){.product-grid.menu-list .photo{width:108px;flex-basis:108px}.product-grid.menu-list .product-info{padding:10px}.hero h1{font-size:32px}}
 </style>
 </head>
 <body>
@@ -87,30 +209,31 @@ const page=document.getElementById("page"),root=document.getElementById("modalRo
 const item=id=>d.find(p=>p.id===id);
 const count=()=>Object.values(cart).reduce((a,b)=>a+(Number(b)||0),0);
 const subtotal=()=>Object.entries(cart).reduce((a,[id,q])=>a+(item(id)?.price||0)*(Number(q)||0),0);
-const save=()=>{localStorage.setItem("cksushi-demo-cart",JSON.stringify(cart));sync()};
+let notes={};try{notes=JSON.parse(localStorage.getItem("cksushi-demo-notes")||"{}")||{}}catch(e){}
+const save=()=>{localStorage.setItem("cksushi-demo-cart",JSON.stringify(cart));localStorage.setItem("cksushi-demo-notes",JSON.stringify(notes));sync()};
 function sync(){const c=count();document.getElementById("cartBubble").hidden=!c;document.getElementById("cartBubble").textContent=c;document.getElementById("fixedCart").hidden=!c||!["home","menu"].includes(route);document.getElementById("fixedCartLabel").textContent=c+" "+(c===1?"item":"itens")+" no carrinho";document.getElementById("fixedCartTotal").textContent=money(subtotal())+"  →";document.querySelectorAll("[id^='nav-'],[id^='tab-']").forEach(el=>el.classList.toggle("active",el.id.endsWith(route))); }
 function img(p){return '<img src="'+p.photo+'" alt="Fotografia ilustrativa de culinária japonesa" loading="lazy" decoding="async">'}
-function card(p){return '<article class="product"><div class="photo" role="button" tabindex="0" data-open="'+p.id+'">'+img(p)+(p.featured?'<span class="flag">Mais pedido</span>':'')+'</div><div class="product-info"><h3>'+esc(p.name)+'</h3><div class="desc">'+esc(p.desc)+'</div><div class="product-foot"><span class="price">'+money(p.price)+'</span><button class="add" aria-label="Adicionar '+esc(p.name)+'" data-add="'+p.id+'">+</button></div></div></article>'}
+function card(p){return '<article class="product"><button class="photo" type="button" aria-label="Ver detalhes de '+esc(p.name)+'" data-open="'+p.id+'">'+img(p)+(p.featured?'<span class="flag">Popular</span>':'')+'</button><div class="product-info"><button class="product-name" data-open="'+p.id+'">'+esc(p.name)+'</button><div class="desc">'+esc(p.desc)+'</div><div class="product-foot"><span class="price">'+money(p.price)+'</span><button class="add" type="button" aria-label="Adicionar '+esc(p.name)+'" data-add="'+p.id+'">+</button></div></div></article>'}
 function catsHTML(){return '<div class="categories" aria-label="Categorias">'+cats.map(c=>'<button class="chip '+(category===c?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('')+'</div>'}
-function home(){return '<div class="hero"><img class="hero-image" alt="Sushi ilustrativo" src="'+photos.combo+'"><div class="hero-content"><div class="eyebrow">CK Sushi Delivery · nova experiência</div><h1>Seu sushi favorito, <em>sem complicação.</em></h1><p>Escolha seus favoritos, personalize e acompanhe cada etapa com tranquilidade.</p><button class="cta" data-go="menu">Explorar cardápio <span>↗</span></button></div></div><div class="intro"><div class="facts"><span>★ <strong>5,0</strong> <small>nota exibida</small></span><span>◷ <strong>18h–23h45</strong> <small>horário anunciado</small></span><span>● <strong>Pedido mínimo '+money(29.9)+'</strong></span></div><span class="note">Horários e valores sujeitos à confirmação da loja.</span></div><section class="section"><div class="section-head"><div><div class="eyebrow">Seu pedido começa aqui</div><h2>O que vai ser hoje?</h2><p>Encontre seu próximo favorito.</p></div></div>'+catsHTML()+'<div class="search-row"><div class="search-box">⌕ <input id="search" aria-label="Buscar produtos" placeholder="Buscar pratos, ingredientes..." value="'+esc(query)+'"></div><button class="cta secondary small" data-go="menu">Ver tudo ↗</button></div></section><section class="section" style="padding-top:15px"><div class="section-head"><div><h2>Mais pedidos</h2><p>Uma seleção especial para começar.</p></div><button class="subtle-link" data-go="menu">Ver cardápio →</button></div><div class="product-grid">'+d.filter(p=>p.featured).slice(0,4).map(card).join('')+'</div></section><section class="section"><div class="section-head"><div><h2>Escolhas para você</h2><p>Opções populares do nosso catálogo.</p></div></div><div class="product-grid">'+d.filter(p=>["CK-025","CK-037","CK-088","CK-082"].includes(p.id)).map(card).join('')+'</div></section><div class="photo-credit">*Fotos ilustrativas. Produtos e valores foram adaptados de uma versão pública indexada do cardápio, sujeitos à validação com o estabelecimento. <a href="https://unsplash.com/license" target="_blank" rel="noopener">Créditos/licença de imagens</a>.</div><div class="bottomspace"></div>'}
+function home(){return '<div class="hero"><img class="hero-image" alt="Fotografia ilustrativa de sushi" src="'+photos.combo+'"><div class="hero-content"><div class="eyebrow">CK Sushi Delivery</div><h1>Sushi de verdade.<br><em>Do seu jeito.</em></h1><p>Escolha seus favoritos e monte seu pedido em poucos passos.</p><button class="cta" data-go="menu">Ver cardápio ↗</button></div></div><div class="intro"><div class="facts"><span>◷ <strong>18h–23h45</strong> <small>horário anunciado</small></span><span>Pedido mínimo <strong>'+money(29.9)+'</strong></span></div><span class="note">Informações sujeitas à confirmação.</span></div><section class="section"><div class="section-head"><div><div class="eyebrow">O que vai ser hoje?</div><h2>Encontre seu favorito</h2></div></div><div class="search-row"><div class="search-box">⌕ <input id="search" aria-label="Buscar no cardápio" placeholder="Buscar combinados, temakis, pokes..." value="'+esc(query)+'"></div></div>'+catsHTML()+'</section><section class="section" style="padding-top:6px"><div class="section-head"><div><h2>Os mais pedidos</h2><p>Escolhas para começar.</p></div><button class="subtle-link" data-go="menu">Ver todos →</button></div><div class="product-grid home-picks">'+d.filter(p=>p.featured).slice(0,4).map(card).join('')+'</div></section><section class="section" style="padding-top:26px"><div class="section-head"><div><h2>O cardápio completo</h2><p>Combinados, temakis, entradas e muito mais.</p></div></div><button class="cta secondary" data-go="menu" style="width:100%;max-width:385px">Explorar todos os produtos →</button></section><p class="note" style="margin-top:24px">Fotografias ilustrativas. Produtos e preços são referências a confirmar com o restaurante.</p><div class="bottomspace"></div>'}
 function filtered(){let list=d.filter(p=>(category==="Todos"||p.cat===category)&&(p.name+" "+p.desc+" "+p.cat).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")));if(sort==="low")list.sort((a,b)=>a.price-b.price);if(sort==="high")list.sort((a,b)=>b.price-a.price);if(sort==="popular")list.sort((a,b)=>Number(b.featured)-Number(a.featured));return list}
-function catalog(){return '<button class="back" data-go="home">← Voltar ao início</button><h1 class="content-title">Nosso cardápio<span style="color:var(--red)">.</span></h1><p class="content-sub">Escolha entre os pratos da CK Sushi. Uma prévia navegável do futuro catálogo.</p><div class="search-row"><div class="search-box">⌕ <input id="search" aria-label="Buscar produtos" placeholder="O que você gostaria de comer?" value="'+esc(query)+'"></div><select class="sort" id="sort" aria-label="Ordenar produtos"><option value="popular" '+(sort==="popular"?"selected":"")+'>Destaques</option><option value="low" '+(sort==="low"?"selected":"")+'>Menor preço</option><option value="high" '+(sort==="high"?"selected":"")+'>Maior preço</option></select></div>'+catsHTML()+'<div class="catalog-info"><span id="resultCount"></span><span>Fotos ilustrativas · valores de referência</span></div><div id="productGrid" class="product-grid"></div><div class="bottomspace"></div>'}
+function catalog(){return '<button class="back" data-go="home">← Voltar</button><h1 class="content-title">Cardápio<span style="color:var(--red)">.</span></h1><p class="content-sub">Escolha seus favoritos com rapidez.</p><div class="search-row"><div class="search-box">⌕ <input id="search" aria-label="Buscar produtos" placeholder="Buscar no cardápio..." value="'+esc(query)+'"></div><select class="sort" id="sort" aria-label="Ordenar produtos"><option value="popular" '+(sort==="popular"?"selected":"")+'>Destaques</option><option value="low" '+(sort==="low"?"selected":"")+'>Menor preço</option><option value="high" '+(sort==="high"?"selected":"")+'>Maior preço</option></select></div>'+catsHTML()+'<div class="catalog-info"><span id="resultCount"></span><span>Valores de referência</span></div><div id="productGrid" class="product-grid menu-list"></div><div class="product-list-caption">Fotografias ilustrativas. Nenhum pedido ou cobrança real é realizado nesta demonstração.</div><div class="bottomspace"></div>'}
 function updateGrid(){const list=filtered();document.getElementById("productGrid").innerHTML=list.length?list.map(card).join(''):'<div class="empty" style="grid-column:1/-1"><h2>Nada por aqui</h2><p>Tente buscar outro prato ou mudar a categoria.</p><button class="cta small" data-clear style="margin-top:18px">Limpar busca</button></div>';document.getElementById("resultCount").textContent=list.length+" produtos"}
-function cartRows(){return Object.entries(cart).filter(([id,q])=>q>0&&item(id)).map(([id,q])=>{const p=item(id);return '<div class="cart-item"><img class="cart-thumb" src="'+p.photo+'" alt="Imagem ilustrativa"><div class="cart-data"><b>'+esc(p.name)+'</b><p>'+esc(p.desc)+'</p><strong>'+money(p.price*q)+'</strong></div><div class="quantity"><button data-qty="'+id+'" data-delta="-1" aria-label="Diminuir quantidade">−</button><span>'+q+'</span><button data-qty="'+id+'" data-delta="1" aria-label="Aumentar quantidade">+</button></div></div>'}).join('')}
+function cartRows(){return Object.entries(cart).filter(([id,q])=>q>0&&item(id)).map(([id,q])=>{const p=item(id);return '<div class="cart-item"><img class="cart-thumb" src="'+p.photo+'" alt="Imagem ilustrativa"><div class="cart-data"><b>'+esc(p.name)+'</b><p>'+esc(p.desc)+(notes[p.id]?'<br>Obs.: '+esc(notes[p.id]):'')+'</p><strong>'+money(p.price*q)+'</strong></div><div class="quantity"><button data-qty="'+id+'" data-delta="-1" aria-label="Diminuir quantidade">−</button><span>'+q+'</span><button data-qty="'+id+'" data-delta="1" aria-label="Aumentar quantidade">+</button></div></div>'}).join('')}
 function cartPage(){return '<button class="back" data-go="menu">← Continuar comprando</button><h1 class="content-title">Seu carrinho<span style="color:var(--red)">.</span></h1><p class="content-sub">Confira os itens antes de avançar.</p>'+(count()?'<div class="cart-layout"><div class="panel"><h3>Seu pedido <span style="color:#aaa;font-size:13px">('+count()+' itens)</span></h3>'+cartRows()+'</div><aside class="panel"><h3>Resumo</h3><div class="summary-row">Subtotal <strong>'+money(subtotal())+'</strong></div><div class="summary-row">Entrega <strong>A calcular na próxima etapa</strong></div><div class="summary-row summary-total">Subtotal <strong>'+money(subtotal())+'</strong></div>'+(subtotal()<29.9?'<div class="warning">Faltam '+money(29.9-subtotal())+' para o mínimo de pedido.</div>':'<p class="good" style="font-size:12px;margin-top:15px">✓ Mínimo de pedido atingido</p>')+'<button class="cta" data-go="checkout" '+(subtotal()<29.9?'disabled':'')+'>Continuar para checkout →</button><p class="note" style="margin-top:12px">Demonstração: nenhuma cobrança será criada.</p></aside></div>':'<div class="empty"><h2>Seu carrinho está vazio</h2><p>Que tal adicionar um temaki ou combinado?</p><button class="cta" style="margin-top:20px" data-go="menu">Ver cardápio →</button></div>')+'<div class="bottomspace"></div>'}
 function checkout(){if(!count())return cartPage();const fee=checkoutMode==="delivery"?11:0,total=subtotal()+fee;return '<button class="back" data-go="cart">← Voltar ao carrinho</button><h1 class="content-title">Finalizar pedido<span style="color:var(--red)">.</span></h1><div class="steps"><span class="on">✓ Carrinho</span><span class="dot"></span><span class="on">2. Entrega e pagamento</span><span class="dot"></span><span>3. Confirmação</span></div><div class="checkout-layout"><form id="checkoutForm" class="stack"><div class="panel"><h3>Como prefere receber?</h3><div class="method-grid"><button type="button" class="method '+(checkoutMode==="delivery"?"active":"")+'" data-mode="delivery">↗ Entrega</button><button type="button" class="method '+(checkoutMode==="pickup"?"active":"")+'" data-mode="pickup">⌂ Retirada</button></div><p class="note">Estimativas fictícias; logística real ainda não integrada.</p></div><div class="panel"><h3>Seus dados</h3><div class="fields-2"><div class="field"><label for="name">Nome</label><input id="name" name="name" autocomplete="name" required placeholder="Seu nome"></div><div class="field"><label for="phone">Celular</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(11) 99999-9999"></div></div>'+(checkoutMode==="delivery"?'<div class="fields-2"><div class="field"><label for="zip">CEP</label><input id="zip" name="zip" inputmode="numeric" placeholder="00000-000"></div><div class="field"><label for="neighborhood">Bairro</label><input id="neighborhood" name="neighborhood" required placeholder="Bairro"></div></div><div class="fields-2"><div class="field"><label for="street">Rua</label><input id="street" name="street" required placeholder="Nome da rua"></div><div class="field"><label for="number">Número</label><input id="number" name="number" required placeholder="Número"></div></div><div class="field"><label for="complement">Complemento (opcional)</label><input id="complement" name="complement" placeholder="Casa, apartamento, referência"></div>':'<p class="note">A localização de retirada será confirmada com a loja na versão real.</p>')+'</div><div class="panel"><h3>Como prefere pagar?</h3><div class="method-grid"><button type="button" class="method '+(payment==="Pix"?"active":"")+'" data-pay="Pix">◇ Pix</button><button type="button" class="method '+(payment==="Cartão"?"active":"")+'" data-pay="Cartão">▤ Cartão</button><button type="button" class="method '+(payment==="Dinheiro"?"active":"")+'" data-pay="Dinheiro">▣ Dinheiro</button></div><p class="note" id="payNote">Pix demonstrativo. Nenhuma chave ou QR Code será gerado.</p></div><button type="submit" class="cta" style="width:100%">Simular pedido • '+money(total)+' →</button><p class="note">Ao continuar, você verá uma confirmação fictícia. Não enviamos os dados a nenhum servidor.</p></form><aside class="panel"><h3>Seu resumo</h3>'+Object.entries(cart).filter(([id,q])=>q>0&&item(id)).map(([id,q])=>'<div class="summary-row"><span>'+q+'x '+esc(item(id).name)+'</span><strong>'+money(item(id).price*q)+'</strong></div>').join('')+'<div class="summary-row" style="border-top:1px solid #393334;padding-top:13px">Produtos <strong>'+money(subtotal())+'</strong></div><div class="summary-row">Frete demonstrativo <strong>'+money(fee)+'</strong></div><div class="summary-row summary-total">Total simulado <strong>'+money(total)+'</strong></div><div class="warning">Em produção, o frete e o total devem ser calculados no servidor e o Pix precisa de confirmação bancária.</div></aside></div><div class="bottomspace"></div>'}
 function success(){const o=lastOrder;return '<div class="success"><div class="success-icon">✓</div><div class="eyebrow">Pedido de demonstração</div><h1>Simulação concluída!</h1><p class="content-sub">Você percorreu o fluxo de compra. Nenhuma compra foi enviada à loja e nenhum pagamento foi solicitado.</p><div class="panel" style="text-align:left"><div class="summary-row">Identificação <strong>#DEMO-2026</strong></div><div class="summary-row">Itens <strong>'+(o?o.qty:0)+'</strong></div><div class="summary-row">Forma escolhida <strong>'+esc(o?o.pay:"Pix")+'</strong></div><div class="summary-row summary-total">Total da simulação <strong>'+money(o?o.total:0)+'</strong></div><div class="timeline"><div class="timeline-line"><span class="circle">✓</span>Pedido simulado criado</div><div class="timeline-line"><span class="circle">○</span>Pagamento real não ativado</div><div class="timeline-line"><span class="circle">○</span>Entregador real não solicitado</div></div></div><button class="cta" data-go="menu">Voltar ao cardápio →</button></div><div class="bottomspace"></div>'}
 function orders(){return lastOrder?success():'<button class="back" data-go="home">← Voltar ao início</button><h1 class="content-title">Seus pedidos<span style="color:var(--red)">.</span></h1><div class="empty"><h2>Nenhum pedido de demonstração</h2><p>Adicione produtos e passe pelo checkout fictício para experimentar o acompanhamento.</p><button class="cta" style="margin-top:18px" data-go="menu">Começar pedido →</button></div><div class="bottomspace"></div>'}
 function render(){if(route==="checkout"&&!count())route="cart";page.innerHTML=route==="home"?home():route==="menu"?catalog():route==="cart"?cartPage():route==="checkout"?checkout():route==="success"?success():orders();if(route==="menu")updateGrid();sync()}
 function goto(p){if(p==="checkout"&&subtotal()<29.9){p="cart"}route=p;render();window.scrollTo({top:0,behavior:"instant"})}
-function add(id,qty){cart[id]=(cart[id]||0)+qty;if(cart[id]<=0)delete cart[id];save();if(route==="cart"||route==="checkout")render()}
-function modal(id){const p=item(id);if(!p)return;selected=id;modalQty=1;root.innerHTML='<div class="overlay" data-modal-close><section class="detail" role="dialog" aria-modal="true" aria-label="Detalhes do produto"><button class="detail-close" data-modal-close aria-label="Fechar">×</button><img src="'+p.photo+'" alt="Fotografia ilustrativa de culinária japonesa"><div class="detail-body"><div class="eyebrow">'+esc(p.cat)+'</div><h2>'+esc(p.name)+'</h2><p class="price" style="font-size:29px">'+money(p.price)+'</p><p class="desc-full">'+esc(p.desc)+'. Fotos e opções exibidas apenas para demonstrar a interface.</p><div style="font-weight:700">Quantidade</div><div class="quantity"><button data-modal-qty="-1" aria-label="Diminuir">−</button><span id="modalAmount">1</span><button data-modal-qty="1" aria-label="Aumentar">+</button></div><button class="cta" id="modalAdd" data-modal-add>Adicionar '+money(p.price)+' →</button><p class="note" style="margin-top:13px">Complementos e observações serão definidos com a loja.</p></div></section></div>';document.body.style.overflow="hidden";root.querySelector(".detail-close").focus()}
+function add(id,qty){cart[id]=(cart[id]||0)+qty;if(cart[id]<=0){delete cart[id];delete notes[id];}save();if(route==="cart"||route==="checkout")render()}
+function modal(id){const p=item(id);if(!p)return;selected=id;modalQty=1;root.innerHTML='<div class="overlay" data-modal-close><section class="detail" role="dialog" aria-modal="true" aria-label="Detalhes de '+esc(p.name)+'"><button class="detail-close" data-modal-close aria-label="Fechar">×</button><img src="'+p.photo+'" alt="Fotografia ilustrativa de culinária japonesa"><div class="detail-body"><div class="detail-kicker">'+esc(p.cat)+'</div><h2>'+esc(p.name)+'</h2><p class="price" style="font-size:25px">'+money(p.price)+'</p><p class="desc-full">'+esc(p.desc)+'</p><div class="detail-note"><label for="modalNote">Observação para a cozinha (opcional)</label><textarea id="modalNote" maxlength="160" placeholder="Ex.: sem cebolinha">'+esc(notes[p.id]||"")+'</textarea></div><div class="detail-actions"><div class="quantity"><button data-modal-qty="-1" aria-label="Diminuir">−</button><span id="modalAmount">1</span><button data-modal-qty="1" aria-label="Aumentar">+</button></div><button class="cta" id="modalAdd" data-modal-add>Adicionar '+money(p.price)+' →</button></div><p class="note" style="margin-top:13px">Complementos e opções deverão ser confirmados pela loja.</p></div></section></div>';document.body.style.overflow="hidden";root.querySelector(".detail-close").focus()}
 function closeModal(){root.innerHTML="";selected=null;document.body.style.overflow=""}
 let payment="Pix";
 document.body.addEventListener("click",ev=>{
 const modalClose=ev.target.closest("[data-modal-close]");if(modalClose&&(ev.target===modalClose||ev.target.closest(".detail-close"))){closeModal();return}
 const qty=ev.target.closest("[data-modal-qty]");if(qty){modalQty=Math.max(1,Math.min(30,modalQty+Number(qty.dataset.modalQty)));document.getElementById("modalAmount").textContent=modalQty;document.getElementById("modalAdd").textContent="Adicionar "+money(item(selected).price*modalQty)+" →";return}
-if(ev.target.closest("[data-modal-add]")){add(selected,modalQty);closeModal();return}
+if(ev.target.closest("[data-modal-add]")){notes[selected]=document.getElementById("modalNote")?.value?.trim()||"";add(selected,modalQty);closeModal();return}
 const link=ev.target.closest("[data-go]");if(link){goto(link.dataset.go);return}
 const filter=ev.target.closest("[data-cat]");if(filter){category=filter.dataset.cat;query="";route="menu";render();return}
 const ad=ev.target.closest("[data-add]");if(ad){add(ad.dataset.add,1);ad.textContent="✓";setTimeout(()=>{if(ad.isConnected)ad.textContent="+"},700);return}
@@ -123,7 +246,7 @@ const pay=ev.target.closest("[data-pay]");if(pay){payment=pay.dataset.pay;docume
 document.body.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-open]")){e.preventDefault();modal(e.target.dataset.open)}});
 document.body.addEventListener("input",e=>{if(e.target.id==="search"){query=e.target.value;if(route==="home"){route="menu";render();const s=document.getElementById("search");s.focus();s.setSelectionRange(query.length,query.length)}else updateGrid()}});
 document.body.addEventListener("change",e=>{if(e.target.id==="sort"){sort=e.target.value;updateGrid()}});
-document.body.addEventListener("submit",e=>{if(e.target.id!=="checkoutForm")return;e.preventDefault();if(!e.target.reportValidity())return;lastOrder={total:subtotal()+(checkoutMode==="delivery"?11:0),qty:count(),pay:payment};cart={};save();goto("success")});
+document.body.addEventListener("submit",e=>{if(e.target.id!=="checkoutForm")return;e.preventDefault();if(!e.target.reportValidity())return;lastOrder={total:subtotal()+(checkoutMode==="delivery"?11:0),qty:count(),pay:payment};cart={};notes={};save();goto("success")});
 render();
 })();
 </script>
