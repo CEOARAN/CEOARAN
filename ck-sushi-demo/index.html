@@ -417,6 +417,120 @@ body{background:#fafafa;color:#171717}
 .home-search-trigger>svg:last-child{color:#222}
 .home-search-trigger:hover{border-color:#bdbdbd;background:#fdfdfd}
 @media(max-width:700px){.home-search-trigger{height:43px;margin-top:16px;padding:0 13px;gap:10px}}
+
+/* V6 — CK Sushi: reference-inspired mobile storefront header, spacing and browsing */
+:root{--paper:#fbfbfb;--ink:#181818;--stroke:#ebebeb;--red:#b71e2d}
+.header{height:69px;position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px solid #f0f0f0;backdrop-filter:blur(18px)}
+.header-inner{height:100%;align-items:center}
+.brand{gap:9px;min-width:175px}
+.brand-seal{width:40px;height:40px;border-width:2.6px;transform:rotate(-13deg)}
+.brand-seal strong{transform:rotate(13deg);font-size:17px;color:#171717}
+.brand-text strong{font:800 15px/1.15 Sora,Manrope,sans-serif;letter-spacing:-.045em;color:#191919}
+.brand-text small{color:#bc2434;letter-spacing:.33em;font-size:8px;line-height:1.7}
+.header-actions{gap:7px}
+.header-actions .round-icon{background:transparent;border-color:transparent;width:39px;height:39px}
+.header-actions .round-icon:hover{border-color:#eee;background:#f6f6f6}
+.header-actions .round-icon svg{width:20px;height:20px}
+.order-start{display:flex;flex-direction:column;gap:14px;padding:17px 0 0}
+.delivery-location{display:flex;align-items:center;gap:11px;min-height:40px;background:transparent;border:0;padding:0 4px;text-align:left;width:100%;color:#151515}
+.delivery-location .location-pin{height:35px;width:35px;border-radius:50%;display:grid;place-items:center;background:#f7f7f7;color:#191919}
+.delivery-location .location-content{display:flex;align-items:flex-start;justify-content:center;flex-direction:column;gap:1px;flex:1;min-width:0}
+.delivery-location .location-content small{font-size:10px;color:#8e8e8e;line-height:1.2;font-weight:600}
+.delivery-location .location-content strong{font-size:12px;color:#242424;line-height:1.4;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.delivery-location>svg:last-child{color:#888}
+.delivery-location:not(:disabled):hover .location-content strong{color:#ae2634}
+.fulfillment-switch{display:flex;position:relative;align-items:center;background:#f1f1f1;padding:4px;border-radius:15px;gap:4px;min-height:50px}
+.fulfillment-option{border:0;background:transparent;flex:1;min-height:42px;border-radius:12px;color:#777;display:flex;align-items:center;justify-content:center;gap:9px;font-size:12px;font-weight:750;transition:background .25s,box-shadow .25s,color .25s}
+.fulfillment-option.active{background:#fff;color:#191919;box-shadow:0 4px 15px #0000000e}
+.fulfillment-option.active svg{color:#b81f2d}
+.fulfillment-option:hover:not(.active){background:#e8e8e8;color:#333}
+.hero{margin:15px 0 6px;height:292px;border-radius:20px;background:#121212}
+.hero-copy{padding:33px 43px;width:65%}
+.hero h1{font-size:clamp(27px,3.3vw,42px);line-height:1.17;letter-spacing:-.052em;margin:11px 0 10px}
+.hero p{font-size:11px;max-width:245px;margin-bottom:18px}
+.hero .eyebrow{color:#f08087;letter-spacing:.1em;font-size:9px}
+.hero .btn-light{background:#c01f2b;color:#fff;border:0;height:38px;padding:0 16px;font-size:11px}
+.hero .btn-light:hover{background:#a91928}
+.hero-dots{left:43px;bottom:17px}
+.hero-side-label{display:none}
+.category-quick{padding-top:20px}
+.category-quick .category-row{display:flex;align-items:flex-start;gap:12px;overflow-x:auto;scrollbar-width:none;padding:3px 2px 11px;scroll-snap-type:x proximity}
+.category-quick .category-row::-webkit-scrollbar{display:none}
+.quick-item{display:flex;align-items:center;flex-direction:column;gap:7px;flex:0 0 94px;text-align:center;scroll-snap-align:center;background:none;border:0;padding:0;color:#252525}
+.quick-photo{width:82px;height:82px;background:#f4efee;border-radius:24px;overflow:hidden;display:block;border:1px solid #f1eeee;transition:transform .25s,border-color .25s}
+.quick-photo img{width:100%;height:100%;object-fit:cover}
+.quick-item span:last-child{font-size:11px;font-weight:800;line-height:1.35}
+.quick-item:hover .quick-photo{transform:translateY(-3px);border-color:#d7b8bb}
+.quick-item.current .quick-photo{border-color:#c52d3a}
+.quick-item.current:after{content:"";height:3px;background:#ba2331;width:26px;border-radius:10px;margin-top:1px}
+.category-quick .quick-note{font-size:10px;color:#8a8a8a}
+.category-quick .quick-headline{font:700 15px Sora,sans-serif;margin-bottom:12px}
+.home-featured{padding-top:27px}
+.home-featured .section-heading{margin-bottom:14px}
+.home-featured .section-heading h2{font-size:23px}
+.home-featured .food-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.home-featured .food-card{border-radius:16px;border:1px solid #efefef;background:#fff}
+.home-featured .food-img{height:167px}
+.home-featured .food-body{padding:13px}
+.home-featured .food-name{font-size:12px;min-height:0}
+.home-featured .food-description{min-height:0;margin:4px 0 9px}
+.home-featured .food-price{font-size:13px}
+.home-discover{padding-top:31px}
+.home-discover .section-heading h2{font-size:20px}
+.location-sheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 30px));background:#fff;border-radius:20px;padding:25px;box-shadow:0 24px 76px #0003}
+.location-title{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px}
+.location-title h2{font-size:18px}
+.location-explainer{font-size:11px;color:#777;margin-bottom:19px;line-height:1.7}
+.location-grid{display:grid;grid-template-columns:1fr 95px;gap:10px}
+.location-sheet .field{margin:0 0 12px}
+.location-sheet .field input{background:#f9f9f9;border-color:#e7e7e7}
+.location-sheet .btn{height:43px;margin-top:6px}
+@media(max-width:980px){.home-featured .food-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){
+.header{height:65px}
+.header-inner{gap:5px}
+.brand{gap:7px;min-width:0}
+.brand-seal{width:37px;height:37px}
+.brand-seal strong{font-size:16px}
+.brand-text strong{font-size:14px}
+.brand-text small{font-size:7px}
+.header-actions{gap:3px}
+.header-actions .round-icon{width:35px;height:35px}
+.header-actions .round-icon svg{width:19px;height:19px}
+.header-heart{display:none!important}
+.order-start{padding-top:14px;gap:13px}
+.delivery-location{min-height:35px;gap:9px;padding:0}
+.delivery-location .location-pin{width:33px;height:33px}
+.delivery-location .location-content strong{font-size:11px}
+.delivery-location .location-content small{font-size:9px}
+.fulfillment-switch{height:48px;padding:4px;border-radius:14px}
+.fulfillment-option{height:40px;min-height:40px;border-radius:11px;font-size:11px}
+.hero{height:207px;border-radius:16px;margin-top:14px;margin-bottom:4px}
+.hero-copy{width:82%;padding:22px 21px}
+.hero h1{font-size:24px;margin:8px 0 8px;line-height:1.19;max-width:225px}
+.hero p{font-size:9px;max-width:205px;line-height:1.4;margin-bottom:12px}
+.hero .eyebrow{font-size:8px}
+.hero .btn-light{height:32px;padding:0 12px;border-radius:9px;font-size:10px}
+.hero-dots{left:20px;bottom:10px}
+.category-quick{padding-top:17px}
+.category-quick .category-row{gap:8px;margin:0 -5px;padding:1px 5px 10px}
+.quick-item{flex-basis:66px;gap:7px}
+.quick-photo{width:63px;height:64px;border-radius:18px}
+.quick-item span:last-child{font-size:9px;line-height:1.35}
+.quick-item.current:after{width:23px;height:2px;margin-top:0}
+.home-featured{padding-top:23px}
+.home-featured .section-heading h2{font-size:19px}
+.home-featured .food-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.home-featured .food-img{height:122px}
+.home-featured .food-card{border-radius:12px}
+.home-featured .food-body{padding:10px 10px 9px}
+.home-featured .food-name{font-size:11px}
+.home-featured .food-description{font-size:9px}
+.home-featured .food-price{font-size:12px}
+.home-discover{padding-top:28px}
+.home-discover .section-heading h2{font-size:19px}
+.location-sheet{top:auto;bottom:0;left:0;transform:none;width:100%;border-radius:22px 22px 0 0;padding:22px 18px max(28px,env(safe-area-inset-bottom));animation:floatin .25s ease}
+}
 </style></head><body>
 <div id="loader" role="status" aria-label="Preparando seu poke">
   <div class="load-scene">
@@ -442,9 +556,12 @@ body{background:#fafafa;color:#171717}
 </div>
 <header class="header"><div class="container header-inner">
 <a class="brand" href="#home" aria-label="CK Sushi — início"><span class="brand-seal"><strong>CK</strong></span><span class="brand-text"><strong>CK SUSHI</strong><small>DELIVERY</small></span></a>
-<nav class="primary-nav" aria-label="Principal"><button data-route="home">Início</button><button data-route="menu">Cardápio</button><button data-route="favorites">Favoritos</button><button data-route="orders">Meus pedidos</button></nav>
-<div class="header-actions"><button class="round-icon" data-route="favorites" aria-label="Favoritos"><span data-icon="heart"></span><span class="count-badge" id="fav-count" hidden></span></button><button class="round-icon" data-cart aria-label="Abrir carrinho"><span data-icon="bag"></span><span class="count-badge" id="cart-count" hidden></span></button></div>
-</div></header>
+<nav class="primary-nav" aria-label="Navegação principal"><button data-route="home">Início</button><button data-route="menu">Cardápio</button><button data-route="favorites">Favoritos</button><button data-route="orders">Meus pedidos</button></nav>
+<div class="header-actions">
+<button class="round-icon" type="button" data-focus-search aria-label="Pesquisar produtos"><span data-icon="search"></span></button>
+<button class="round-icon header-heart" type="button" data-route="favorites" aria-label="Favoritos"><span data-icon="heart"></span><span class="count-badge" id="fav-count" hidden></span></button>
+<button class="round-icon" type="button" data-cart aria-label="Abrir carrinho"><span data-icon="bag"></span><span class="count-badge" id="cart-count" hidden></span></button>
+</div></div></header>
 <main id="app" class="page container"></main>
 <footer class="footer"><div class="container footer-inner"><div><b>CK SUSHI DELIVERY</b><div style="margin-top:5px">Sabor, simplicidade e uma nova experiência de pedido.</div></div><div>Fotos ilustrativas • Preços de referência • Integrações e pagamento reais ainda não disponíveis.</div></div></footer>
 <nav class="mobile-nav" aria-label="Navegação principal"><button data-route="home"><span data-icon="home"></span>Início</button><button data-route="menu"><span data-icon="grid"></span>Cardápio</button><button data-cart><span data-icon="bag"></span>Carrinho</button><button data-route="orders"><span data-icon="receipt"></span>Pedidos</button></nav>
@@ -528,7 +645,7 @@ function ic(n,size){return '<svg width="'+(size||18)+'" height="'+(size||18)+'" 
 const money=v=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v);
 const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const read=(key,defaultValue)=>{try{const val=JSON.parse(localStorage.getItem("ck3-"+key));return val===null?defaultValue:val}catch(e){return defaultValue}};
-const state={route:"home",category:"Todos",query:"",sort:"featured",view:innerWidth<=700?"list":"grid",cart:read("cart",{}),favorites:read("favorites",[]),notes:read("notes",{}),order:read("order",null),fulfillment:"delivery",pay:"Pix",checkoutFields:{},panel:null,productId:null,qty:1,step:0};
+const state={route:"home",category:"Todos",query:"",sort:"featured",view:innerWidth<=700?"list":"grid",cart:read("cart",{}),favorites:read("favorites",[]),notes:read("notes",{}),order:read("order",null),fulfillment:"delivery",deliveryAddress:null,pay:"Pix",checkoutFields:{},panel:null,productId:null,qty:1,step:0};
 const app=document.getElementById("app"),overlay=document.getElementById("overlay");
 const get=id=>d.find(p=>p.id===id);
 function save(){try{localStorage.setItem("ck3-cart",JSON.stringify(state.cart));localStorage.setItem("ck3-favorites",JSON.stringify(state.favorites));localStorage.setItem("ck3-notes",JSON.stringify(state.notes));localStorage.setItem("ck3-order",JSON.stringify(state.order))}catch(e){/* modo privado ou pré-visualização sem armazenamento: sessão continua em memória */}}
@@ -555,23 +672,29 @@ function categoryTiles(){return '<div id="flavor-wheel" class="flavor-wheel" rol
 function updateArc(next){arcActive=(next+arcNames.length)%arcNames.length;const wheel=document.getElementById("flavor-wheel");if(!wheel)return;wheel.querySelectorAll(".flavor-arc-item").forEach(btn=>{const idx=Number(btn.dataset.arcSelect);btn.className="flavor-arc-item "+arcPosition(idx)+(idx===arcActive?" active":"");btn.setAttribute("aria-pressed",String(idx===arcActive))});wheel.querySelectorAll(".arc-pips i").forEach((el,i)=>el.classList.toggle("active",i===arcActive));const name=arcNames[arcActive],caption=wheel.querySelector("#arc-caption");if(arcCaptionTimer)clearTimeout(arcCaptionTimer);caption?.classList.add("switching");arcCaptionTimer=setTimeout(()=>{const n=document.getElementById("arc-name"),desc=document.getElementById("arc-desc");if(n)n.textContent=name;if(desc)desc.textContent=arcDescriptions[name];caption?.classList.remove("switching")},145)}
 
 function categoryFilters(){return '<div class="menu-filter" role="group" aria-label="Filtrar categoria">'+cats.map(c=>'<button class="filter '+(state.category===c?"active":"")+'" data-category="'+c+'" aria-pressed="'+(state.category===c)+'">'+esc(c)+'</button>').join("")+'</div>'}
+
+function deliverySummary(){
+const a=state.deliveryAddress;
+return a&&a.street&&a.number?([a.street,a.number].join(", ")+(a.district?" · "+a.district:"")):"Adicionar endereço de entrega";
+}
+function serviceHeader(){const delivery=state.fulfillment==="delivery";return '<section class="order-start" aria-label="Preferências de entrega"><button type="button" class="delivery-location" '+(delivery?'data-address-open':'data-mode="delivery"')+' aria-label="'+(delivery?"Definir endereço de entrega":"Selecionar entrega")+'"><span class="location-pin">'+ic(delivery?"pin":"bag",18)+'</span><span class="location-content"><small>'+(delivery?"Entregar em":"Retirar na loja")+'</small><strong>'+(delivery?esc(deliverySummary()):"Endereço disponível após confirmação")+'</strong></span>'+ic("chevronRight",16)+'</button><div class="fulfillment-switch" role="group" aria-label="Como deseja receber?"><button type="button" class="fulfillment-option '+(delivery?"active":"")+'" aria-pressed="'+delivery+'" data-mode="delivery">'+ic("truck",17)+' Entrega</button><button type="button" class="fulfillment-option '+(!delivery?"active":"")+'" aria-pressed="'+(!delivery)+'" data-mode="pickup">'+ic("bag",17)+' Retirada</button></div></section>'}
+function quickCategories(){const items=["Combinados","Sushis","Sashimis","Pokes","Temakis","Quentes","Entradas"];return '<section class="category-quick scroll-watch" aria-label="Categorias do cardápio"><div class="category-row">'+items.map((c,i)=>'<button class="quick-item '+(i===0?"current":"")+'" type="button" data-category="'+c+'"><span class="quick-photo"><img src="'+imageOptimized(pictures[c],210,83)+'" width="88" height="88" decoding="async" loading="lazy" alt=""></span><span>'+esc(c==="Combinados"?"Combos":c)+'</span></button>').join("")+'</div></section>'}
+function locationPanel(){const a=state.deliveryAddress||{};const input=(id,label,placeholder,value,required)=>'<div class="field"><label for="loc-'+id+'">'+label+'</label><input id="loc-'+id+'" name="'+id+'" type="text" placeholder="'+placeholder+'" value="'+esc(value||"")+'" '+(required?"required":"")+' maxlength="100"></div>';return '<div class="overlay-shade" data-close></div><section class="location-sheet" role="dialog" aria-modal="true" aria-label="Endereço de entrega"><div class="location-title"><h2>Onde entregar?</h2><button class="close-circle" type="button" data-close aria-label="Fechar">'+ic("close",16)+'</button></div><p class="location-explainer">Informe seu endereço para preencher o checkout demonstrativo. A área de atendimento e o frete ainda não são calculados automaticamente.</p><form id="location-form">'+input("street","Rua ou avenida","Nome da rua",a.street,true)+'<div class="location-grid">'+input("district","Bairro","Bairro",a.district,true)+input("number","Número","Nº",a.number,true)+'</div>'+input("city","Cidade","Sua cidade",a.city,true)+'<button type="submit" class="btn btn-primary btn-full">Usar este endereço '+ic("arrow",15)+'</button></form></section>'}
+
 function headerInfo(){return '<div class="info-bar"><div class="info">'+ic("clock",14)+' <b>18h–23h45</b> <span>horário anunciado</span></div><div class="tiny-rule"></div><div class="info">'+ic("bag",14)+' Pedido mínimo <b>'+money(29.90)+'</b></div></div>'}
 
 const heroSlides=[
-{label:"Favoritos do CK",title:"Seu sushi.<br>Seu momento.",subtitle:"Sabores que fazem parte dos seus melhores encontros.",image:photos.combo,category:"Combinados",cta:"Ver combinados"},
+{label:"Combos CK",title:"Sushi premium.<br>Na sua casa.",subtitle:"Combos especiais para aproveitar seu momento.",image:photos.combo,category:"Combinados",cta:"Pedir agora"},
 {label:"Frescor em cada bowl",title:"Poke fresco.<br>Seu estilo.",subtitle:"Uma combinação de texturas, cores e sabores.",image:photos.poke,category:"Pokes",cta:"Explorar pokes"},
 {label:"Um clássico especial",title:"Temaki que<br>surpreende.",subtitle:"Do salmão aos sabores mais criativos, escolha o seu.",image:photos.temaki,category:"Temakis",cta:"Ver temakis"}
 ];
 let heroActive=0,heroBusy=false,heroAuto=null;
 function heroBlock(){const slide=heroSlides[heroActive];return '<section id="hero-deck" class="hero hero-deck reveal" aria-label="Destaques do cardápio"><img id="hero-photo" src="'+imageOptimized(slide.image,1000,80)+'" alt="Fotografia ilustrativa de culinária japonesa"><div class="hero-copy"><div class="eyebrow" id="hero-eyebrow">'+esc(slide.label)+'</div><h1 id="hero-title">'+slide.title+'</h1><p id="hero-subtitle">'+esc(slide.subtitle)+'</p><button class="btn btn-light" id="hero-cta" data-hero-open>'+esc(slide.cta)+' '+ic("arrow",14)+'</button></div><div class="hero-dots" role="group" aria-label="Alterar destaque">'+heroSlides.map((x,i)=>'<button type="button" data-hero-index="'+i+'" aria-label="Destaque '+(i+1)+': '+esc(x.label)+'" class="'+(i===heroActive?"on":"")+'"></button>').join("")+'</div><span class="hero-side-label">CK SUSHI · DELIVERY</span></section>'}
 function showHero(next){if(!document.getElementById("hero-deck")||heroBusy)return;next=(next+heroSlides.length)%heroSlides.length;if(next===heroActive)return;heroBusy=true;const wrap=document.getElementById("hero-deck");wrap.classList.add("hero-switch");setTimeout(()=>{heroActive=next;const slide=heroSlides[next];const photo=document.getElementById("hero-photo");if(photo){photo.src=imageOptimized(slide.image,1000,80);photo.alt="Fotografia ilustrativa: "+slide.category;}document.getElementById("hero-eyebrow").textContent=slide.label;document.getElementById("hero-title").innerHTML=slide.title;document.getElementById("hero-subtitle").textContent=slide.subtitle;document.getElementById("hero-cta").innerHTML=esc(slide.cta)+" "+ic("arrow",14);wrap.querySelectorAll("[data-hero-index]").forEach(b=>b.classList.toggle("on",Number(b.dataset.heroIndex)===next));requestAnimationFrame(()=>{wrap.classList.remove("hero-switch");heroBusy=false})},180)}
-function homePage(){return heroBlock()+headerInfo()+
-'<button class="home-search-trigger scroll-watch" data-route="menu" aria-label="Buscar pratos no cardápio">'+ic("search",16)+'<span>O que você gostaria de pedir?</span>'+ic("arrow",15)+'</button>'+
-'<section class="section scroll-watch"><div class="section-heading"><div><div class="eyebrow">Descubra seu favorito</div><h2>Escolha pelo sabor</h2><p>Deslize a curva e explore as categorias.</p></div></div>'+categoryTiles()+'</section>'+
-'<section class="section scroll-watch"><div class="section-heading"><div><div class="eyebrow">Seleção da casa</div><h2>Os mais pedidos</h2><p>Uma escolha fácil para começar.</p></div><button class="inline-link" data-route="menu">Ver todos '+ic("arrow",13)+'</button></div><div class="food-grid">'+d.filter(p=>p.featured).slice(0,4).map(productCard).join("")+'</div></section>'+
-'<div class="story-strip scroll-watch"><div class="story-tile"><strong>Um poke do seu jeito.</strong><p>Explore combinações em cada bowl.</p><button data-category="Pokes">Ver pokes →</button><img src="'+photos.poke+'" loading="lazy" alt=""></div><div class="story-tile dark"><strong>Os clássicos são únicos.</strong><p>Temakis, sushis e combinados.</p><button data-category="Temakis">Ver temakis →</button><img src="'+photos.temaki+'" loading="lazy" alt=""></div></div>'+
-'<section class="section scroll-watch"><div class="section-heading"><div><h2>Mais para descobrir</h2><p>Outras escolhas para o seu pedido.</p></div><button class="inline-link" data-route="menu">Cardápio completo '+ic("arrow",13)+'</button></div><div class="food-grid">'+["CK-044","CK-040","CK-025","CK-088"].map(id=>get(id)).filter(Boolean).map(productCard).join("")+'</div></section><p class="footer-note">Fotos ilustrativas e preços de referência, ainda não validados com a loja.</p>'}
-
+function homePage(){return serviceHeader()+heroBlock()+quickCategories()+
+'<section class="section home-featured scroll-watch"><div class="section-heading"><div><h2>Destaques da CK</h2></div><button class="inline-link" data-route="menu">Ver todos '+ic("chevronRight",14)+'</button></div><div class="food-grid">'+d.filter(p=>p.featured).slice(0,4).map(productCard).join("")+'</div></section>'+
+'<section class="section home-discover scroll-watch"><div class="section-heading"><div><div class="eyebrow">Mais sabores</div><h2>Descubra pelo sabor</h2><p>Explore as categorias deslizando pelo arco.</p></div></div>'+categoryTiles()+'</section>'+
+'<section class="section scroll-watch"><div class="section-heading"><div><h2>Mais para você</h2><p>Escolhas especiais para completar seu pedido.</p></div><button class="inline-link" data-route="menu">Cardápio completo '+ic("chevronRight",14)+'</button></div><div class="food-grid">'+["CK-044","CK-040","CK-025","CK-088"].map(id=>get(id)).filter(Boolean).map(productCard).join("")+'</div></section><p class="footer-note">Fotos ilustrativas e preços de referência, ainda não confirmados pelo restaurante.</p>'}
 function matching(){let a=d.filter(p=>(state.category==="Todos"||p.cat===state.category)&&(p.name+" "+p.desc+" "+p.cat).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().includes(state.query.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()));if(state.sort==="low")a.sort((x,y)=>x.price-y.price);else if(state.sort==="high")a.sort((x,y)=>y.price-x.price);else if(state.sort==="az")a.sort((x,y)=>x.name.localeCompare(y.name));else a.sort((x,y)=>Number(y.featured)-Number(x.featured));return a}
 function menuPage(){return '<div class="page-heading"><button class="back-link" data-route="home">'+ic("arrow",12).replace('M4 12h16M13 5l7 7-7 7','M20 12H4m7 7-7-7 7-7')+' Voltar</button><h1>Cardápio<span style="color:var(--red)">.</span></h1><p>Encontre seus favoritos sem complicação.</p></div>'+
 '<div class="search-row"><label class="search">'+ic("search",16)+'<input id="search-input" type="search" aria-label="Buscar produtos" placeholder="Buscar pratos e ingredientes..." value="'+esc(state.query)+'"></label></div>'+categoryFilters()+
@@ -608,7 +731,7 @@ function initScrollReveal(){if(fadeObserver)fadeObserver.disconnect();const elem
 function render(){app.innerHTML=page();if(state.route==="menu")drawResults();sync();initScrollReveal()}
 function sync(){let c=quantity(),b=document.getElementById("cart-count"),f=document.getElementById("fav-count"),bar=document.getElementById("floating-cart");b.hidden=c===0;b.textContent=c;f.hidden=state.favorites.length===0;f.textContent=state.favorites.length;bar.hidden=!c||!["home","menu","favorites"].includes(state.route);document.getElementById("floating-cart-count").textContent=c+" "+(c===1?"item":"itens")+" no carrinho";document.getElementById("floating-cart-total").textContent=money(subtotal());document.querySelectorAll("[data-icon]").forEach(el=>el.innerHTML=ic(el.dataset.icon,19));document.querySelectorAll("[data-route]").forEach(el=>{if(el.closest("nav")){el.classList.toggle("on",el.dataset.route===state.route);el.classList.toggle("selected",el.dataset.route===state.route)}})}
 function routeTo(next){closePanel();state.route=["home","menu","favorites","orders","checkout"].includes(next)?next:"home";if(location.hash.slice(1)!==state.route)history.pushState({}, "", "#"+state.route);render();window.scrollTo({top:0,behavior:"instant"})}
-function openPanel(kind,id){state.panel=kind;state.productId=id||null;state.qty=1;overlay.classList.add("open");overlay.innerHTML=kind==="cart"?drawer():detail(get(id));document.body.classList.add("no-scroll");overlay.querySelector("[data-close]")?.focus()}
+function openPanel(kind,id){state.panel=kind;state.productId=id||null;state.qty=1;overlay.classList.add("open");overlay.innerHTML=kind==="cart"?drawer():kind==="location"?locationPanel():detail(get(id));document.body.classList.add("no-scroll");overlay.querySelector("[data-close]")?.focus()}
 function closePanel(){overlay.classList.remove("open");overlay.innerHTML="";document.body.classList.remove("no-scroll");state.panel=null;state.productId=null}
 function updatePanel(){if(!state.panel)return;const active=document.activeElement;const target=active?.getAttribute("data-change")||"";const note=state.panel==="detail"?document.getElementById("item-note")?.value:null;overlay.innerHTML=state.panel==="cart"?drawer():detail(get(state.productId));if(note!==null){const field=document.getElementById("item-note");if(field)field.value=note}if(target)overlay.querySelector('[data-change="'+target+'"]')?.focus()}
 function toast(message){const box=document.createElement("div");box.className="toast";box.innerHTML=ic("check",15)+"<span>"+esc(message)+"</span>";const host=document.getElementById("toast-zone");host.replaceChildren(box);setTimeout(()=>{box.style.opacity="0";box.style.transform="translateY(6px)";setTimeout(()=>box.remove(),200)},2400)}
@@ -622,6 +745,8 @@ const arcGo=e.target.closest("[data-arc-open]");if(arcGo){state.category=arcName
 const heroDot=e.target.closest("[data-hero-index]");if(heroDot){showHero(Number(heroDot.dataset.heroIndex));return}
 const heroGo=e.target.closest("[data-hero-open]");if(heroGo){if(Date.now()<suppressHeroClickUntil)return;state.category=heroSlides[heroActive].category;routeTo("menu");return}
 const close=e.target.closest("[data-close]");if(close){closePanel();return}
+const address=e.target.closest("[data-address-open]");if(address){openPanel("location");return}
+const searchAct=e.target.closest("[data-focus-search]");if(searchAct){state.query="";routeTo("menu");document.getElementById("search-input")?.focus();return}
 const route=e.target.closest("[data-route]");if(route){routeTo(route.dataset.route);return}
 const cartBtn=e.target.closest("[data-cart]");if(cartBtn){openPanel("cart");return}
 const prod=e.target.closest("[data-product]");if(prod){openPanel("detail",prod.dataset.product);return}
@@ -639,7 +764,7 @@ const advance=e.target.closest("[data-advance]");if(advance&&state.order){state.
 });
 document.addEventListener("input",e=>{if(e.target.id==="search-input"){state.query=e.target.value;drawResults()}if(e.target.closest("#checkout-form")&&e.target.name)state.checkoutFields[e.target.name]=e.target.value});
 document.addEventListener("change",e=>{if(e.target.id==="sort-input"){state.sort=e.target.value;drawResults()}});
-document.addEventListener("submit",e=>{if(e.target.id==="checkout-form"){e.preventDefault();processCheckout(e.target)}});
+document.addEventListener("submit",e=>{if(e.target.id==="location-form"){e.preventDefault();const fd=new FormData(e.target);const a=Object.fromEntries(["street","district","number","city"].map(k=>[k,String(fd.get(k)||"").trim()]));if(!a.street||!a.district||!a.number||!a.city)return;state.deliveryAddress=a;state.checkoutFields={...state.checkoutFields,street:a.street,district:a.district,number:a.number};closePanel();render();toast("Endereço preenchido na demonstração");return}if(e.target.id==="checkout-form"){e.preventDefault();processCheckout(e.target)}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePanel()});
 window.addEventListener("popstate",()=>{const r=location.hash.slice(1);state.route=["home","menu","favorites","orders","checkout"].includes(r)?r:"home";closePanel();render()});
 let pointerStartX=null,pointerTarget=null,suppressWheelClickUntil=0,suppressHeroClickUntil=0;
