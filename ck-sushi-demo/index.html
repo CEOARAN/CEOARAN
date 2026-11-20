@@ -253,7 +253,7 @@
 }
 @media(prefers-reduced-motion:reduce){.hashi-lift,.poke-garnish,.poke-spark,.map-glow{animation:none!important}.flavor-arc-item,.hero-deck img,.motion-ready .scroll-watch{transition:none!important}.motion-ready .scroll-watch{opacity:1!important;transform:none!important}}
 
-</style></head><body>
+.map-head b{display:flex;align-items:center;gap:6px}.map-bottom span{display:flex;align-items:center;gap:6px}</style></head><body>
 <div id="loader" role="status" aria-label="Preparando seu poke">
   <div class="load-scene">
     <div class="load-monogram">CK <span> SUSHI</span></div>
@@ -440,7 +440,7 @@ function routeTo(next){closePanel();state.route=["home","menu","favorites","orde
 function openPanel(kind,id){state.panel=kind;state.productId=id||null;state.qty=1;overlay.classList.add("open");overlay.innerHTML=kind==="cart"?drawer():detail(get(id));document.body.classList.add("no-scroll");overlay.querySelector("[data-close]")?.focus()}
 function closePanel(){overlay.classList.remove("open");overlay.innerHTML="";document.body.classList.remove("no-scroll");state.panel=null;state.productId=null}
 function updatePanel(){if(!state.panel)return;const active=document.activeElement;const target=active?.getAttribute("data-change")||"";const note=state.panel==="detail"?document.getElementById("item-note")?.value:null;overlay.innerHTML=state.panel==="cart"?drawer():detail(get(state.productId));if(note!==null){const field=document.getElementById("item-note");if(field)field.value=note}if(target)overlay.querySelector('[data-change="'+target+'"]')?.focus()}
-function toast(message){const box=document.createElement("div");box.className="toast";box.innerHTML=ic("check",15)+"<span>"+esc(message)+"</span>";const host=document.getElementById("toast-zone");host.append(box);setTimeout(()=>{box.style.opacity="0";box.style.transform="translateY(6px)";setTimeout(()=>box.remove(),200)},2400)}
+function toast(message){const box=document.createElement("div");box.className="toast";box.innerHTML=ic("check",15)+"<span>"+esc(message)+"</span>";const host=document.getElementById("toast-zone");host.replaceChildren(box);setTimeout(()=>{box.style.opacity="0";box.style.transform="translateY(6px)";setTimeout(()=>box.remove(),200)},2400)}
 function add(id,n){const p=get(id);if(!p)return;state.cart[id]=Math.min(99,(Number(state.cart[id])||0)+n);if(state.cart[id]<=0){delete state.cart[id];delete state.notes[id]}save();sync();if(state.panel==="cart")updatePanel();if(state.route==="checkout")render()}
 function favorite(id){const index=state.favorites.indexOf(id);if(index===-1)state.favorites.push(id);else state.favorites.splice(index,1);save();if(state.route==="favorites")render();else document.querySelectorAll('[data-favorite="'+id+'"]').forEach(el=>{el.classList.toggle("active",isFavorite(id));el.setAttribute("aria-pressed",isFavorite(id))});sync()}
 function processCheckout(form){if(!form.reportValidity())return;const fee=state.fulfillment==="delivery"?11:0;state.order={id:"#DEMO-"+String(Date.now()).slice(-6),quantity:quantity(),total:subtotal()+fee,pay:state.pay,fulfillment:state.fulfillment,stage:0};state.cart={};state.notes={};state.checkoutFields={};save();routeTo("orders");toast("Pedido de demonstração criado")}
