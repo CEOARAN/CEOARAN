@@ -153,9 +153,129 @@
 }
 @media(max-width:370px){.hero h1{font-size:25px}.menu-grid.list .food-img{flex-basis:100px;width:100px}.menu-grid.list .favorite{left:75px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}#loader{transition:none}}
+
+/* CK Sushi — experiential navigation / GPU-friendly motion */
+#loader{background:radial-gradient(circle at 50% 39%,#fff8f4 0%,#f7f0ec 69%,#efe4df 100%)}
+.load-scene{width:260px;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative}
+.load-monogram{font:850 15px Sora,Arial,sans-serif;color:#a62435;letter-spacing:-.08em;margin-top:6px}
+.load-monogram span{font:800 11px Manrope,sans-serif;color:#241d1c;letter-spacing:.21em;margin-left:5px}
+.poke-motion{width:245px;height:230px;overflow:visible}
+.hashi-lift{transform-origin:210px 50px;animation:hashi-pick 2.3s cubic-bezier(.42,0,.3,1) infinite}
+.poke-garnish{transform-origin:130px 129px;animation:garnish-breathe 2.3s ease-in-out infinite}
+.poke-spark{animation:sparkle 2.3s ease-in-out infinite}
+.load-copy{font-size:11px;color:#716360;font-weight:800;letter-spacing:.025em;margin:2px 0 12px}
+.loading-dots:after{content:"";animation:dots 1s steps(4,end) infinite}
+.loading-track{height:3px;width:124px;border-radius:8px;background:#ead9d4;overflow:hidden}
+.loading-track i{display:block;height:100%;width:43%;border-radius:10px;background:linear-gradient(90deg,#bd2636,#f07b64);animation:loadslide 1.25s ease-in-out infinite}
+@keyframes hashi-pick{0%,100%{transform:translate(8px,-23px) rotate(-5deg)}35%{transform:translate(-6px,9px) rotate(4deg)}58%{transform:translate(-3px,-15px) rotate(-1deg)}80%{transform:translate(13px,-30px) rotate(-7deg)}}
+@keyframes garnish-breathe{0%,100%{transform:scale(1)}48%{transform:scale(.985)}}
+@keyframes sparkle{0%,100%{opacity:.25;transform:translateY(3px)}50%{opacity:1;transform:translateY(-6px)}}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%,100%{content:"..."}}
+#loader.out{opacity:0;visibility:hidden}
+.flavor-wheel{position:relative;max-width:740px;margin:4px auto 0;min-height:268px;overflow:hidden;--step:clamp(69px,15vw,112px)}
+.flavor-arc-line{position:absolute;left:50%;top:0;transform:translateX(-50%);width:100%;height:160px;pointer-events:none;opacity:.8}
+.flavor-arc-line path{stroke:#efc9c5;stroke-width:1.6;stroke-dasharray:5 8;fill:none}
+.flavor-arc-item{position:absolute;top:9px;left:50%;display:flex;align-items:center;flex-direction:column;gap:9px;border:0;padding:0;background:transparent;width:100px;color:#756b66;transition:transform .55s cubic-bezier(.18,.8,.17,1),opacity .36s ease,filter .5s ease;transform:translate(calc(-50% + var(--shift,0px)),var(--rise,0px)) scale(var(--scale,1));z-index:var(--layer,1);opacity:var(--alpha,1);will-change:transform}
+.flavor-arc-item .arc-photo{height:76px;width:76px;display:grid;place-items:center;padding:5px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 8px 25px rgba(66,23,23,.07);transition:transform .35s,border-color .35s,box-shadow .35s}
+.flavor-arc-item .arc-photo img{height:100%;width:100%;object-fit:cover;border-radius:50%}
+.flavor-arc-item span:last-child{font-size:10px;font-weight:800;white-space:nowrap;transition:color .25s}
+.flavor-arc-item.active .arc-photo{border-color:#d8424d;box-shadow:0 0 0 5px #c629361c,0 12px 26px #a82d3833}
+.flavor-arc-item.active span:last-child{color:#b01e32}
+.flavor-arc-item.active:after{content:"";position:absolute;top:110px;left:50%;transform:translateX(-50%);height:3px;width:23px;border-radius:4px;background:#cb3040}
+.flavor-arc-item:hover .arc-photo{transform:translateY(-2px)}
+.arc-position-0{--shift:0px;--rise:0px;--scale:1.15;--layer:6;--alpha:1}
+.arc-position-neg1{--shift:calc(var(--step)*-1);--rise:19px;--scale:.91;--layer:5;--alpha:1}
+.arc-position-pos1{--shift:var(--step);--rise:19px;--scale:.91;--layer:5;--alpha:1}
+.arc-position-neg2{--shift:calc(var(--step)*-2);--rise:54px;--scale:.76;--layer:4;--alpha:.74}
+.arc-position-pos2{--shift:calc(var(--step)*2);--rise:54px;--scale:.76;--layer:4;--alpha:.74}
+.arc-position-hidden{--shift:0px;--rise:90px;--scale:.5;--layer:0;--alpha:0;pointer-events:none}
+.arc-caption{position:absolute;top:156px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.arc-caption strong{font:750 15px Sora,sans-serif;letter-spacing:-.045em;color:#2b2122}
+.arc-caption p{font-size:10px;color:#92817e}
+.arc-controls{display:flex;align-items:center;justify-content:center;gap:15px;margin-top:10px}
+.arc-nav{width:29px;height:29px;border-radius:50%;border:1px solid #e8ddd8;background:#fff;color:#8c343d;display:grid;place-items:center;transition:background .2s,transform .2s}
+.arc-nav:hover{background:#f6e7e5;transform:scale(1.07)}
+.arc-go{background:none;border:0;color:#b72435;font-size:10px;font-weight:800;display:flex;align-items:center;gap:5px}
+.flavor-wheel:focus-visible{outline:2px solid #ab2938;outline-offset:4px}
+.hero-deck{isolation:isolate}
+.hero-deck img{transition:opacity .35s ease,transform 6.5s ease;will-change:transform}
+.hero-deck:has(.hero-slide-animation) img{transform:scale(1.035)}
+.hero-deck .hero-copy{transition:opacity .24s,transform .35s}
+.hero-deck.hero-switch .hero-copy{opacity:.2;transform:translateY(5px)}
+.hero-dots{position:absolute;bottom:18px;left:55px;display:flex;gap:6px;z-index:3}
+.hero-dots button{height:5px;width:5px;padding:0;border:0;background:#f1d7d48c;border-radius:5px;transition:width .3s,background .3s}
+.hero-dots button.on{width:23px;background:#fff}
+.hero-side-label{position:absolute;right:17px;bottom:15px;color:#f8ece5;font-size:9px;font-weight:800;letter-spacing:.06em;z-index:2}
+.scroll-progress{position:absolute;bottom:-1px;left:0;width:0;height:2px;background:#c62d3d;transition:width .13s linear}
+.scroll-watch{opacity:1;transform:none}
+.motion-ready .scroll-watch:not(.seen){opacity:0;transform:translateY(21px)}
+.motion-ready .scroll-watch{transition:opacity .65s ease,transform .65s cubic-bezier(.16,.9,.24,1)}
+.motion-ready .scroll-watch.seen{opacity:1;transform:translateY(0)}
+.story-strip{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:24px}
+.story-tile{position:relative;min-height:115px;border-radius:16px;background:#f7e6e1;overflow:hidden;padding:18px 19px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.story-tile.dark{background:#2b1a20;color:#fff}
+.story-tile strong{font:750 16px Sora,sans-serif;letter-spacing:-.04em;position:relative;z-index:1}
+.story-tile p{font-size:10px;margin:6px 0 10px;position:relative;z-index:1;max-width:210px}
+.story-tile button{border:0;border-bottom:1px solid currentColor;padding:0 0 3px;background:none;color:#a32333;font-size:10px;font-weight:800;position:relative;z-index:1}
+.story-tile.dark button{color:#ffb5b3}
+.story-tile img{position:absolute;right:-5px;top:0;width:45%;height:100%;object-fit:cover;mask-image:linear-gradient(90deg,transparent,#000 65%);opacity:.95}
+.demo-map{margin:0 0 15px;background:#fff;border:1px solid #eae0dc;border-radius:18px;overflow:hidden;box-shadow:0 7px 22px #42262a0b}
+.map-head{padding:14px 16px 11px;display:flex;justify-content:space-between;gap:15px;align-items:center}
+.map-head b{font-size:11px}.map-head span{font-size:9px;color:#988983}
+.map-graphic{position:relative;width:100%;background:#f2eee9;overflow:hidden}
+.map-graphic svg{display:block;width:100%;height:auto}
+.map-bottom{padding:12px 15px;color:#746562;display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.map-bottom strong{color:#ad2333}
+.map-scooter svg{width:36px;height:36px;filter:drop-shadow(0 3px 3px #2a16163a)}
+.map-route-shadow{filter:drop-shadow(0 2px 2px #bd253333)}
+.map-glow{animation:map-pulse 1.8s ease-in-out infinite}
+@keyframes map-pulse{0%,100%{opacity:.2}50%{opacity:.68}}
+@media(max-width:700px){
+.flavor-wheel{min-height:239px;--step:clamp(68px,21vw,82px);margin:3px -8px 0}
+.flavor-arc-line{top:0;height:137px;width:112%}
+.flavor-arc-item{top:10px;width:88px;gap:7px}
+.flavor-arc-item .arc-photo{width:65px;height:65px}
+.flavor-arc-item span:last-child{font-size:9px}
+.flavor-arc-item.active:after{top:96px}
+.flavor-arc-item.active .arc-photo{box-shadow:0 0 0 4px #c629361c,0 10px 20px #a82d381f}
+.arc-position-neg1,.arc-position-pos1{--rise:20px}
+.arc-position-neg2,.arc-position-pos2{--rise:49px}
+.arc-caption{top:135px}
+.arc-caption strong{font-size:13px}
+.arc-controls{margin-top:7px}
+.hero-dots{left:23px;bottom:13px}
+.hero-side-label{right:12px;bottom:12px;font-size:8px}
+.story-strip{gap:9px}
+.story-tile{min-height:105px;padding:12px 13px;border-radius:14px}
+.story-tile strong{font-size:12px}
+.story-tile p{font-size:9px}
+.story-tile img{width:57%;opacity:.48}
+}
+@media(prefers-reduced-motion:reduce){.hashi-lift,.poke-garnish,.poke-spark,.map-glow{animation:none!important}.flavor-arc-item,.hero-deck img,.motion-ready .scroll-watch{transition:none!important}.motion-ready .scroll-watch{opacity:1!important;transform:none!important}}
+
 </style></head><body>
-<div id="loader" role="status" aria-label="Carregando CK Sushi"><div class="load-inner">
-<div class="loader-seal"><strong>CK</strong></div><div class="loader-word">SUSHI <small>DELIVERY</small></div><div class="loader-track"><span></span></div></div></div>
+<div id="loader" role="status" aria-label="Preparando seu poke">
+  <div class="load-scene">
+    <div class="load-monogram">CK <span> SUSHI</span></div>
+    <svg class="poke-motion" viewBox="0 0 260 250" role="img" aria-label="Poke sendo preparado com hashis">
+      <defs><linearGradient id="bowlGradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#df4953"/><stop offset=".53" stop-color="#ab1f31"/><stop offset="1" stop-color="#66131f"/></linearGradient><linearGradient id="fishGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff9a78"/><stop offset="1" stop-color="#f65b3a"/></linearGradient><filter id="bowlShadow" x="-40%" y="-50%" width="180%" height="200%"><feGaussianBlur stdDeviation="6"/></filter></defs>
+      <ellipse cx="130" cy="229" rx="77" ry="10" fill="#482128" opacity=".12" filter="url(#bowlShadow)"/>
+      <g class="poke-food">
+        <ellipse cx="129" cy="130" rx="78" ry="35" fill="#fff3ed" stroke="#e6cec8" stroke-width="4"/>
+        <ellipse cx="129" cy="128" rx="69" ry="28" fill="#f2e7d7"/>
+        <g class="poke-garnish"><ellipse cx="96" cy="123" rx="21" ry="12" transform="rotate(-25 96 123)" fill="#82ad65"/><ellipse cx="150" cy="122" rx="22" ry="11" transform="rotate(22 150 122)" fill="#62a36d"/><circle cx="118" cy="136" r="11" fill="#e6aa57"/><circle cx="162" cy="136" r="8" fill="#a5c970"/><path d="M85 133l15-8m17 10 14-6m29 5-12-7" stroke="#f9eee2" stroke-width="4" stroke-linecap="round"/></g>
+        <g class="fish-in-bowl"><rect x="109" y="108" width="27" height="18" rx="5" fill="url(#fishGrad)" transform="rotate(-9 109 108)"/><rect x="134" y="126" width="25" height="17" rx="5" fill="#ff9d77" transform="rotate(13 134 126)"/><rect x="95" y="135" width="20" height="16" rx="5" fill="#f67d60" transform="rotate(17 95 135)"/></g>
+      </g>
+      <path d="M51 134C62 176 74 209 103 215H156C184 206 200 177 207 135C194 150 164 156 129 157C94 157 64 147 51 134Z" fill="url(#bowlGradient)"/>
+      <path d="M56 139C84 163 176 163 203 139" stroke="#fce5dc" stroke-width="5" opacity=".55" fill="none"/>
+      <path d="M105 183c13 4 30 5 46 0" stroke="#ffd8d2" stroke-width="3" stroke-linecap="round" fill="none" opacity=".9"/>
+      <g class="hashi-lift"><g class="hashi-grip"><path d="M195 34c12-8 19-4 24 3 5 5 8 14 4 19l-12 10-21-11Z" fill="#f1b6a2" stroke="#e6a28f" stroke-width="2"/><path d="M201 36c4-10 16-10 21 3l6 19" fill="none" stroke="#df9d8e" stroke-width="3" stroke-linecap="round"/></g><path d="M199 52 137 109" stroke="#8e6046" stroke-width="5" stroke-linecap="round"/><path d="M210 58 147 119" stroke="#ca946c" stroke-width="5" stroke-linecap="round"/><g class="lift-fish"><rect x="130" y="111" rx="4" width="25" height="18" fill="url(#fishGrad)" transform="rotate(6 142 119)"/><path d="M135 118 150 120" stroke="#ffcdac" stroke-width="2" stroke-linecap="round"/></g></g>
+      <circle cx="93" cy="106" r="3" fill="#e5af63" class="poke-spark"/><circle cx="168" cy="92" r="2.5" fill="#76ae6d" class="poke-spark"/>
+    </svg>
+    <p class="load-copy">Preparando algo especial<span class="loading-dots"></span></p>
+    <div class="loading-track"><i></i></div>
+  </div>
+</div>
 <header class="header"><div class="container header-inner">
 <a class="brand" href="#home" aria-label="CK Sushi — início"><span class="brand-seal"><strong>CK</strong></span><span class="brand-text"><strong>CK SUSHI</strong><small>DELIVERY</small></span></a>
 <nav class="primary-nav" aria-label="Principal"><button data-route="home">Início</button><button data-route="menu">Cardápio</button><button data-route="favorites">Favoritos</button><button data-route="orders">Meus pedidos</button></nav>
@@ -247,7 +367,22 @@ function quantity(){return Object.values(state.cart).reduce((a,v)=>a+Number(v||0
 function subtotal(){return Object.keys(state.cart).reduce((sum,k)=>sum+(get(k)?.price||0)*(Number(state.cart[k]||0)),0)}
 function isFavorite(id){return state.favorites.includes(id)}
 function productCard(p){return '<article class="food-card"><button class="food-img" data-product="'+p.id+'" aria-label="Ver detalhes: '+esc(p.name)+'"><img src="'+p.photo+'" alt="Imagem ilustrativa de comida japonesa" loading="lazy" decoding="async"></button><button class="favorite '+(isFavorite(p.id)?"active":"")+'" aria-pressed="'+isFavorite(p.id)+'" data-favorite="'+p.id+'" aria-label="Favoritar '+esc(p.name)+'">'+ic("heart",16)+'</button><div class="food-body"><button class="food-name" data-product="'+p.id+'">'+esc(p.name)+'</button><p class="food-description">'+esc(p.desc)+'</p><div class="food-bottom"><strong class="food-price">'+money(p.price)+'</strong><button class="add-square" aria-label="Adicionar '+esc(p.name)+'" data-add="'+p.id+'">'+ic("plus",17)+'</button></div></div></article>'}
-function categoryTiles(){return '<div class="cats-rail">'+cats.slice(1).map(c=>'<button class="cat-tile" data-category="'+c+'"><span class="cat-avatar"><img src="'+pictures[c]+'" loading="lazy" alt=""></span><span>'+esc(c)+'</span></button>').join("")+'</div>'}
+
+const arcNames=["Combinados","Temakis","Pokes","Sushis","Quentes","Entradas","Bebidas"];
+const arcDescriptions={
+Combinados:"Peças para dividir, sabores para lembrar.",
+Temakis:"Os clássicos em cada mordida.",
+Pokes:"Seu bowl, seu ritmo.",
+Sushis:"Precisão e sabor na medida certa.",
+Quentes:"Aconchego com um toque oriental.",
+Entradas:"Um bom começo para seu pedido.",
+Bebidas:"O acompanhamento ideal."
+};
+let arcActive=2;
+function arcPosition(index){let delta=index-arcActive;const half=arcNames.length/2;if(delta>half)delta-=arcNames.length;if(delta<-half)delta+=arcNames.length;return delta===0?"arc-position-0":delta===-1?"arc-position-neg1":delta===1?"arc-position-pos1":delta===-2?"arc-position-neg2":delta===2?"arc-position-pos2":"arc-position-hidden"}
+function categoryTiles(){return '<div id="flavor-wheel" class="flavor-wheel" role="group" tabindex="0" aria-label="Categorias em arco, deslize ou use as setas"><svg class="flavor-arc-line" viewBox="0 0 730 180" preserveAspectRatio="none" aria-hidden="true"><path d="M45 150 Q365 -70 685 150"/></svg>'+arcNames.map((c,i)=>'<button class="flavor-arc-item '+arcPosition(i)+(i===arcActive?" active":"")+'" data-arc-select="'+i+'" aria-label="'+esc(c)+'" aria-pressed="'+(i===arcActive)+'"><span class="arc-photo"><img src="'+pictures[c]+'" loading="lazy" alt=""></span><span>'+esc(c)+'</span></button>').join("")+'<div class="arc-caption" aria-live="polite"><strong id="arc-name">'+esc(arcNames[arcActive])+'</strong><p id="arc-desc">'+esc(arcDescriptions[arcNames[arcActive]])+'</p><div class="arc-controls"><button class="arc-nav" data-arc-step="-1" aria-label="Categoria anterior">‹</button><button class="arc-go" data-arc-open>Explorar categoria '+ic("arrow",13)+'</button><button class="arc-nav" data-arc-step="1" aria-label="Próxima categoria">›</button></div></div></div>'}
+function updateArc(next){arcActive=(next+arcNames.length)%arcNames.length;document.querySelectorAll(".flavor-arc-item").forEach(btn=>{let idx=Number(btn.dataset.arcSelect);btn.className="flavor-arc-item "+arcPosition(idx)+(idx===arcActive?" active":"");btn.setAttribute("aria-pressed",String(idx===arcActive))});const name=arcNames[arcActive];const n=document.getElementById("arc-name"),desc=document.getElementById("arc-desc");if(n)n.textContent=name;if(desc)desc.textContent=arcDescriptions[name]}
+
 function categoryFilters(){return '<div class="menu-filter" role="group" aria-label="Filtrar categoria">'+cats.map(c=>'<button class="filter '+(state.category===c?"active":"")+'" data-category="'+c+'" aria-pressed="'+(state.category===c)+'">'+esc(c)+'</button>').join("")+'</div>'}
 function headerInfo(){return '<div class="info-bar"><div class="info">'+ic("clock",14)+' <b>18h–23h45</b> <span>horário anunciado</span></div><div class="tiny-rule"></div><div class="info">'+ic("bag",14)+' Pedido mínimo <b>'+money(29.90)+'</b></div></div>'}
 function homePage(){return '<section class="hero reveal"><img src="'+photos.combo+'" alt="Prato ilustrativo com sushi"><div class="hero-copy"><div class="eyebrow">CK Sushi Delivery</div><h1>Seu sushi.<br>Seu momento.</h1><p>Escolha seus favoritos e monte um pedido do seu jeito.</p><button class="btn btn-light" data-route="menu">Explorar cardápio '+ic("arrow",14)+'</button></div></section>'+headerInfo()+
