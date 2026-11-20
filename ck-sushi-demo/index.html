@@ -531,7 +531,98 @@ body{background:#fafafa;color:#171717}
 .home-discover .section-heading h2{font-size:19px}
 .location-sheet{top:auto;bottom:0;left:0;transform:none;width:100%;border-radius:22px 22px 0 0;padding:22px 18px max(28px,env(safe-area-inset-bottom));animation:floatin .25s ease}
 }
-@media(min-width:701px){.order-start{flex-direction:row;align-items:center;justify-content:space-between;gap:30px;padding:17px 0 0}.delivery-location{width:min(52%,510px);min-height:49px}.fulfillment-switch{width:min(45%,440px);flex:none}}</style></head><body>
+@media(min-width:701px){.order-start{flex-direction:row;align-items:center;justify-content:space-between;gap:30px;padding:17px 0 0}.delivery-location{width:min(52%,510px);min-height:49px}.fulfillment-switch{width:min(45%,440px);flex:none}}
+/* V7 — linear white canvas, address-first header, unobtrusive mobile dock */
+:root{--paper:#fff;--white:#fff;--soft:#fff;--stroke:#eeeeee;--ink:#171717;--muted:#777;--red:#b32432;--shadow:none}
+html,body{background:#fff!important}
+.header{height:68px;background:#fff!important;border-bottom:1px solid #f3f3f3!important;backdrop-filter:none;box-shadow:none}
+.header-inner{gap:18px}
+.header-inline-location{display:flex;align-items:center;gap:8px;min-width:0;max-width:260px;flex:1;padding:0;border:0;text-align:left;background:transparent;color:#202020}
+.header-location-icon{height:29px;width:29px;display:grid;place-items:center;flex:none}
+.header-location-icon svg{height:19px;width:19px;stroke-width:2}
+.header-location-copy{min-width:0;display:flex;flex-direction:column;gap:2px}
+.header-location-copy small{font-size:9px;line-height:1.1;font-weight:600;color:#8c8c8c}
+.header-location-copy strong{display:block;font-size:11px;line-height:1.2;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;color:#222}
+.header-location-chevron svg{height:13px;width:13px;color:#929292}
+.header-actions .round-icon{border:0;background:transparent;color:#202020;box-shadow:none}
+.header-actions .round-icon:hover{background:#f7f7f7}
+.primary-nav{gap:16px}
+.primary-nav button{font-size:11px}
+.order-start{padding:9px 0 0!important;display:block!important}
+.fulfillment-switch{width:100%;max-width:100%;min-height:43px;height:43px;background:#f5f5f5;padding:3px;gap:3px;border-radius:12px;border:1px solid #f1f1f1}
+.fulfillment-option{height:36px;min-height:36px;border-radius:9px;font-size:11px;box-shadow:none!important}
+.fulfillment-option.active{background:#fff;box-shadow:0 2px 8px #0000000c!important}
+.section{border:0}
+.category-quick,.home-featured,.home-discover{background:#fff}
+.flavor-wheel{background:#fff!important}
+.flavor-wheel:before{border-color:#f0f0f0;opacity:.55}
+.story-tile:not(.dark){background:#f8f8f8}
+.footer{background:#fff;border-color:#f1f1f1}
+.food-card{border-color:#efefef;background:#fff;box-shadow:none}
+.food-card:hover{border-color:#dedede}
+.panel,.demo-map{background:#fff}
+@media(min-width:1030px){
+.header-inline-location{max-width:230px}
+.brand{min-width:143px}
+.header-inner{gap:19px}
+}
+@media(min-width:701px) and (max-width:1029px){
+.primary-nav{display:none}
+.header-inline-location{max-width:330px}
+}
+@media(max-width:700px){
+body{background:#fff!important}
+.container{width:calc(100% - 36px)}
+.header{height:57px!important;background:#fff!important;border-bottom:1px solid #f6f6f6!important;box-shadow:none!important}
+.header-inner{gap:8px;height:100%}
+.brand{min-width:0!important;flex:0 0 auto;gap:0}
+.brand-seal{width:30px!important;height:30px!important;border-width:2px!important;transform:rotate(-14deg)}
+.brand-seal strong{font-size:12px!important;transform:rotate(14deg);line-height:1}
+.brand-text{display:none!important}
+.header-inline-location{flex:1;max-width:none;gap:5px}
+.header-location-icon{width:18px;height:25px}
+.header-location-icon svg{width:17px;height:17px}
+.header-location-copy{gap:1px}
+.header-location-copy small{font-size:8px}
+.header-location-copy strong{font-size:10px;letter-spacing:-.01em}
+.header-location-chevron{display:none}
+.header-actions{gap:0}
+.header-actions .round-icon{height:35px;width:35px}
+.header-actions .round-icon svg{width:19px;height:19px}
+.header-heart{display:none!important}
+.order-start{padding:9px 0 0!important;gap:0}
+.fulfillment-switch{min-height:42px;height:42px;border-radius:12px}
+.fulfillment-option{height:34px;min-height:34px;font-size:11px}
+.hero{margin-top:11px;margin-bottom:1px}
+.category-quick{padding-top:18px}
+.quick-photo{border:0;background:#f7f7f7}
+.home-featured{padding-top:21px}
+.home-discover{padding-top:24px}
+.section-heading h2{letter-spacing:-.05em}
+.flavor-wheel{background:#fff!important;border:0!important;border-radius:0!important;margin:0 -6px!important}
+.flavor-wheel:before{border-color:#f5f5f5}
+.arc-caption p{color:#777}
+.mobile-nav{position:fixed;bottom:0!important;left:0!important;right:0!important;transform:none!important;width:100%!important;max-width:none!important;height:calc(61px + env(safe-area-inset-bottom))!important;padding:4px max(12px,env(safe-area-inset-left)) calc(3px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-right))!important;border-radius:0!important;border:0!important;border-top:1px solid #f0f0f0!important;background:#fff!important;box-shadow:none!important;justify-content:space-around;z-index:70}
+.mobile-nav button{position:relative;color:#8e8e8e!important;min-width:62px;height:53px;gap:4px;font-size:9px;font-weight:700;justify-content:center;line-height:1.2}
+.mobile-nav button.on{color:#ae2331!important}
+.mobile-nav button svg{width:20px;height:20px;stroke-width:1.8}
+.mobile-nav button.on svg{stroke-width:2.1}
+.mobile-nav button.on:after{content:"";height:2px;width:17px;border-radius:4px;background:#b82432;position:absolute;bottom:0}
+.nav-cart-count{position:absolute;top:0;right:13px;min-width:15px;height:15px;border-radius:50%;background:#b82432;color:#fff;font-size:9px;line-height:15px;font-style:normal}
+.floating-cart{display:none!important}
+#toast-zone{bottom:77px;left:20px;right:20px}
+.footer-inner{padding-bottom:110px}
+#app{padding-bottom:26px}
+.page-heading{padding-top:19px}
+}
+@media(max-width:360px){
+.header-inner{gap:5px}
+.brand-seal{width:27px!important;height:27px!important}
+.header-location-copy strong{font-size:9px}
+.header-actions .round-icon{width:32px}
+.mobile-nav button{min-width:56px}
+}
+</style></head><body>
 <div id="loader" role="status" aria-label="Preparando seu poke">
   <div class="load-scene">
     <div class="load-monogram">CK <span> SUSHI DELIVERY</span></div>
@@ -556,6 +647,8 @@ body{background:#fafafa;color:#171717}
 </div>
 <header class="header"><div class="container header-inner">
 <a class="brand" href="#home" aria-label="CK Sushi — início"><span class="brand-seal"><strong>CK</strong></span><span class="brand-text"><strong>CK SUSHI</strong><small>DELIVERY</small></span></a>
+<button class="header-inline-location" data-address-open type="button" aria-label="Informar endereço de entrega">
+<span class="header-location-icon" data-icon="pin"></span><span class="header-location-copy"><small class="header-location-label">Entregar em</small><strong id="header-location-title">Adicionar endereço de entrega</strong></span><span class="header-location-chevron" data-icon="chevronRight"></span></button>
 <nav class="primary-nav" aria-label="Navegação principal"><button data-route="home">Início</button><button data-route="menu">Cardápio</button><button data-route="favorites">Favoritos</button><button data-route="orders">Meus pedidos</button></nav>
 <div class="header-actions">
 <button class="round-icon" type="button" data-focus-search aria-label="Pesquisar produtos"><span data-icon="search"></span></button>
@@ -564,7 +657,7 @@ body{background:#fafafa;color:#171717}
 </div></div></header>
 <main id="app" class="page container"></main>
 <footer class="footer"><div class="container footer-inner"><div><b>CK SUSHI DELIVERY</b><div style="margin-top:5px">Sabor, simplicidade e uma nova experiência de pedido.</div></div><div>Fotos ilustrativas • Preços de referência • Integrações e pagamento reais ainda não disponíveis.</div></div></footer>
-<nav class="mobile-nav" aria-label="Navegação principal"><button data-route="home"><span data-icon="home"></span>Início</button><button data-route="menu"><span data-icon="grid"></span>Cardápio</button><button data-cart><span data-icon="bag"></span>Carrinho</button><button data-route="orders"><span data-icon="receipt"></span>Pedidos</button></nav>
+<nav class="mobile-nav" aria-label="Navegação principal"><button data-route="home"><span data-icon="home"></span><span>Início</span></button><button data-route="menu"><span data-icon="grid"></span><span>Cardápio</span></button><button data-cart class="nav-cart"><span data-icon="bag"></span><span>Carrinho</span><i class="nav-cart-count" id="mobile-cart-count" hidden></i></button><button data-route="orders"><span data-icon="receipt"></span><span>Pedidos</span></button></nav>
 <button class="floating-cart" id="floating-cart" hidden data-cart><span id="floating-cart-count"></span><strong id="floating-cart-total"></strong><span aria-hidden="true">→</span></button>
 <div id="overlay" aria-live="polite"></div><div id="toast-zone" aria-live="polite"></div>
 <script>
@@ -677,7 +770,7 @@ function deliverySummary(){
 const a=state.deliveryAddress;
 return a&&a.street&&a.number?([a.street,a.number].join(", ")+(a.district?" · "+a.district:"")):"Adicionar endereço de entrega";
 }
-function serviceHeader(){const delivery=state.fulfillment==="delivery";return '<section class="order-start" aria-label="Preferências de entrega"><button type="button" class="delivery-location" '+(delivery?'data-address-open':'data-mode="delivery"')+' aria-label="'+(delivery?"Definir endereço de entrega":"Selecionar entrega")+'"><span class="location-pin">'+ic(delivery?"pin":"bag",18)+'</span><span class="location-content"><small>'+(delivery?"Entregar em":"Retirar na loja")+'</small><strong>'+(delivery?esc(deliverySummary()):"Endereço disponível após confirmação")+'</strong></span>'+ic("chevronRight",16)+'</button><div class="fulfillment-switch" role="group" aria-label="Como deseja receber?"><button type="button" class="fulfillment-option '+(delivery?"active":"")+'" aria-pressed="'+delivery+'" data-mode="delivery">'+ic("truck",17)+' Entrega</button><button type="button" class="fulfillment-option '+(!delivery?"active":"")+'" aria-pressed="'+(!delivery)+'" data-mode="pickup">'+ic("bag",17)+' Retirada</button></div></section>'}
+function serviceHeader(){const delivery=state.fulfillment==="delivery";return '<section class="order-start" aria-label="Preferências de entrega"><div class="fulfillment-switch" role="group" aria-label="Como deseja receber?"><button type="button" class="fulfillment-option '+(delivery?"active":"")+'" aria-pressed="'+delivery+'" data-mode="delivery">'+ic("truck",17)+' Entrega</button><button type="button" class="fulfillment-option '+(!delivery?"active":"")+'" aria-pressed="'+(!delivery)+'" data-mode="pickup">'+ic("bag",17)+' Retirada</button></div></section>'}
 function quickCategories(){const items=["Combinados","Sushis","Sashimis","Pokes","Temakis","Quentes","Entradas"];return '<section class="category-quick scroll-watch" aria-label="Categorias do cardápio"><div class="category-row">'+items.map((c,i)=>'<button class="quick-item '+(i===0?"current":"")+'" type="button" data-category="'+c+'"><span class="quick-photo"><img src="'+imageOptimized(pictures[c],210,83)+'" width="88" height="88" decoding="async" loading="lazy" alt=""></span><span>'+esc(c==="Combinados"?"Combos":c)+'</span></button>').join("")+'</div></section>'}
 function locationPanel(){const a=state.deliveryAddress||{};const input=(id,label,placeholder,value,required)=>'<div class="field"><label for="loc-'+id+'">'+label+'</label><input id="loc-'+id+'" name="'+id+'" type="text" placeholder="'+placeholder+'" value="'+esc(value||"")+'" '+(required?"required":"")+' maxlength="100"></div>';return '<div class="overlay-shade" data-close></div><section class="location-sheet" role="dialog" aria-modal="true" aria-label="Endereço de entrega"><div class="location-title"><h2>Onde entregar?</h2><button class="close-circle" type="button" data-close aria-label="Fechar">'+ic("close",16)+'</button></div><p class="location-explainer">Informe seu endereço para preencher o checkout demonstrativo. A área de atendimento e o frete ainda não são calculados automaticamente.</p><form id="location-form">'+input("street","Rua ou avenida","Nome da rua",a.street,true)+'<div class="location-grid">'+input("district","Bairro","Bairro",a.district,true)+input("number","Número","Nº",a.number,true)+'</div>'+input("city","Cidade","Sua cidade",a.city,true)+'<button type="submit" class="btn btn-primary btn-full">Usar este endereço '+ic("arrow",15)+'</button></form></section>'}
 
@@ -729,7 +822,7 @@ function page(){if(state.route==="menu")return menuPage();if(state.route==="favo
 let fadeObserver=null;
 function initScrollReveal(){if(fadeObserver)fadeObserver.disconnect();const elements=app.querySelectorAll(".scroll-watch");if(!elements.length)return;if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){elements.forEach(el=>el.classList.add("seen"));return}document.body.classList.add("motion-ready");fadeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("seen");fadeObserver.unobserve(entry.target)}}),{threshold:.06,rootMargin:"0px 0px 35px 0px"});elements.forEach(el=>fadeObserver.observe(el))}
 function render(){app.innerHTML=page();if(state.route==="menu")drawResults();sync();initScrollReveal()}
-function sync(){let c=quantity(),b=document.getElementById("cart-count"),f=document.getElementById("fav-count"),bar=document.getElementById("floating-cart");b.hidden=c===0;b.textContent=c;f.hidden=state.favorites.length===0;f.textContent=state.favorites.length;bar.hidden=!c||!["home","menu","favorites"].includes(state.route);document.getElementById("floating-cart-count").textContent=c+" "+(c===1?"item":"itens")+" no carrinho";document.getElementById("floating-cart-total").textContent=money(subtotal());document.querySelectorAll("[data-icon]").forEach(el=>el.innerHTML=ic(el.dataset.icon,19));document.querySelectorAll("[data-route]").forEach(el=>{if(el.closest("nav")){el.classList.toggle("on",el.dataset.route===state.route);el.classList.toggle("selected",el.dataset.route===state.route)}})}
+function sync(){let c=quantity(),b=document.getElementById("cart-count"),f=document.getElementById("fav-count"),bar=document.getElementById("floating-cart");b.hidden=c===0;b.textContent=c;f.hidden=state.favorites.length===0;f.textContent=state.favorites.length;bar.hidden=!c||!["home","menu","favorites"].includes(state.route);document.getElementById("floating-cart-count").textContent=c+" "+(c===1?"item":"itens")+" no carrinho";document.getElementById("floating-cart-total").textContent=money(subtotal());const mobileBadge=document.getElementById("mobile-cart-count");if(mobileBadge){mobileBadge.hidden=c===0;mobileBadge.textContent=c>9?"9+":c}const location=document.querySelector(".header-inline-location"),title=document.getElementById("header-location-title"),label=document.querySelector(".header-location-label");if(location&&title&&label){const delivering=state.fulfillment==="delivery";title.textContent=delivering?deliverySummary():"Selecionar entrega";label.textContent=delivering?"Entregar em":"Retirada na loja";location.setAttribute("aria-label",delivering?"Informar endereço de entrega":"Mudar para entrega");location.toggleAttribute("data-address-open",delivering);location.toggleAttribute("data-mode",!delivering);if(!delivering)location.dataset.mode="delivery";else delete location.dataset.mode;}document.querySelectorAll("[data-icon]").forEach(el=>el.innerHTML=ic(el.dataset.icon,19));document.querySelectorAll("[data-route]").forEach(el=>{if(el.closest("nav")){el.classList.toggle("on",el.dataset.route===state.route);el.classList.toggle("selected",el.dataset.route===state.route)}})}
 function routeTo(next){closePanel();state.route=["home","menu","favorites","orders","checkout"].includes(next)?next:"home";if(location.hash.slice(1)!==state.route)history.pushState({}, "", "#"+state.route);render();window.scrollTo({top:0,behavior:"instant"})}
 function openPanel(kind,id){state.panel=kind;state.productId=id||null;state.qty=1;overlay.classList.add("open");overlay.innerHTML=kind==="cart"?drawer():kind==="location"?locationPanel():detail(get(id));document.body.classList.add("no-scroll");overlay.querySelector("[data-close]")?.focus()}
 function closePanel(){overlay.classList.remove("open");overlay.innerHTML="";document.body.classList.remove("no-scroll");state.panel=null;state.productId=null}
