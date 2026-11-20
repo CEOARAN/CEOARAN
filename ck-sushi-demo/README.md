@@ -1,33 +1,29 @@
-# CK Sushi Delivery — Front-end Premium (V3)
+# CK Sushi Delivery — Protótipo V5
 
-**Demo online:** https://ck-sushi-demo.ceoaran-dev.workers.dev/
+**Site de demonstração:** https://ck-sushi-demo.ceoaran-dev.workers.dev/
 
-Projeto de demonstração UI/UX mobile-first, baseado nas referências enviadas pelo proponente. Identidade com superfícies claras, vinho/vermelho pontual, fotografia editorial e navegação compacta.
+## Design e interface
+- Paleta refinada: preto #121212 / branco #FFFFFF / cinza #FAFAFA / vermelho #BD2535 como acento;
+- Loader SVG de poke com hashis, animação em loop e tempo mínimo aproximado de 3,05 segundos; movimento reduzido respeitado;
+- Carrossel de categorias em arco, com sete opções, transições suaves, gestos de arrastar, controles e indicadores;
+- Destaques deslizantes, entrada de seções por scroll, busca e layout mobile-first;
+- Ícones SVG de traço uniforme, botões compactos, cards e navegação inferior organizada;
+- Fotos de catálogo ilustrativas e otimizadas para dispositivos móveis.
 
-## Funcionalidades disponíveis
-- Loader de entrada animado, transições, hover, feedback de ações e suporte a reduced motion;
-- Homepage com hero editorial, categorias fotográficas e produtos em destaque;
-- Catálogo com 37 produtos de referência, busca em tempo real, categorias, ordenação e visualização lista/grade;
-- Detalhes de produto em modal (desktop) ou bottom sheet (mobile), quantidade e observação;
-- Favoritos;
-- Carrinho reativo em drawer/bottom sheet, controle de quantidades, persistência local quando disponível e resumo;
-- Checkout fictício com entrega/retirada, formulário, formas de pagamento ilustrativas;
-- Pedido fictício e timeline de acompanhamento com avanço manual (simulação);
-- Layout responsivo para celular e desktop.
+## Funcionalidades front-end
+- Cardápio com 37 produtos demonstrativos, pesquisa, filtro, ordenação e lista/grade;
+- Favoritos, visualização de produto, notas, quantidade e carrinho;
+- Checkout fictício com entrega/retirada e escolha ilustrativa de pagamento;
+- Pedidos de exemplo, timeline e mapa esquemático com motinha animada.
 
-## Limitações obrigatórias
-- **Não recebe pedidos reais:** sem API/backend e sem envio de mensagens ao restaurante.
-- **Não processa pagamentos nem despacha entregadores:** Pix/cartão/dinheiro e etapas da entrega são somente opções visuais.
-- O frete usado no checkout é um valor **ilustrativo**, não calculado conforme endereço.
-- Fotografias são de acervo ilustrativo (Unsplash), **não fotos oficiais do CK Sushi**.
-- Os 37 produtos e preços foram baseados no inventário anterior da página pública, **não constituem catálogo comercial validado**.
-- Formulários não transmitem dados a servidor; no exemplo o pedido salvo localmente contém apenas itens/total/etapa, sem nome, telefone ou endereço.
+## Limitações
+- **Nenhum pedido ou pagamento real.** Não há backend, banco, integração Pix, WhatsApp ou iFood.
+- **Mapa fictício**, sem rastreamento ou coordenadas reais.
+- Fotografias de acervo ilustrativo, não oficiais do restaurante.
+- Produtos e preços de referência precisam ser validados com a CK Sushi.
 
-## Código e publicação
-- Diretório do projeto: `ck-sushi-demo/`, branch: `ck-sushi-demo` do repositório `CEOARAN/CEOARAN`.
-- Aplicação estática de arquivo único: `index.html` com HTML, CSS e JavaScript puro, sem build e sem backend.
-- Servida pela Cloudflare Worker `ck-sushi-demo` da conta CEOARAN.
-- Contas Fine Form e aplicações Lince **não foram alteradas**.
-
-## Continuidade
-Revisar fotografias e catálogo com autorização do restaurante; aprovar a UI; depois criar repositório próprio e definir um backend com cobrança Pix vinculada ao pedido e integração logística autorizada.
+## Infraestrutura
+- Conta GitHub: CEOARAN; projeto em `CEOARAN/CEOARAN`, branch `ck-sushi-demo`, pasta `ck-sushi-demo/`.
+- Cloudflare Worker: `ck-sushi-demo`, conta CEOARAN.
+- Front-end estático em HTML/CSS/JavaScript sem build.
+- Projetos Fine Form e Lince não foram alterados.
