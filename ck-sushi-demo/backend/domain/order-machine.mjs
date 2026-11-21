@@ -31,7 +31,7 @@ export function validateTransition({from,to,actor,paymentStatus,fulfillment}){
    if(fulfillment==="delivery"&&(from!=="courier_assigned"||actor!=="logistics_provider"))throw new OrderTransitionError("DELIVERY_REQUIRES_COURIER");
    if(fulfillment==="pickup"&&(from!=="ready"||actor!=="store"))throw new OrderTransitionError("PICKUP_REQUIRES_STORE_CONFIRMATION");
  }
- if(to==="delivered"&&actor!=="logistics_provider")throw new OrderTransitionError("DELIVERY_PROVIDER_CONFIRMATION_REQUIRED");
+ if(to==="delivered"&&(actor!=="logistics_provider"||fulfillment!=="delivery"))throw new OrderTransitionError("DELIVERY_PROVIDER_CONFIRMATION_REQUIRED");
  if(to==="cancelled"&&!["system","store"].includes(actor))throw new OrderTransitionError("CANCELLATION_NOT_AUTHORIZED");
  if(to==="refund_pending"&&!["system","store"].includes(actor))throw new OrderTransitionError("REFUND_REQUEST_NOT_AUTHORIZED");
  if(to==="refunded"&&(actor!=="payment_provider"||paymentStatus!=="refunded"))throw new OrderTransitionError("REFUND_NOT_VERIFIED");
