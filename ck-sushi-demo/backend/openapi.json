@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.21.staging.3",
+    "version": "2026.11.21.staging.4",
     "description": "No personal data collection, order creation or real payments. Amounts in cents. Edit operations require Cloudflare Access JWT and anti-CSRF."
   },
   "servers": [
@@ -508,6 +508,59 @@
           },
           "503": {
             "description": "Homologação indisponível ou proteções ausentes"
+          }
+        }
+      }
+    },
+    "/api/webhooks/mercadopago/test": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Mercado Pago Orders test-only signed webhook",
+        "description": "Requires MP_TEST_WEBHOOK_SECRET and MP_TEST_APPLICATION_ID, verified HMAC and test-mode notification. Stores only an expiring event fingerprint; never creates/updates real payments or orders. Returns 503 while credentials are absent.",
+        "responses": {
+          "200": {
+            "description": "Valid test notification deduplicated; no payment processed"
+          },
+          "400": {
+            "description": "Invalid event"
+          },
+          "401": {
+            "description": "Invalid signature"
+          },
+          "403": {
+            "description": "Wrong application/mode"
+          },
+          "429": {
+            "description": "Rate-limited"
+          },
+          "503": {
+            "description": "Secret not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/integrations/mercadopago": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Integration readiness, no secret values",
+        "security": [
+          {
+            "cloudflareAccess": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Only Boolean configuration flags, excludes credential values"
+          },
+          "403": {
+            "description": "Not authorized"
+          },
+          "503": {
+            "description": "Cloudflare Access not configured"
           }
         }
       }
