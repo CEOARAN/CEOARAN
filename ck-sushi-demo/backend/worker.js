@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.21.staging.2";
+const VERSION="2026.11.21.staging.3";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
@@ -84,6 +84,23 @@ async function checkoutQuote(req,env){
  try{return json({ok:true,quote:computeQuote(cart,found.results,{minimumOrderCents})},200,true)}
  catch(e){if(e instanceof CheckoutValidationError)return problem(e.status,e.code,e.code==="PRODUCT_UNAVAILABLE"?"Produto indisponível ou não encontrado.":"Não é possível calcular este pedido.");throw e}
 }
+/** Minimal public readiness signal; no credentials, customers, payment IDs or secrets. */
+async function stagingReadiness(env){
+ if(!env.CATALOG_DB)return problem(503,"NOT_READY","Serviço temporariamente indisponível.");
+ const report=await env.CATALOG_DB.prepare(String.raw`SELECT
+  (SELECT COALESCE(MAX(version),0) FROM schema_migrations) AS schema_version,
+  (SELECT COUNT(*) FROM products WHERE is_published=1) AS active_products,
+  (SELECT COUNT(*) FROM sqlite_master WHERE type='trigger' AND name LIKE 'staging_block_%') AS staging_guards,
+  (SELECT COUNT(*) FROM commerce_orders) AS orders,
+  (SELECT COUNT(*) FROM commerce_payments) AS payments,
+  (SELECT COUNT(*) FROM delivery_outbox) AS pending_tasks,
+  (SELECT value FROM operational_settings WHERE key='orders_enabled') AS orders_enabled,
+  (SELECT value FROM operational_settings WHERE key='payments_enabled') AS payments_enabled,
+  (SELECT value FROM operational_settings WHERE key='customer_data_enabled') AS customer_data_enabled`).first();
+ const ready=report?.schema_version>=4&&report.active_products>0&&report.staging_guards>=6&&report.orders===0&&report.payments===0&&report.pending_tasks===0&&report.orders_enabled==="false"&&report.payments_enabled==="false"&&report.customer_data_enabled==="false";
+ return json({ok:ready,status:ready?"ready":"not_ready",environment:"staging",commerceEnabled:false},ready?200:503,true);
+}
+
 async function publicStoreConfig(env){
  const rows=await DB(env).prepare("SELECT key,value FROM operational_settings WHERE key IN ('orders_enabled','payments_enabled','tracking_enabled','catalog_reviewed')").all();
  const config=Object.fromEntries(rows.results.map(r=>[r.key,r.value==="true"]));
@@ -129,6 +146,7 @@ export default {async fetch(req,env){
  try{
    if(req.method==="GET"&&(p==="/"||p==="/index.html"))return new Response(FRONTEND_HTML,{headers:{...headers("text/html; charset=utf-8",true),"Content-Security-Policy":"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"}});
    if(p==="/api/health"&&req.method==="GET")return json({ok:true,service:"ck-sushi-backend",version:VERSION,environment:"staging",ordering:false},200,false);
+   if(p==="/api/health/ready"&&req.method==="GET")return stagingReadiness(env);
    if(p==="/api/catalog"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return catalog(env)}
    if(p==="/api/store/config"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return publicStoreConfig(env)}
    if(p==="/api/checkout/quote"&&req.method==="POST"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return checkoutQuote(req,env)}
@@ -140,8 +158,11 @@ export default {async fetch(req,env){
    if(req.method==="GET"&&p==="/robots.txt")return new Response("User-agent: *\nDisallow: /\n",{headers:headers("text/plain; charset=utf-8",true)});
    return problem(404,"NOT_FOUND","Rota inexistente.");
  }catch(error){
-   const known=/^(INVALID_|BODY_TOO_LARGE|UNEXPECTED_FIELD)/.test(error?.message||"");
-   if(!known)console.error("CK backend failure",p,String(error?.message||"unknown").slice(0,100));
-   return known?problem(422,"VALIDATION_ERROR","Confira os campos do produto e tente novamente."):problem(500,"INTERNAL_ERROR","Não foi possível concluir a operação.");
+   const reason=String(error?.message||"");
+   if(reason==="BODY_TOO_LARGE")return problem(413,"PAYLOAD_TOO_LARGE","O corpo da requisição excede o limite permitido.");
+   if(reason==="INVALID_JSON")return problem(400,"INVALID_JSON","JSON inválido.");
+   if(/^(INVALID_|UNEXPECTED_FIELD)/.test(reason))return problem(422,"VALIDATION_ERROR","Confira os campos enviados.");
+   console.error("CKSUSHI_BACKEND_INTERNAL_FAILURE",p);
+   return problem(500,"INTERNAL_ERROR","Não foi possível concluir a operação.");
  }
 }};
