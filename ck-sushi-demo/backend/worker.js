@@ -103,6 +103,10 @@ async function stagingReadiness(env){
 
 /** Mercado Pago test-only callback: signature + matching app + short-lived replay hash. */
 async function mpSandboxNotification(req,env){
+ if(!env.QUOTE_RATE_LIMIT)return problem(503,"RATE_LIMIT_NOT_CONFIGURED","Proteção de abuso indisponível.");
+ const ip=req.headers.get("CF-Connecting-IP")||"unknown";
+ const limit=await env.QUOTE_RATE_LIMIT.limit({key:"mp-test-webhook:"+ip});
+ if(!limit.success){const response=problem(429,"RATE_LIMITED","Muitas notificações em curto período.");response.headers.set("Retry-After","60");return response}
  if(!env.MP_TEST_WEBHOOK_SECRET||!env.MP_TEST_APPLICATION_ID)
   return problem(503,"MP_TEST_NOT_CONFIGURED","Integração de teste ainda não configurada.");
  if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de homologação indisponível.");
