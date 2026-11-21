@@ -40,6 +40,13 @@ test("order transition only from trusted actors and paid orders",()=>{
  assertCode(()=>validateTransition({from:"paid",to:"preparing",actor:"store",paymentStatus:"approved",fulfillment:"pickup"}),"ILLEGAL_ORDER_TRANSITION");
  assertCode(()=>validateTransition({from:"refund_pending",to:"refunded",actor:"store",paymentStatus:"approved",fulfillment:"pickup"}),"REFUND_NOT_VERIFIED");
 });
+test("only store advances kitchen and courier provider advances delivery",()=>{
+ assertCode(()=>validateTransition({from:"paid",to:"accepted",actor:"payment_provider",paymentStatus:"approved",fulfillment:"delivery"}),"STORE_ACTION_REQUIRED");
+ assertCode(()=>validateTransition({from:"awaiting_courier",to:"courier_assigned",actor:"store",paymentStatus:"approved",fulfillment:"delivery"}),"LOGISTICS_ACTION_REQUIRED");
+ assertCode(()=>validateTransition({from:"courier_assigned",to:"picked_up",actor:"store",paymentStatus:"approved",fulfillment:"delivery"}),"DELIVERY_REQUIRES_COURIER");
+ assertCode(()=>validateTransition({from:"picked_up",to:"delivered",actor:"logistics_provider",paymentStatus:"approved",fulfillment:"pickup"}),"DELIVERY_PROVIDER_CONFIRMATION_REQUIRED");
+ assert.deepEqual(validateTransition({from:"ready",to:"picked_up",actor:"store",paymentStatus:"approved",fulfillment:"pickup"}),{from:"ready",to:"picked_up",actor:"store"});
+});
 test("monetary validation and exact reference/merchant checks",()=>{
  assert.equal(parseBRLCents("109.90"),10990);assert.equal(parseBRLCents(19.9),1990);
  assertCode(()=>parseBRLCents("1.999"),"INVALID_PAYMENT_AMOUNT");
