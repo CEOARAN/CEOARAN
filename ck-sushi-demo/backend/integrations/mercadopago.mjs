@@ -9,12 +9,15 @@ function parseHeader(v){
  if(!values.ts||!values.v1||!/^\d{10,16}$/.test(values.ts))throw new PaymentValidationError("BAD_SIGNATURE_HEADER");
  return values;
 }
-export async function verifyMercadoPagoSignature({signature,requestId,dataId,secret,nowMs=Date.now(),maxAgeMs=7*86400_000}){
+export async function verifyMercadoPagoSignature({signature,requestId,dataId,secret,nowMs=Date.now(),maxAgeMs=300_000}){
  if(typeof secret!=="string"||secret.length<10)throw new PaymentValidationError("SECRET_NOT_CONFIGURED");
  if(typeof requestId!=="string"||!requestId.length||requestId.length>200)throw new PaymentValidationError("BAD_REQUEST_ID");
  if(typeof dataId!=="string"||!/^[A-Za-z0-9_-]{1,100}$/.test(dataId))throw new PaymentValidationError("BAD_DATA_ID");
  const {ts,v1}=parseHeader(signature),timestamp=Number(ts);
- if(!Number.isSafeInteger(timestamp)||timestamp>nowMs+300_000||nowMs-timestamp>maxAgeMs)throw new PaymentValidationError("STALE_SIGNATURE");
+ // Mercado Pago examples include seconds and milliseconds; preserve raw ts inside the signed manifest.
+ if(!/^(?:[0-9]{10}|[0-9]{13})$/.test(ts)||!Number.isSafeInteger(timestamp))throw new PaymentValidationError("BAD_SIGNATURE_TIMESTAMP");
+ const timestampMs=ts.length===10?timestamp*1000:timestamp;
+ if(timestampMs>nowMs+60_000||nowMs-timestampMs>maxAgeMs)throw new PaymentValidationError("STALE_SIGNATURE");
  // Per MP Webhooks documentation. Server must also query provider by ID and deduplicate events.
  const manifest="id:"+dataId.toLowerCase()+";request-id:"+requestId+";ts:"+ts+";";
  const key=await crypto.subtle.importKey("raw",encode.encode(secret),{name:"HMAC",hash:"SHA-256"},false,["verify"]);
