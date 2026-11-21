@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f7f7f8">
+<title>CK Sushi · Painel Administrativo</title>
+<link rel="stylesheet" href="/admin/style.css">
+<script src="/admin/app.js" defer></script>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="identity"><span class="monogram">CK</span><div><strong>CK SUSHI</strong><small>ADMIN CONSOLE</small></div></div>
+  <div class="side-label">GERENCIAMENTO</div>
+  <nav aria-label="Seções administrativas">
+    <button class="nav-item selected" type="button" data-tab="overview">Visão geral</button>
+    <button class="nav-item" type="button" data-tab="products">Produtos</button>
+    <button class="nav-item" type="button" data-tab="compliance">Privacidade e LGPD</button>
+    <button class="nav-item" type="button" data-tab="audit">Auditoria</button>
+  </nav>
+  <div class="side-bottom"><span class="mode-dot"></span> Ambiente de homologação <small>Nenhuma venda ou pagamento real</small></div>
+</aside>
+<div class="workspace">
+<header class="topbar">
+  <div><span class="breadcrumb">CK SUSHI</span> <span class="breadcrumb-sep">/</span> <strong id="section-heading">Visão geral</strong></div>
+  <div class="right-top"><span class="environment">STAGING</span><span id="session-status" class="session-status">Verificando acesso…</span></div>
+</header>
+<main class="main-content">
+<section class="security-banner" id="security-banner" role="status"><span class="lock-mark">!</span><div><strong id="security-title">Área administrativa protegida</strong><p id="security-desc">O acesso para edição requer autenticação Cloudflare Access com identidade aprovada. As informações públicas do catálogo podem ser visualizadas em modo de consulta.</p></div></section>
+<section class="tab active" id="tab-overview">
+  <div class="headline"><div><span class="eyebrow">PAINEL DE CONTROLE</span><h1>Visão geral<span class="red-dot">.</span></h1><p>Resumo dos produtos e da preparação para operação.</p></div><span class="edition">CK Sushi · v1.0</span></div>
+  <div class="stat-grid">
+    <article class="stat"><span>Total no catálogo</span><b id="stat-total">—</b><small>Produtos importados</small></article>
+    <article class="stat"><span>Categorias</span><b id="stat-categories">—</b><small>Organização do cardápio</small></article>
+    <article class="stat"><span>Promoções</span><b id="stat-promotions">—</b><small>Preço anterior cadastrado</small></article>
+    <article class="stat"><span>Pedidos reais</span><b>Desativados</b><small>Liberação após homologação</small></article>
+  </div>
+  <div class="two-col">
+    <article class="panel"><div class="panel-head"><div><h2>Comece pelo catálogo</h2><p>Confira preço, descrição e foto de cada produto.</p></div><button class="outline-btn" data-tab="products">Ver produtos</button></div><div id="recent-products" class="recent-products"></div></article>
+    <article class="panel"><h2>Segurança e implantação</h2><div class="check-lines"><p><span class="check-mark">✓</span> Dados de catálogo em banco separado</p><p><span class="check-mark">✓</span> Pedidos e cobranças bloqueados</p><p><span class="check-mark">✓</span> Escritas administrativas exigem autorização</p><p><span class="pending-mark">•</span> Habilitar política de identidade Access</p><p><span class="pending-mark">•</span> Validar contratos, dados da loja e LGPD</p><p><span class="pending-mark">•</span> Homologar pagamento e entrega</p></div></article>
+  </div>
+</section>
+<section class="tab" id="tab-products">
+ <div class="headline"><div><span class="eyebrow">CARDÁPIO</span><h1>Produtos<span class="red-dot">.</span></h1><p>Gerencie nomes, descrições, imagens e disponibilidade sem acessar o código.</p></div><button id="new-product" class="primary-btn" type="button" disabled>Novo produto +</button></div>
+ <div class="panel listing">
+  <div class="filters"><input id="product-search" aria-label="Pesquisar produto" placeholder="Buscar produto, categoria ou código…" type="search"><select id="category-filter" aria-label="Filtrar por categoria"><option value="Todas">Todas as categorias</option></select><span id="results-count"></span></div>
+  <div class="table-scroll"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Disponível</th><th>Ações</th></tr></thead><tbody id="product-rows"><tr><td colspan="5">Carregando catálogo…</td></tr></tbody></table></div>
+ </div>
+</section>
+<section class="tab" id="tab-compliance">
+ <div class="headline"><div><span class="eyebrow">GOVERNANÇA</span><h1>Privacidade e LGPD<span class="red-dot">.</span></h1><p>Controle de requisitos legais, antes da ativação comercial.</p></div></div>
+ <div class="two-col">
+ <article class="panel"><h2>Proteções implementadas</h2><div class="check-lines"><p><span class="check-mark">✓</span> Acesso a alterações validado pelo servidor</p><p><span class="check-mark">✓</span> Criptografia TLS no transporte</p><p><span class="check-mark">✓</span> Consultas parametrizadas no backend</p><p><span class="check-mark">✓</span> Histórico de alterações administrativas</p><p><span class="check-mark">✓</span> Bloqueio de compras e pagamentos reais</p></div></article>
+ <article class="panel"><h2>Pendências antes do lançamento</h2><div class="check-lines"><p><span class="pending-mark">•</span> Razão social, CNPJ, contatos e endereço oficial</p><p><span class="pending-mark">•</span> Identificar controlador, operador e canal do titular</p><p><span class="pending-mark">•</span> Aprovar avisos, prazos de guarda e descarte</p><p><span class="pending-mark">•</span> Formalizar fornecedores, transferências e pagamentos</p><p><span class="pending-mark">•</span> Testes independentes, cópias de segurança e resposta a incidentes</p></div></article></div>
+ <article class="panel compliance-note"><h2>Princípio de proteção</h2><p>Este ambiente não coleta informações de clientes ou aceita pedidos reais. Nenhum documento legal deve ser considerado aprovado apenas por existir no projeto. A operação exige avaliação das condições comerciais reais e revisão jurídica.</p><a href="https://www.gov.br/anpd/pt-br" rel="noopener noreferrer" target="_blank">Agência Nacional de Proteção de Dados</a></article>
+</section>
+<section class="tab" id="tab-audit">
+ <div class="headline"><div><span class="eyebrow">SEGURANÇA</span><h1>Registro de alterações<span class="red-dot">.</span></h1><p>Ações administrativas rastreáveis. A consulta exige permissão de proprietário.</p></div><button id="refresh-audit" class="outline-btn" type="button" disabled>Atualizar</button></div><article class="panel"><div id="audit-rows" class="audit-rows">Conecte uma conta proprietária autorizada para visualizar a auditoria.</div></article>
+</section>
+</main>
+<footer class="app-footer"><span>CK Sushi · ambiente de testes</span><span>Operação real desabilitada até aprovação técnica e jurídica.</span></footer>
+</div>
+</div>
+<dialog id="product-dialog" aria-label="Editar produto"><form id="product-form" method="dialog" novalidate>
+  <div class="dialog-header"><div><span class="eyebrow">EDITOR DE CARDÁPIO</span><h2 id="dialog-title">Editar produto</h2></div><button type="button" id="close-dialog" aria-label="Fechar">×</button></div>
+  <div class="dialog-scroll"><label>Nome<input id="field-name" required maxlength="180"></label><label>Descrição<textarea id="field-description" rows="4" maxlength="2000"></textarea></label><label>Categoria<input id="field-category" required maxlength="80"></label><div class="form-grid"><label>Preço (R$)<input id="field-price" type="number" min="0" max="1000000" step=".01" required></label><label>De (R$), opcional<input id="field-old-price" type="number" min="0" max="1000000" step=".01"></label></div><label>Imagem HTTPS (repositório autorizado)<input id="field-image" type="url" required></label><div class="form-grid"><label><input id="field-published" type="checkbox"> Visível no catálogo</label><label><input id="field-available" type="checkbox"> Disponível</label></div></div>
+  <div class="dialog-footer"><span id="save-status" role="status"></span><button type="button" class="outline-btn" id="cancel-dialog">Cancelar</button><button class="primary-btn" id="save-product" type="submit">Salvar alterações</button></div>
+</form></dialog>
+</body></html>
