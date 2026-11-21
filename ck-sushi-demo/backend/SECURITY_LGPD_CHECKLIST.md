@@ -55,3 +55,26 @@ Nenhum código elimina a possibilidade de vazamento, sanção ou processo. O ser
 
 ## Lançamento
 O projeto público atual `ck-sushi-demo` permanece sem integração real de backend. O backend de homologação é `ck-sushi-backend-staging`, acessível no caminho `/admin`. Integração de checkout real permanece deliberadamente desabilitada. A promoção para produção exige revisão de arquitetura, chave de criptografia, autorização administrativa real, testes de restauração, assinaturas e aceite formal.
+
+
+## Atualização de controles backend — 21/11/2026
+
+- [x] Cálculo de preços apenas no servidor, com inteiros em centavos. O endpoint de cotação não aceita preços enviados pelo navegador.
+- [x] Verificação de disponibilidade, quantidade máxima e duplicação de itens.
+- [x] Bloqueio de total de entrega sem cotação logística validada.
+- [x] Limitador de requisições Cloudflare sobre cotação; regra aproximada e regional, sujeita a homologação contra abuso real.
+- [x] Domínio de transições de pedidos com verificação do responsável por cada etapa.
+- [x] Validadores Mercado Pago para HMAC-SHA256, origem de pagamento, moeda e valor; sem recebimento/cobrança ativa.
+- [x] Criptografia AES-256-GCM pronta para integração futura, com não reutilização de nonces e vinculação ao pedido.
+- [x] Tokens de idempotência futuros com HMAC e segregação de operação.
+- [x] Migração 0002 aplicada, com restrições financeiras e auditoria SQL transacional.
+- [x] Testes de domínios e chamadas HTTP em staging concluídos; manter regressões sempre que houver alteração.
+- [ ] Assinar decisões de retenção, descarte, permissões, eliminação, identificação do controlador e notificações.
+- [ ] Revisar impactos de dados no provedor internacional de infraestrutura e eventuais mecanismos do art. 33 da LGPD.
+- [ ] Habilitar e homologar autenticação Cloudflare Access antes de liberar gerenciamento real.
+- [ ] Implantar backups regulares testados, monitoramento e procedimento de resposta a incidentes.
+- [ ] Habilitar integração Mercado Pago apenas após reunião com proprietário, conta, chaves e validação de conciliação.
+- [ ] Habilitar iFood somente após elegibilidade/credenciamento, aceitação de frete e testes de contingência.
+
+Nota LGPD: rate limiting usa IP momentaneamente como dado técnico de segurança, sem persistir IP no D1. Deve ser coberto pelo inventário de tratamento, contrato e aviso de privacidade conforme a operação efetiva.
+
