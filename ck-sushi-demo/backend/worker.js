@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.21.staging.3";
+const VERSION="2026.11.21.staging.4";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
@@ -101,6 +101,31 @@ async function stagingReadiness(env){
  return json({ok:ready,status:ready?"ready":"not_ready",environment:"staging",commerceEnabled:false},ready?200:503,true);
 }
 
+/** Mercado Pago test-only callback: signature + matching app + short-lived replay hash. */
+async function mpSandboxNotification(req,env){
+ if(!env.MP_TEST_WEBHOOK_SECRET||!env.MP_TEST_APPLICATION_ID)
+  return problem(503,"MP_TEST_NOT_CONFIGURED","Integração de teste ainda não configurada.");
+ if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de homologação indisponível.");
+ const length=Number(req.headers.get("Content-Length")||0);
+ if(length>8192)return problem(413,"PAYLOAD_TOO_LARGE","Evento de teste excede o tamanho permitido.");
+ if(!/^application\/json(?:;|$)/i.test(req.headers.get("Content-Type")||""))
+  return problem(415,"JSON_REQUIRED","É necessário JSON.");
+ let event;try{event=await bodyJSON(req)}catch(e){
+  if(e.message==="BODY_TOO_LARGE")return problem(413,"PAYLOAD_TOO_LARGE","Evento muito grande.");
+  return problem(400,"INVALID_JSON","Evento inválido.");
+ }
+ try{
+  const verified=await validateMercadoPagoTestWebhook({
+   url:req.url,headers:req.headers,body:event,webhookSecret:env.MP_TEST_WEBHOOK_SECRET,
+   applicationId:env.MP_TEST_APPLICATION_ID,verifySignature:verifyMercadoPagoSignature
+  });
+  return json(await recordMercadoPagoTestWebhook(env.CATALOG_DB,verified),200,true);
+ }catch(e){if(e instanceof MercadoPagoWebhookError)return problem(e.status,e.code,
+    e.status===503?"Verificação de teste indisponível.":"Notificação de teste recusada.");
+  throw e;
+ }
+}
+
 async function publicStoreConfig(env){
  const rows=await DB(env).prepare("SELECT key,value FROM operational_settings WHERE key IN ('orders_enabled','payments_enabled','tracking_enabled','catalog_reviewed')").all();
  const config=Object.fromEntries(rows.results.map(r=>[r.key,r.value==="true"]));
@@ -111,6 +136,15 @@ async function adminAPI(req,env,url){
  const auth=await validateAccess(req,env);if(auth.error)return auth.error;
  if(req.method!=="GET"&&!sameOriginMutation(req,auth.csrf))return problem(403,"CSRF_REJECTED","Origem ou token da requisição inválidos.");
  if(req.method==="GET"&&url.pathname==="/api/admin/session")return json({ok:true,email:auth.email,role:auth.role,csrf:auth.csrf,environment:"staging",ordersEnabled:false});
+ if(req.method==="GET"&&url.pathname==="/api/admin/integrations/mercadopago"){
+   return json({
+    ok:true,environment:"staging",provider:"mercadopago",api:"orders",
+    test_access_token_configured:typeof env.MP_TEST_ACCESS_TOKEN==="string"&&env.MP_TEST_ACCESS_TOKEN.length>16,
+    test_webhook_secret_configured:typeof env.MP_TEST_WEBHOOK_SECRET==="string"&&env.MP_TEST_WEBHOOK_SECRET.length>12,
+    test_application_id_configured:!!env.MP_TEST_APPLICATION_ID,
+    orders_enabled:false,payments_enabled:false,production_integrated:false
+   });
+ }
  if(req.method==="GET"&&url.pathname==="/api/admin/summary"){
    const [prod,settings]=await Promise.all([
      DB(env).prepare("SELECT COUNT(*) total, SUM(is_published) published, COUNT(DISTINCT category) categories, SUM(CASE WHEN old_price_cents IS NOT NULL THEN 1 ELSE 0 END) promotions FROM products").first(),
@@ -150,6 +184,7 @@ export default {async fetch(req,env){
    if(p==="/api/catalog"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return catalog(env)}
    if(p==="/api/store/config"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return publicStoreConfig(env)}
    if(p==="/api/checkout/quote"&&req.method==="POST"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return checkoutQuote(req,env)}
+   if(p==="/api/webhooks/mercadopago/test"&&req.method==="POST")return mpSandboxNotification(req,env);
    if(p==="/api/orders"||p==="/api/checkout"||p.startsWith("/api/payments"))return problem(503,"ORDERING_DISABLED","Pedidos e pagamentos reais não estão habilitados.");
    if(p.startsWith("/api/admin/")){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return await adminAPI(req,env,url)}
    if(req.method==="GET"&&(p==="/admin"||p==="/admin/"))return new Response(ADMIN_HTML,{headers:{...headers("text/html; charset=utf-8",true),"Content-Security-Policy":"default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com https://images.unsplash.com; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"}});
