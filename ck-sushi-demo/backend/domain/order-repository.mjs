@@ -4,6 +4,8 @@
  * D1 batch() is transactional: header + immutable lines + event insert all roll back together.
  * The staging migration 0003 separately blocks commerce INSERTs at the database level.
  */
+import {validateTransition} from "./order-machine.mjs";
+
 export class CommerceRepositoryError extends Error{
  constructor(code){super(code);this.name="CommerceRepositoryError";this.code=code;}
 }
