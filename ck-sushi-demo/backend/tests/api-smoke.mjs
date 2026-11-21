@@ -7,6 +7,10 @@ const ready=await request("/api/health/ready");assert(ready.status===200&&ready.
 const catalog=await request("/api/catalog");assert(catalog.status===200&&Array.isArray(catalog.data.products),"Catalog response failed");
 assert(catalog.data.products.length===103,"Catalog count mismatch: "+catalog.data.products.length);
 assert(catalog.data.products.every(p=>typeof p.price==="number"&&p.photo.startsWith("https://")),"Invalid catalog entries");
+const webhook=await request("/api/webhooks/mercadopago/test?type=order&data.id=ORD01TEST12345678901234",{
+ method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"order",live_mode:false,data:{id:"ORD01TEST12345678901234"}})
+});
+assert(webhook.status===503||webhook.status===429,"Staging webhook unexpectedly accepted without configured credentials");
 const admin=await request("/api/admin/session");assert([401,403,503].includes(admin.status),"Unauthenticated admin access unexpectedly allowed");
 const orders=await request("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customer:"do-not-store"})});assert(orders.status===503,"Customer orders unexpectedly enabled");
 const mutation=await request("/api/admin/products",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:"test"})});assert([401,403,503].includes(mutation.status),"Unauthenticated write unexpectedly allowed");
