@@ -67,3 +67,12 @@ A etapa de homologação já testou os contratos via navegador e API Cloudflare.
 **Bloqueios obrigatórios antes de produção:** Cloudflare Access com MFA e identidades autorizadas; contrato do restaurante como controlador (conforme análise fática); aviso de privacidade, retenção, direitos e revisão jurídica; conta Mercado Pago do restaurante e homologação Pix; habilitação efetiva da logística iFood; WAF, backups e restauração; testes de segurança, monitoramento e plano de resposta a incidentes.
 
 Sem isso, pedidos e pagamentos continuarão HTTP 503.
+
+
+## Integração iFood — validação preparada
+
+O módulo integrations/ifood.mjs interpreta cotações oficiais de entrega externa (On-Demand Off Platform), verifica validade temporal, quantidade em centavos, distância, prazo estimado e garante que o rastreamento pertença ao domínio HTTPS meupedido.ifood.com.br. Os dados são derivados da documentação oficial https://developer.ifood.com.br/en-US/docs/food/guides/modules/shipping/outside .
+
+A API exige acesso e elegibilidade aprovados pelo iFood; em staging o módulo NÃO solicita entregadores, não transmite endereços, não faz tracking ou cobranças, nem recebe dados pessoais. O frete do checkout permanece desconhecido até cotação autorizada.
+
+Testes automáticos: tests/ifood.test.mjs. O módulo participa do build do Worker, mas nenhuma rota de despacho está ativa.
