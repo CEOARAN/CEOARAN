@@ -646,6 +646,36 @@ body{background:#fff!important}
 .tracking-pending{display:inline-block;color:#817b7b;font-size:11px;background:#f6f6f6;border:1px solid #efefef;border-radius:9px;padding:9px 12px}
 @media(max-width:700px){.detail-cover .detail-image{height:210px}.detail-sheet{max-height:96dvh}.detail-content{padding:16px 20px max(22px,env(safe-area-inset-bottom))}.detail-content h2{font-size:22px!important}.detail-price{font-size:22px}.detail-description{font-size:11px}.detail-notes{min-height:82px}.detail-foot{gap:9px}.detail-foot .btn{font-size:11px;padding:0 10px}.ifood-delivery-card{padding:19px 16px;gap:12px}.ifood-delivery-card h3{font-size:16px}.ifood-delivery-card p{font-size:11px}.food-card{border-radius:14px!important}}
 
+
+/* CK Sushi V8: header without scroll progress and polished controls */
+.header{will-change:transform;transition:transform .25s cubic-bezier(.22,.8,.23,1),opacity .2s ease}
+.header.header-hidden{transform:translateY(calc(-100% - 3px));opacity:0;pointer-events:none}
+.scroll-progress{display:none!important}
+.favorite,.menu-grid.list .favorite{width:36px;height:36px;top:10px;right:10px;left:auto;border-radius:50%;border:1px solid #ece9e7;background:#fff;box-shadow:0 3px 12px rgba(21,16,18,.1);color:#353535;display:grid;place-items:center;z-index:3;padding:0}
+.favorite svg{width:20px;height:20px;stroke-width:1.85;fill:none;transition:fill .18s,stroke .18s,transform .18s}
+.favorite:hover{background:#fff;box-shadow:0 5px 18px #00000019;transform:translateY(-1px)}
+.favorite.active{background:#fff2f3;border-color:#f0ccd0;color:#b32432}
+.favorite.active svg{fill:#b32432;stroke:#b32432;transform:scale(1.04)}
+.add-square{display:grid;place-items:center;flex:none}
+.add-square svg{width:20px;height:20px;stroke-width:1.85}
+.food-bottom{align-items:center}
+.intro-arc{padding-top:24px;padding-bottom:2px}
+.intro-arc .section-heading{margin-bottom:10px}
+.intro-arc .section-heading h2{font-size:20px;margin-top:5px}
+.intro-arc .flavor-wheel{box-shadow:none}
+.home-featured{padding-top:26px}
+#app{padding-bottom:90px}
+@media(max-width:700px){
+ .favorite,.menu-grid.list .favorite{width:34px;height:34px;top:8px;right:8px;left:auto}
+ .favorite svg{width:19px;height:19px}
+ .header-actions .round-icon svg,.mobile-nav svg{stroke-width:1.9}
+ .intro-arc{padding-top:18px}
+ .intro-arc .section-heading h2{font-size:18px}
+ .intro-arc .flavor-wheel{margin:0 -6px!important}
+ #app{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){.header{transition:none}}
+
 </style></head><body>
 <div id="loader" role="status" aria-label="Preparando seu poke">
   <div class="load-scene">
@@ -680,7 +710,7 @@ body{background:#fff!important}
 <button class="round-icon" type="button" data-cart aria-label="Abrir carrinho"><span data-icon="bag"></span><span class="count-badge" id="cart-count" hidden></span></button>
 </div></div></header>
 <main id="app" class="page container"></main>
-<footer class="footer"><div class="container footer-inner"><div><b>CK SUSHI DELIVERY</b><div style="margin-top:5px">Sabor, simplicidade e uma nova experiência de pedido.</div><div class="agency-credit">Projeto digital: <strong>CEOARAN</strong></div></div><div>Fotos do cardápio original • Preços sujeitos a confirmação • Integrações reais ainda não disponíveis.</div></div></footer>
+
 <nav class="mobile-nav" aria-label="Navegação principal"><button data-route="home"><span data-icon="home"></span><span>Início</span></button><button data-route="menu"><span data-icon="grid"></span><span>Cardápio</span></button><button data-cart class="nav-cart"><span data-icon="bag"></span><span>Carrinho</span><i class="nav-cart-count" id="mobile-cart-count" hidden></i></button><button data-route="orders"><span data-icon="receipt"></span><span>Pedidos</span></button></nav>
 <button class="floating-cart" id="floating-cart" hidden data-cart><span id="floating-cart-count"></span><strong id="floating-cart-total"></strong><span aria-hidden="true">→</span></button>
 <div id="overlay" aria-live="polite"></div><div id="toast-zone" aria-live="polite"></div>
@@ -718,7 +748,8 @@ pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" c
 chevronLeft:'<path d="m15 18-6-6 6-6"/>',
 chevronRight:'<path d="m9 18 6-6-6-6"/>',
 sparkles:'<path d="m12 3 1.9 5.9L20 11l-6.1 2.1L12 19l-1.9-5.9L4 11l6.1-2.1L12 3Z"/><path d="M19 17v4m-2-2h4"/>',
-truck:'<path d="M10 17h4V5H2v12h2m10-8h4l4 4v4h-3m-11 0h8"/><circle cx="6" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>'
+truck:'<path d="M10 17h4V5H2v12h2m10-8h4l4 4v4h-3m-11 0h8"/><circle cx="6" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
+cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="19" cy="20" r="1.4"/><path d="M2 3h2l2.7 12.3A2 2 0 0 0 8.7 17H20M5.2 7H22l-2 8H6.8"/>'
 };
 function ic(n,size){return '<svg width="'+(size||18)+'" height="'+(size||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(svgpaths[n]||svgpaths.grid)+'</svg>'}
 const money=v=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v);
@@ -731,12 +762,13 @@ function save(){try{localStorage.setItem("ck3-cart",JSON.stringify(state.cart));
 function quantity(){return Object.values(state.cart).reduce((a,v)=>a+Number(v||0),0)}
 function subtotal(){return Object.keys(state.cart).reduce((sum,k)=>sum+(get(k)?.price||0)*(Number(state.cart[k]||0)),0)}
 function isFavorite(id){return state.favorites.includes(id)}
-function productCard(p){const old=p.oldPrice&&p.oldPrice>p.price?'<span class="old-price">'+money(p.oldPrice)+'</span>':'',tag=p.tag?'<span class="product-badge '+(p.tag==="Promoção"?"sale":"")+'">'+esc(p.tag)+'</span>':'';return '<article class="food-card"><button class="food-img '+(p.cat==="Bebidas"?"drink-photo":"")+'" data-product="'+p.id+'" aria-label="Ver detalhes: '+esc(p.name)+'"><img src="'+esc(p.photo)+'" data-fallback="'+esc(p.thumb||p.photo)+'" alt="Foto do produto '+esc(p.name)+'" loading="lazy" decoding="async" width="520" height="350">'+tag+'</button><button class="favorite '+(isFavorite(p.id)?"active":"")+'" aria-pressed="'+isFavorite(p.id)+'" data-favorite="'+p.id+'" aria-label="Favoritar '+esc(p.name)+'">'+ic("heart",16)+'</button><div class="food-body"><button class="food-name" data-product="'+p.id+'">'+esc(p.name)+'</button>'+(p.desc?'<p class="food-description">'+esc(p.desc)+'</p>':'<p class="food-description">Detalhes disponíveis com a loja</p>')+'<div class="food-bottom"><div class="price-stack">'+old+'<strong class="food-price">'+money(p.price)+'</strong></div><button class="add-square" aria-label="Adicionar '+esc(p.name)+'" data-add="'+p.id+'">'+ic("plus",17)+'</button></div></div></article>'}
+function productCard(p){const old=p.oldPrice&&p.oldPrice>p.price?'<span class="old-price">'+money(p.oldPrice)+'</span>':'',tag=p.tag?'<span class="product-badge '+(p.tag==="Promoção"?"sale":"")+'">'+esc(p.tag)+'</span>':'';return '<article class="food-card"><button class="food-img '+(p.cat==="Bebidas"?"drink-photo":"")+'" data-product="'+p.id+'" aria-label="Ver detalhes: '+esc(p.name)+'"><img src="'+esc(p.photo)+'" data-fallback="'+esc(p.thumb||p.photo)+'" alt="Foto do produto '+esc(p.name)+'" loading="lazy" decoding="async" width="520" height="350">'+tag+'</button><button type="button" class="favorite '+(isFavorite(p.id)?"active":"")+'" aria-pressed="'+isFavorite(p.id)+'" data-favorite="'+p.id+'" aria-label="'+(isFavorite(p.id)?"Remover dos favoritos: ":"Adicionar aos favoritos: ")+esc(p.name)+'">'+ic("heart",20)+'</button><div class="food-body"><button class="food-name" data-product="'+p.id+'">'+esc(p.name)+'</button>'+(p.desc?'<p class="food-description">'+esc(p.desc)+'</p>':'<p class="food-description">Detalhes disponíveis com a loja</p>')+'<div class="food-bottom"><div class="price-stack">'+old+'<strong class="food-price">'+money(p.price)+'</strong></div><button class="add-square" aria-label="Adicionar '+esc(p.name)+'" data-add="'+p.id+'">'+ic("plus",17)+'</button></div></div></article>'}
 
 
-const arcNames=["Combinados","Temakis","Pokes","Sashimis","Quentes","Entradas","Bebidas"];
+const arcNames=["Combinados","Combos","Temakis","Pokes","Sashimis","Quentes","Entradas","Bebidas"];
 const arcDescriptions={
 Combinados:"Peças para dividir, sabores para lembrar.",
+ Combos:"Combinações especiais para aproveitar.",
 Temakis:"Os clássicos em cada mordida.",
 Pokes:"Seu bowl, seu ritmo.",
 Sashimis:"Precisão e sabor na medida certa.",
@@ -745,7 +777,7 @@ Entradas:"Um bom começo para seu pedido.",
 Bebidas:"O acompanhamento ideal."
 };
 
-let arcActive=2,arcCaptionTimer=null;
+let arcActive=3,arcCaptionTimer=null;
 function arcPosition(index){const length=arcNames.length;let delta=(index-arcActive+length)%length;if(delta>Math.floor(length/2))delta-=length;return delta===0?"arc-position-0":delta===-1?"arc-position-neg1":delta===1?"arc-position-pos1":delta===-2?"arc-position-neg2":delta===2?"arc-position-pos2":delta===-3?"arc-position-farleft":"arc-position-farright"}
 function categoryTiles(){return '<div id="flavor-wheel" class="flavor-wheel" role="group" tabindex="0" aria-label="Categorias em arco. Deslize para os lados ou use as setas">'+arcNames.map((c,i)=>'<button class="flavor-arc-item '+arcPosition(i)+(i===arcActive?" active":"")+'" type="button" data-arc-select="'+i+'" aria-label="'+esc(c)+'" aria-pressed="'+(i===arcActive)+'"><span class="arc-photo"><img src="'+imageOptimized(pictures[c],250,82)+'" loading="lazy" decoding="async" alt="" width="108" height="108"></span><span>'+esc(c)+'</span></button>').join("")+
 '<div class="arc-caption" id="arc-caption" aria-live="polite"><strong id="arc-name">'+esc(arcNames[arcActive])+'</strong><p id="arc-desc">'+esc(arcDescriptions[arcNames[arcActive]])+'</p><div class="arc-controls"><button type="button" class="arc-nav" data-arc-step="-1" aria-label="Categoria anterior">'+ic("chevronLeft",17)+'</button><button type="button" class="arc-go" data-arc-open>Ver produtos '+ic("arrow",13)+'</button><button type="button" class="arc-nav" data-arc-step="1" aria-label="Próxima categoria">'+ic("chevronRight",17)+'</button></div><div class="arc-pips" aria-hidden="true">'+arcNames.map((_,i)=>'<i class="'+(i===arcActive?"active":"")+'"></i>').join("")+'</div></div></div>'}
@@ -771,9 +803,10 @@ const heroSlides=[
 let heroActive=0,heroBusy=false,heroAuto=null;
 function heroBlock(){const slide=heroSlides[heroActive];return '<section id="hero-deck" class="hero hero-deck reveal" aria-label="Destaques do cardápio"><img id="hero-photo" src="'+imageOptimized(slide.image,1000,80)+'" alt="Fotografia ilustrativa de culinária japonesa"><div class="hero-copy"><div class="eyebrow" id="hero-eyebrow">'+esc(slide.label)+'</div><h1 id="hero-title">'+slide.title+'</h1><p id="hero-subtitle">'+esc(slide.subtitle)+'</p><button class="btn btn-light" id="hero-cta" data-hero-open>'+esc(slide.cta)+' '+ic("arrow",14)+'</button></div><div class="hero-dots" role="group" aria-label="Alterar destaque">'+heroSlides.map((x,i)=>'<button type="button" data-hero-index="'+i+'" aria-label="Destaque '+(i+1)+': '+esc(x.label)+'" class="'+(i===heroActive?"on":"")+'"></button>').join("")+'</div><span class="hero-side-label">CK SUSHI · DELIVERY</span></section>'}
 function showHero(next){if(!document.getElementById("hero-deck")||heroBusy)return;next=(next+heroSlides.length)%heroSlides.length;if(next===heroActive)return;heroBusy=true;const wrap=document.getElementById("hero-deck");wrap.classList.add("hero-switch");setTimeout(()=>{heroActive=next;const slide=heroSlides[next];const photo=document.getElementById("hero-photo");if(photo){photo.src=imageOptimized(slide.image,1000,80);photo.alt="Fotografia ilustrativa: "+slide.category;}document.getElementById("hero-eyebrow").textContent=slide.label;document.getElementById("hero-title").innerHTML=slide.title;document.getElementById("hero-subtitle").textContent=slide.subtitle;document.getElementById("hero-cta").innerHTML=esc(slide.cta)+" "+ic("arrow",14);wrap.querySelectorAll("[data-hero-index]").forEach(b=>b.classList.toggle("on",Number(b.dataset.heroIndex)===next));requestAnimationFrame(()=>{wrap.classList.remove("hero-switch");heroBusy=false})},180)}
-function homePage(){return serviceHeader()+heroBlock()+quickCategories()+
+function homePage(){return serviceHeader()+heroBlock()+
+'<section class="section intro-arc" aria-label="Categorias em destaque"><div class="section-heading"><div><span class="eyebrow">Nossos sabores</span><h2>Escolha o seu favorito</h2></div></div>'+categoryTiles()+'</section>'+
 '<section class="section home-featured scroll-watch"><div class="section-heading"><div><h2>Destaques da CK</h2></div><button class="inline-link" data-route="menu">Ver todos '+ic("chevronRight",14)+'</button></div><div class="food-grid">'+d.filter(p=>p.featured).slice(0,4).map(productCard).join("")+'</div></section>'+
-'<section class="section home-discover scroll-watch"><div class="section-heading"><div><div class="eyebrow">Mais sabores</div><h2>Descubra pelo sabor</h2><p>Explore as categorias deslizando pelo arco.</p></div></div>'+categoryTiles()+'</section>'+
+
 '<section class="section scroll-watch"><div class="section-heading"><div><h2>Mais para você</h2><p>Escolhas especiais para completar seu pedido.</p></div><button class="inline-link" data-route="menu">Cardápio completo '+ic("chevronRight",14)+'</button></div><div class="food-grid">'+["CK-044","CK-040","CK-025","CK-088"].map(id=>get(id)).filter(Boolean).map(productCard).join("")+'</div></section><p class="footer-note">Fotos originais do cardápio e preços de referência, ainda não confirmados pelo restaurante.</p>'}
 function matching(){let a=d.filter(p=>(state.category==="Todos"||p.cat===state.category)&&(p.name+" "+p.desc+" "+p.cat).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().includes(state.query.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()));if(state.sort==="low")a.sort((x,y)=>x.price-y.price);else if(state.sort==="high")a.sort((x,y)=>y.price-x.price);else if(state.sort==="az")a.sort((x,y)=>x.name.localeCompare(y.name));else a.sort((x,y)=>Number(y.featured)-Number(x.featured));return a}
 function menuPage(){return '<div class="page-heading"><button class="back-link" data-route="home">'+ic("arrow",12).replace('M4 12h16M13 5l7 7-7 7','M20 12H4m7 7-7-7 7-7')+' Voltar</button><h1>Cardápio<span style="color:var(--red)">.</span></h1><p>Encontre seus favoritos sem complicação.</p></div>'+
@@ -808,7 +841,7 @@ function closePanel(){overlay.classList.remove("open");overlay.innerHTML="";docu
 function updatePanel(){if(!state.panel)return;const active=document.activeElement;const target=active?.getAttribute("data-change")||"";const note=state.panel==="detail"?document.getElementById("item-note")?.value:null;overlay.innerHTML=state.panel==="cart"?drawer():detail(get(state.productId));if(note!==null){const field=document.getElementById("item-note");if(field)field.value=note}if(target)overlay.querySelector('[data-change="'+target+'"]')?.focus()}
 function toast(message){const box=document.createElement("div");box.className="toast";box.innerHTML=ic("check",15)+"<span>"+esc(message)+"</span>";const host=document.getElementById("toast-zone");host.replaceChildren(box);setTimeout(()=>{box.style.opacity="0";box.style.transform="translateY(6px)";setTimeout(()=>box.remove(),200)},2400)}
 function add(id,n){const p=get(id);if(!p)return;state.cart[id]=Math.min(99,(Number(state.cart[id])||0)+n);if(state.cart[id]<=0){delete state.cart[id];delete state.notes[id]}save();sync();if(state.panel==="cart")updatePanel();if(state.route==="checkout")render()}
-function favorite(id){const index=state.favorites.indexOf(id);if(index===-1)state.favorites.push(id);else state.favorites.splice(index,1);save();if(state.route==="favorites")render();else document.querySelectorAll('[data-favorite="'+id+'"]').forEach(el=>{el.classList.toggle("active",isFavorite(id));el.setAttribute("aria-pressed",isFavorite(id))});sync()}
+function favorite(id){const index=state.favorites.indexOf(id);if(index===-1)state.favorites.push(id);else state.favorites.splice(index,1);save();if(state.route==="favorites")render();else document.querySelectorAll('[data-favorite="'+id+'"]').forEach(el=>{el.classList.toggle("active",isFavorite(id));el.setAttribute("aria-pressed",String(isFavorite(id)));el.setAttribute("aria-label",(isFavorite(id)?"Remover dos favoritos: ":"Adicionar aos favoritos: ")+(get(id)?.name||"produto"))});sync()}
 function processCheckout(form){if(!form.reportValidity())return;const fee=state.fulfillment==="delivery"?11:0;state.order={id:"#DEMO-"+String(Date.now()).slice(-6),quantity:quantity(),total:subtotal()+fee,pay:state.pay,fulfillment:state.fulfillment,stage:0};state.cart={};state.notes={};state.checkoutFields={};save();routeTo("orders");toast("Pedido de demonstração criado")}
 document.addEventListener("click",e=>{
 const arcStep=e.target.closest("[data-arc-step]");if(arcStep){updateArc(arcActive+Number(arcStep.dataset.arcStep));return}
@@ -845,8 +878,19 @@ document.addEventListener("pointermove",e=>{if(pointerTarget!=="arc"||pointerSta
 document.addEventListener("pointerup",e=>{if(pointerStartX===null)return;const wheel=document.getElementById("flavor-wheel");if(wheel){wheel.classList.remove("dragging");wheel.style.setProperty("--drag","0px")}const diff=e.clientX-pointerStartX;if(Math.abs(diff)>42){if(pointerTarget==="arc"&&document.getElementById("flavor-wheel")){suppressWheelClickUntil=Date.now()+330;updateArc(arcActive+(diff<0?1:-1))}if(pointerTarget==="hero"&&document.getElementById("hero-deck")){suppressHeroClickUntil=Date.now()+330;showHero(heroActive+(diff<0?1:-1))}}pointerStartX=null;pointerTarget=null},{passive:true});
 document.addEventListener("pointercancel",()=>{pointerStartX=null;pointerTarget=null;document.getElementById("flavor-wheel")?.classList.remove("dragging");document.getElementById("flavor-wheel")?.style.setProperty("--drag","0px")},{passive:true});
 document.addEventListener("keydown",e=>{if(document.activeElement?.id==="flavor-wheel"){if(e.key==="ArrowRight"){updateArc(arcActive+1);e.preventDefault()}if(e.key==="ArrowLeft"){updateArc(arcActive-1);e.preventDefault()}}});
-const header=document.querySelector(".header");header.insertAdjacentHTML("beforeend",'<div class="scroll-progress" id="scroll-progress"></div>');
-let scrollTick=false;window.addEventListener("scroll",()=>{if(scrollTick)return;scrollTick=true;requestAnimationFrame(()=>{const total=Math.max(1,document.documentElement.scrollHeight-innerHeight);document.getElementById("scroll-progress").style.width=Math.min(100,scrollY/total*100)+"%";scrollTick=false})},{passive:true});
+const header=document.querySelector(".header");
+let lastScrollTop=window.scrollY,headerRestTimer=null;
+function revealHeader(){header.classList.remove("header-hidden")}
+function handleHeaderScroll(){
+ const y=Math.max(0,window.scrollY),delta=y-lastScrollTop;
+ lastScrollTop=y;
+ clearTimeout(headerRestTimer);
+ if(y<25||document.body.classList.contains("no-scroll")){revealHeader();return}
+ if(delta>2)header.classList.add("header-hidden");
+ else if(delta< -2)revealHeader();
+ headerRestTimer=setTimeout(revealHeader,175);
+}
+window.addEventListener("scroll",handleHeaderScroll,{passive:true});
 if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){heroAuto=setInterval(()=>{if(state.route==="home"&&!document.hidden&&!state.panel)showHero(heroActive+1)},6500)}
 
 document.addEventListener("error",event=>{const img=event.target;if(img?.tagName==="IMG"&&img.dataset?.fallback){const fallback=img.dataset.fallback;img.removeAttribute("data-fallback");if(img.src!==fallback)img.src=fallback}},true);
