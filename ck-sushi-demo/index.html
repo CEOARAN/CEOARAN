@@ -676,6 +676,39 @@ body{background:#fff!important}
 }
 @media(prefers-reduced-motion:reduce){.header{transition:none}}
 
+
+/* Checkout final animation — demonstrative, never confirms payments */
+.checkout-finale{position:fixed;inset:0;z-index:190;display:grid;place-items:center;padding:22px;background:rgba(255,255,255,.98);color:#1c1c1c;animation:finale-enter .25s ease both}
+.checkout-finale.finale-leaving{animation:finale-exit .29s ease forwards}
+.finale-inner{width:min(435px,100%);text-align:center}
+.finale-flag{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid #ebd3d6;border-radius:99px;background:#fff7f8;color:#a72230;font:800 10px Manrope,sans-serif;letter-spacing:.055em}
+.finale-heading{font:750 clamp(23px,5vw,29px)/1.25 Sora,sans-serif;letter-spacing:-.05em;margin:18px 0 6px}
+.finale-description{font-size:12px;color:#7b7474}
+.finale-stage{position:relative;height:250px;margin:17px auto 3px;max-width:400px;display:grid;place-items:center;isolation:isolate}
+.finale-stage:before{content:"";position:absolute;left:50%;top:53%;width:225px;height:225px;transform:translate(-50%,-50%);background:radial-gradient(circle,#fcecee 0%,#fff5f6 55%,transparent 76%);border-radius:50%;z-index:-1}
+.finale-cart{position:relative;width:150px;height:150px;display:grid;place-items:center;color:#b32432;transform-origin:55% 90%}
+.finale-cart>svg{height:112px;width:112px;stroke-width:1.5;filter:drop-shadow(0 12px 10px #b3243214)}
+.finale-cart.is-full{animation:finale-bounce .65s cubic-bezier(.19,.89,.35,1.4)}
+.finale-cart.is-full:after{content:"";position:absolute;inset:5px;border:2px solid #d04c5d;border-radius:50%;animation:finale-ring .65s ease-out forwards;pointer-events:none}
+.finale-quantity{position:absolute;top:24px;right:11px;min-width:38px;height:38px;border-radius:50%;background:#b32432;color:#fff;border:4px solid #fff;display:grid;place-items:center;font:800 13px Sora,sans-serif;box-shadow:0 6px 16px #00000013}
+.finale-cart.pop{animation:finale-small-bounce .28s ease}
+.finale-fly-product{width:64px;height:64px;object-fit:cover;position:absolute;left:50%;top:46%;margin:-32px 0 0 -32px;border:3px solid #fff;border-radius:17px;box-shadow:0 7px 25px #00000021;pointer-events:none;animation:finale-fly .76s cubic-bezier(.33,.05,.22,1) var(--delay) both}
+.finale-progress{height:5px;overflow:hidden;border-radius:999px;background:#f0eeee;margin:2px 24px 15px}
+.finale-progress span{display:block;width:0;height:100%;background:#b32432;border-radius:999px;animation:finale-load var(--duration,2s) ease-in-out forwards}
+.finale-status{font-size:11px;color:#777;min-height:18px}
+@keyframes finale-enter{from{opacity:0}to{opacity:1}}
+@keyframes finale-exit{to{opacity:0;transform:scale(.985)}}
+@keyframes finale-fly{0%{opacity:0;transform:translate(var(--start-x),var(--start-y)) rotate(var(--rotation)) scale(.8)}20%{opacity:1}64%{opacity:1;transform:translate(0,-12px) rotate(5deg) scale(.88)}100%{opacity:0;transform:translate(0,20px) scale(.2) rotate(0)}}
+@keyframes finale-small-bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(6px) scale(.96)}75%{transform:translateY(-4px)}}
+@keyframes finale-bounce{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-14px) rotate(-7deg)}60%{transform:translateY(4px) rotate(5deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes finale-ring{0%{opacity:.7;transform:scale(.7)}100%{opacity:0;transform:scale(1.35)}}
+@keyframes finale-load{to{width:100%}}
+@media(prefers-reduced-motion:reduce){
+ .checkout-finale,.checkout-finale.finale-leaving,.finale-fly-product,.finale-cart.is-full,.finale-cart.pop,.finale-cart.is-full:after,.finale-progress span{animation:none!important}
+ .finale-fly-product{display:none}
+ .finale-progress span{width:100%}
+}
+
 </style></head><body>
 <div id="loader" role="status" aria-label="Preparando seu poke">
   <div class="load-scene">
@@ -842,7 +875,48 @@ function updatePanel(){if(!state.panel)return;const active=document.activeElemen
 function toast(message){const box=document.createElement("div");box.className="toast";box.innerHTML=ic("check",15)+"<span>"+esc(message)+"</span>";const host=document.getElementById("toast-zone");host.replaceChildren(box);setTimeout(()=>{box.style.opacity="0";box.style.transform="translateY(6px)";setTimeout(()=>box.remove(),200)},2400)}
 function add(id,n){const p=get(id);if(!p)return;state.cart[id]=Math.min(99,(Number(state.cart[id])||0)+n);if(state.cart[id]<=0){delete state.cart[id];delete state.notes[id]}save();sync();if(state.panel==="cart")updatePanel();if(state.route==="checkout")render()}
 function favorite(id){const index=state.favorites.indexOf(id);if(index===-1)state.favorites.push(id);else state.favorites.splice(index,1);save();if(state.route==="favorites")render();else document.querySelectorAll('[data-favorite="'+id+'"]').forEach(el=>{el.classList.toggle("active",isFavorite(id));el.setAttribute("aria-pressed",String(isFavorite(id)));el.setAttribute("aria-label",(isFavorite(id)?"Remover dos favoritos: ":"Adicionar aos favoritos: ")+(get(id)?.name||"produto"))});sync()}
-function processCheckout(form){if(!form.reportValidity())return;const fee=state.fulfillment==="delivery"?11:0;state.order={id:"#DEMO-"+String(Date.now()).slice(-6),quantity:quantity(),total:subtotal()+fee,pay:state.pay,fulfillment:state.fulfillment,stage:0};state.cart={};state.notes={};state.checkoutFields={};save();routeTo("orders");toast("Pedido de demonstração criado")}
+let checkoutFinishing=false;
+function processCheckout(form){
+ if(checkoutFinishing||!form.reportValidity()||quantity()<1)return;
+ checkoutFinishing=true;
+ const items=Object.entries(state.cart).filter(([id,q])=>get(id)&&q>0).map(([id,q])=>({id,quantity:q}));
+ const totalItems=quantity(),fee=state.fulfillment==="delivery"?11:0;
+ const draft={id:"#DEMO-"+String(Date.now()).slice(-6),quantity:totalItems,total:subtotal()+fee,pay:state.pay,fulfillment:state.fulfillment,stage:0,items,createdAt:new Date().toISOString()};
+ const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const featured=items.slice(0,6);
+ const flying=featured.map((item,i)=>{
+  const p=get(item.id),x=(i%2===0?-1:1)*(130+Math.floor(i/2)*27),y=(i%3===0?-95:80+Math.floor(i/2)*22);
+  return '<img class="finale-fly-product" src="'+esc(p.thumb||p.photo)+'" alt="" style="--start-x:'+x+'px;--start-y:'+y+'px;--rotation:'+(i%2?-19:17)+'deg;--delay:'+(i*.28)+'s">';
+ }).join("");
+ const duration=(.85+featured.length*.28).toFixed(2)+"s";
+ const finale=document.createElement("section");
+ finale.id="checkout-transition";finale.className="checkout-finale";finale.setAttribute("role","dialog");finale.setAttribute("aria-modal","true");finale.setAttribute("aria-labelledby","finale-title");finale.tabIndex=-1;
+ finale.innerHTML='<div class="finale-inner"><span class="finale-flag">PRÉVIA DO PEDIDO · SEM COBRANÇA</span><h2 class="finale-heading" id="finale-title">Preparando seu carrinho</h2><p class="finale-description">Organizando os seus favoritos</p><div class="finale-stage">'+flying+
+ '<div class="finale-cart" id="finale-cart">'+ic("cart",112)+'<span class="finale-quantity" id="finale-count">0</span></div></div>'+
+ '<div class="finale-progress"><span style="--duration:'+duration+'"></span></div><p class="finale-status" id="finale-status" aria-live="polite">Adicionando os produtos...</p></div>';
+ document.body.append(finale);document.body.classList.add("no-scroll");finale.focus({preventScroll:true});
+ let finished=false;
+ const finish=()=>{
+  if(finished)return;finished=true;
+  state.order=draft;state.cart={};state.notes={};state.checkoutFields={};save();
+  finale.classList.add("finale-leaving");
+  setTimeout(()=>{finale.remove();document.body.classList.remove("no-scroll");checkoutFinishing=false;routeTo("orders")},reduced?0:290);
+ };
+ const cartIcon=finale.querySelector("#finale-cart"),counter=finale.querySelector("#finale-count"),heading=finale.querySelector("#finale-title"),status=finale.querySelector("#finale-status");
+ const complete=()=>{
+  counter.textContent=String(totalItems);cartIcon.classList.remove("pop");cartIcon.classList.add("is-full");
+  heading.textContent="Tudo pronto no carrinho!";
+  status.textContent="Abrindo o acompanhamento demonstrativo";
+  setTimeout(finish,reduced?450:920);
+ };
+ if(reduced){complete();return}
+ featured.forEach((_,i)=>setTimeout(()=>{
+  counter.textContent=String(Math.max(1,Math.round((i+1)*totalItems/featured.length)));
+  cartIcon.classList.remove("pop");void cartIcon.offsetWidth;cartIcon.classList.add("pop");
+ },690+i*280));
+ setTimeout(complete,840+featured.length*280);
+}
+
 document.addEventListener("click",e=>{
 const arcStep=e.target.closest("[data-arc-step]");if(arcStep){updateArc(arcActive+Number(arcStep.dataset.arcStep));return}
 const arcChoice=e.target.closest("[data-arc-select]");if(arcChoice){if(Date.now()<suppressWheelClickUntil)return;const i=Number(arcChoice.dataset.arcSelect);if(i===arcActive){state.category=arcNames[i];routeTo("menu")}else updateArc(i);return}
