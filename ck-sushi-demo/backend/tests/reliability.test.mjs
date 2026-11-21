@@ -55,3 +55,28 @@ test("transition requires verified processor evidence",async()=>{
  const db=dbStub(["orders_enabled","payments_enabled","customer_data_enabled"].map(key=>({key,value:"true"})),{id:orderId,status:"pending_payment",payment_status:"pending",fulfillment:"delivery",version:1});
  await assertCode(transitionPersistedOrder(db,{orderId,to:"paid",actor:"payment_provider",expectedVersion:1,releaseApproved:true}),"PAYMENT_PROVIDER_EVIDENCE_REQUIRED");
 });
+
+test("successful verified payment transition writes status and event atomically",async()=>{
+ const settings=["orders_enabled","payments_enabled","customer_data_enabled"].map(key=>({key,value:"true"}));
+ const db=dbStub(settings,{id:orderId,status:"pending_payment",payment_status:"pending",fulfillment:"delivery",version:1});
+ let transactions=0;
+ db.batch=async statements=>{transactions++;assert.equal(statements.length,2);return [{meta:{changes:1}},{meta:{changes:1}}]};
+ const result=await transitionPersistedOrder(db,{orderId,to:"paid",actor:"payment_provider",expectedVersion:1,
+  providerEvidence:{verified:true,reconciled:true},releaseApproved:true});
+ assert.deepEqual(result,{orderId,status:"paid",version:2});
+ assert.equal(transactions,1);
+});
+test("invalid workflow transition never starts a database mutation",async()=>{
+ const settings=["orders_enabled","payments_enabled","customer_data_enabled"].map(key=>({key,value:"true"}));
+ const db=dbStub(settings,{id:orderId,status:"pending_payment",payment_status:"pending",fulfillment:"delivery",version:1});
+ db.batch=async()=>{throw Error("Unsafe database mutation")};
+ await assertCode(transitionPersistedOrder(db,{orderId,to:"accepted",actor:"store",expectedVersion:1,releaseApproved:true}),"ILLEGAL_ORDER_TRANSITION");
+ await assertCode(transitionPersistedOrder(db,{orderId,to:"paid",actor:"store",expectedVersion:1,releaseApproved:true}),"PAYMENT_NOT_CONFIRMED");
+});
+test("optimistic version conflicts are not acknowledged as completed transitions",async()=>{
+ const settings=["orders_enabled","payments_enabled","customer_data_enabled"].map(key=>({key,value:"true"}));
+ const db=dbStub(settings,{id:orderId,status:"pending_payment",payment_status:"pending",fulfillment:"delivery",version:1});
+ db.batch=async()=>[{meta:{changes:0}},{meta:{changes:0}}];
+ await assertCode(transitionPersistedOrder(db,{orderId,to:"paid",actor:"payment_provider",expectedVersion:1,
+  providerEvidence:{verified:true,reconciled:true},releaseApproved:true}),"TRANSITION_CONFLICT");
+});
