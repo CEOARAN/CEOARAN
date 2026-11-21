@@ -55,7 +55,8 @@ export function reconcilePixOrderResponse(provider,{orderId,totalCents,merchantI
     throw new MercadoPagoOrdersError("NOT_PIX_PAYMENT");
  if(parseMoneyCents(payment.amount)!==totalCents)
     throw new MercadoPagoOrdersError("PAYMENT_AMOUNT_MISMATCH");
- const accredited=provider.status==="processed"&&provider.status_detail==="accredited"&&
+ const accredited=PROVIDER_ID_RE.test(String(payment.id||""))&&
+  provider.status==="processed"&&provider.status_detail==="accredited"&&
   payment.status==="processed"&&payment.status_detail==="accredited"&&
   parseMoneyCents(provider.total_paid_amount)===totalCents;
  return {
