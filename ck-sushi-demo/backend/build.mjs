@@ -2,8 +2,8 @@
 // Run with Node 20+: node backend/build.mjs
 import {readFile,writeFile,mkdir} from "node:fs/promises";
 const file=x=>new URL(x,import.meta.url);
-const [worker,adminHTML,adminJS,adminCSS,frontendSource]=await Promise.all([
-  readFile(file("./worker.js"),"utf8"),readFile(file("./admin.html"),"utf8"),readFile(file("./admin.js"),"utf8"),readFile(file("./admin.css"),"utf8"),readFile(file("../index.html"),"utf8")
+const [worker,adminHTML,adminJS,adminCSS,quoteModule,orderModule,paymentModule,frontendSource]=await Promise.all([
+  readFile(file("./worker.js"),"utf8"),readFile(file("./admin.html"),"utf8"),readFile(file("./admin.js"),"utf8"),readFile(file("./admin.css"),"utf8"),readFile(file("./domain/quote.mjs"),"utf8"),readFile(file("./domain/order-machine.mjs"),"utf8"),readFile(file("./integrations/mercadopago.mjs"),"utf8"),readFile(file("../index.html"),"utf8")
 ]);
 const anchor="render();\nconst loaderEl=";
 if(!frontendSource.includes(anchor))throw new Error("Frontend sync anchor was removed; review changes before deploying.");
@@ -17,6 +17,8 @@ const bundle=[
   "const ADMIN_JS="+JSON.stringify(adminJS)+";",
   "const ADMIN_CSS="+JSON.stringify(adminCSS)+";",
   "const FRONTEND_HTML="+JSON.stringify(storefrontHTML)+";",
+  "// Pure domain modules inlined by the staging build",
+  ...[quoteModule,orderModule,paymentModule].map(src=>src.replace(/^export /gm,"")),
   worker
 ].join("\n");
 await mkdir(file("./dist"),{recursive:true});
