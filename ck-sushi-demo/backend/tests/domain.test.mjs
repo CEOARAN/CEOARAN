@@ -66,3 +66,15 @@ test("Mercado Pago webhook HMAC signature and stale verification",async()=>{
  assert.equal(await verifyMercadoPagoSignature({...params,dataId:"other"}),false);
  await assert.rejects(()=>verifyMercadoPagoSignature({...params,nowMs:Number(ts)+9*86400_000}),e=>e.code==="STALE_SIGNATURE");
 });
+
+
+test("Mercado Pago 10-digit timestamp in seconds is signed correctly",async()=>{
+ const secret="not_a_real_mercado_pago_secret",dataId="12345",requestId="secure-test",ts=String(Math.floor(Date.now()/1000));
+ const manifest="id:12345;request-id:secure-test;ts:"+ts+";";
+ const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(secret),{name:"HMAC",hash:"SHA-256"},false,["sign"]);
+ const digest=new Uint8Array(await crypto.subtle.sign("HMAC",key,new TextEncoder().encode(manifest)));
+ const hex=Array.from(digest,b=>b.toString(16).padStart(2,"0")).join("");
+ const p={signature:"ts="+ts+",v1="+hex,requestId,dataId,secret};
+ assert.equal(await verifyMercadoPagoSignature(p),true);
+ await assert.rejects(()=>verifyMercadoPagoSignature({...p,nowMs:Date.now()+3600_000}),e=>e.code==="STALE_SIGNATURE");
+});
