@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.21.staging.4",
-    "description": "No personal data collection, order creation or real payments. Amounts in cents. Edit operations require Cloudflare Access JWT and anti-CSRF."
+    "version": "2026.11.21.staging.5",
+    "description": "Homologação de catálogo e cotação; Pix e pedidos reais bloqueados. Mercado Pago Orders API preparada em módulos puros, webhook test-only assinado e limpeza diária de fingerprints temporários."
   },
   "servers": [
     {
