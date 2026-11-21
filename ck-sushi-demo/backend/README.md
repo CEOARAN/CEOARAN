@@ -98,3 +98,15 @@ Documento operacional: **[Plano da CEOARAN, plano do cliente e roteiro da reuni�
 **Produção NÃO está configurada.** Criar Worker e banco independentes somente depois dos testes e da revisão jurídica. Administradores do Worker podem executar código que tenha acesso a Secrets em runtime; isso exige segregação de privilégios e contrato, mesmo que a pessoa não conheça a senha bancária do cliente.
 
 Fontes: https://www.mercadopago.com.br/developers/pt/docs/checkout-api-payments/overview • https://www.mercadopago.com.br/developers/pt/docs/checkout-api-orders/integration-test/pix • https://www.mercadopago.com.br/developers/pt/docs/checkout-api-orders/notifications • https://developers.cloudflare.com/workers/configuration/secrets/
+
+## Rotina automática de retenção dos webhooks de teste
+
+O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudflare `0 3 * * *` (03:00 UTC, 00:00 em São Paulo).
+
+- A tarefa executa `jobs/staging-maintenance.mjs`: verifica que não existem pedidos, pagamentos ou jobs comerciais no staging; em seguida remove apenas fingerprints de webhook com `expires_at` vencido.
+- Os IDs originais de eventos, dados do comprador e o corpo de webhook não são persistidos nessa tabela. A rotina registra a contagem de hashes expirados removidos em `maintenance_runs`.
+- A configuração do Cron Trigger foi confirmada por API em 21/11/2026. A primeira execução real dependerá do próximo horário após a propagação da Cloudflare; **a execução agendada ainda não foi observada** nesta implantação.
+- Não reaproveitar esta tarefa como política completa de retenção para pedidos reais. Produção exige inventário LGPD, prazos por finalidade e testes de exclusão.
+- O D1 disponibiliza Time Travel/recuperação pontual (Free: 7 dias; Paid: 30 dias). Antes de produção, definir exportação independente, testar restauração e documentar RPO/RTO. Fonte: https://developers.cloudflare.com/d1/reference/time-travel/
+
+**Segurança de segredos:** após cadastrá-los no Cloudflare, revisar o procedimento de deploy para preservar os bindings existentes, conferir nomes e evitar expor valores. No momento não há credenciais Mercado Pago instaladas; o Worker de staging só aceita simulações assinadas após configuração. O CI de GitHub compila e testa, mas não executa deploy nem troca Secrets.
