@@ -41,3 +41,29 @@ Os 103 produtos são dados públicos coletados do menu original e não foram apr
 
 ## Regressão e publicação
 O Worker atual de demonstração `ck-sushi-demo` **não é alterado** por este serviço de homologação. Nunca aplicar o banco `ck-sushi-staging` ao ambiente de produção. Para publicar um novo build, validar os testes, a política Access e o diff da migração antes de atualizar o Worker.
+
+## Iteração técnica 2 — APIs de preço, domínio de pedidos e segurança
+
+**Implementado em homologação (sem pedidos reais):**
+- POST /api/checkout/quote — orçamento calculado pelo banco D1, sem confiar em preço, desconto ou frete enviado pelo navegador. Valida produtos disponíveis, quantidade, duplicações, origem e JSON.
+- GET /api/store/config — confirma que pedidos, pagamentos e rastreamento real estão bloqueados.
+- Rate Limiting Binding QUOTE_RATE_LIMIT — limite aproximado de 120 requisições por 60 segundos, por chave de cliente e localidade Cloudflare. Trata-se de proteção complementar, não de bloqueio distribuído rigoroso. O endereço IP usado na chave não é persistido no D1.
+- Migrations/0002_commerce.sql — tabela de pedidos comerciais, itens, pagamentos, eventos, entregas, outbox e índices únicos. A migração foi aplicada, mas as tabelas comerciais seguem sem dados.
+- Auditoria atômica de produtos via triggers SQL D1; a gravação de auditoria ocorre na própria alteração da linha.
+- domain/order-machine.mjs — máquina de estados com regras de atores para cozinha, logística, pagamentos e reembolsos.
+- integrations/mercadopago.mjs — validação de assinatura HMAC, valor, moeda, conta recebedora e referências; ainda não gera Pix nem processa webhook real.
+- security/customer-crypto.mjs — AES-256-GCM com nonce aleatório, dados mínimos autorizados e contexto criptográfico vinculado ao ID do pedido. Não é utilizado em captação de dados reais neste ambiente.
+- security/idempotency.mjs — hashes HMAC por operação para futuras chamadas financeiras idempotentes.
+- openapi.json — contrato machine-readable das rotas públicas e administrativas.
+
+**Testes reproduzíveis (Node >=20, sem pacotes de terceiros):**
+    cd ck-sushi-demo/backend
+    npm test
+    npm run build
+    npm run smoke
+
+A etapa de homologação já testou os contratos via navegador e API Cloudflare. Não há configuração de credenciais, login administrativo ou dados pessoais no código.
+
+**Bloqueios obrigatórios antes de produção:** Cloudflare Access com MFA e identidades autorizadas; contrato do restaurante como controlador (conforme análise fática); aviso de privacidade, retenção, direitos e revisão jurídica; conta Mercado Pago do restaurante e homologação Pix; habilitação efetiva da logística iFood; WAF, backups e restauração; testes de segurança, monitoramento e plano de resposta a incidentes.
+
+Sem isso, pedidos e pagamentos continuarão HTTP 503.
