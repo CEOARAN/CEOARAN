@@ -1,5 +1,6 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.21.staging.1";
+const VERSION="2026.11.21.staging.2";
+/* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
 const ROLE_RANK={viewer:0,editor:1,owner:2};
@@ -61,6 +62,30 @@ async function bodyJSON(req){
 async function audit(db,actor,action,id,detail=""){await db.prepare("INSERT INTO admin_audit (actor,action,entity_type,entity_id,detail) VALUES (?,?,?,?,?)").bind(actor,action,"product",id,detail).run()}
 function dbRow(p){return {id:p.id,name:p.name,desc:p.description,cat:p.category,price:p.price_cents/100,oldPrice:p.old_price_cents===null?null:p.old_price_cents/100,photo:p.image_url,thumb:p.thumbnail_url,tag:p.tag,featured:p.sort_order<4,isPublished:!!p.is_published,isAvailable:!!p.is_available,version:p.version,updatedAt:p.updated_at}}
 async function catalog(env){const result=await DB(env).prepare("SELECT * FROM products WHERE is_published=1 ORDER BY sort_order,id LIMIT 500").all();return json({ok:true,mode:"homologacao",ordersEnabled:false,products:result.results.map(dbRow)},200,false)}
+
+/** Public pricing preview: no names, address, phone, or payment data accepted/stored. */
+async function checkoutQuote(req,env){
+ const origin=new URL(req.url).origin;
+ if(req.headers.get("Origin")!==origin||req.headers.get("Sec-Fetch-Site")==="cross-site")return problem(403,"ORIGIN_DENIED","Origem de checkout inválida.");
+ if(!/^application\/json(?:;|$)/i.test(req.headers.get("Content-Type")||""))return problem(415,"JSON_REQUIRED","Envie JSON válido.");
+ let cart;
+ try {cart=parseQuoteRequest(await bodyJSON(req))}
+ catch(e){if(e instanceof CheckoutValidationError)return problem(e.status,e.code,"Carrinho inválido. Confira itens e quantidades.");throw e}
+ const ids=cart.items.map(x=>x.product_id);
+ const sql="SELECT id,name,price_cents,is_published,is_available FROM products WHERE id IN ("+ids.map(()=>"?").join(",")+")";
+ const found=await DB(env).prepare(sql).bind(...ids).all();
+ let settings=await DB(env).prepare("SELECT value FROM operational_settings WHERE key='minimum_order_cents'").first();
+ let minimumOrderCents=settings?Number(settings.value):0;
+ if(!Number.isSafeInteger(minimumOrderCents)||minimumOrderCents<0)return problem(503,"STORE_CONFIGURATION_INVALID","Regra de pedido mínimo inválida.");
+ try{return json({ok:true,quote:computeQuote(cart,found.results,{minimumOrderCents})},200,true)}
+ catch(e){if(e instanceof CheckoutValidationError)return problem(e.status,e.code,e.code==="PRODUCT_UNAVAILABLE"?"Produto indisponível ou não encontrado.":"Não é possível calcular este pedido.");throw e}
+}
+async function publicStoreConfig(env){
+ const rows=await DB(env).prepare("SELECT key,value FROM operational_settings WHERE key IN ('orders_enabled','payments_enabled','tracking_enabled','catalog_reviewed')").all();
+ const config=Object.fromEntries(rows.results.map(r=>[r.key,r.value==="true"]));
+ return json({ok:true,environment:"staging",currency:"BRL",orders_enabled:false,payments_enabled:false,tracking_enabled:false,catalog_reviewed:config.catalog_reviewed??false,fulfillment_modes:["pickup","delivery"],delivery_quotation_available:false},200,false);
+}
+
 async function adminAPI(req,env,url){
  const auth=await validateAccess(req,env);if(auth.error)return auth.error;
  if(req.method!=="GET"&&!sameOriginMutation(req,auth.csrf))return problem(403,"CSRF_REJECTED","Origem ou token da requisição inválidos.");
@@ -82,17 +107,15 @@ async function adminAPI(req,env,url){
  }
  if(req.method==="POST"&&url.pathname==="/api/admin/products"){
    const b=await bodyJSON(req);const p=normalizeProduct(b);const id="CK-ADM-"+crypto.randomUUID();
-   await DB(env).prepare("INSERT INTO products(id,name,description,category,price_cents,old_price_cents,image_url,thumbnail_url,tag,is_published,is_available,sort_order) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)").bind(id,p.name,p.description,p.category,p.price_cents,p.old_price_cents,p.image_url,p.thumbnail_url,p.tag,p.is_published,p.is_available,9999).run();
-   await audit(DB(env),auth.email,"create",id,"Produto cadastrado");const row=await DB(env).prepare("SELECT * FROM products WHERE id=?").bind(id).first();return json({ok:true,product:dbRow(row)},201);
+   await DB(env).prepare("INSERT INTO products(id,name,description,category,price_cents,old_price_cents,image_url,thumbnail_url,tag,is_published,is_available,sort_order,last_modified_by) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)").bind(id,p.name,p.description,p.category,p.price_cents,p.old_price_cents,p.image_url,p.thumbnail_url,p.tag,p.is_published,p.is_available,9999,auth.email).run();const row=await DB(env).prepare("SELECT * FROM products WHERE id=?").bind(id).first();return json({ok:true,product:dbRow(row)},201);
  }
  const productId=url.pathname.match(/^\/api\/admin\/products\/([A-Za-z0-9_-]{3,90})$/);
  if(req.method==="PATCH"&&productId){
    const id=productId[1],existing=await DB(env).prepare("SELECT * FROM products WHERE id=?").bind(id).first();if(!existing)return problem(404,"NOT_FOUND","Produto não localizado");
    const b=await bodyJSON(req);if(!Number.isInteger(b.version)||b.version!==existing.version)return problem(409,"VERSION_CONFLICT","Produto alterado desde a última leitura; atualize antes de salvar.");
    const p=normalizeProduct(b,existing);
-   const result=await DB(env).prepare("UPDATE products SET name=?,description=?,category=?,price_cents=?,old_price_cents=?,image_url=?,thumbnail_url=?,tag=?,is_published=?,is_available=?,version=version+1,updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE id=? AND version=?").bind(p.name,p.description,p.category,p.price_cents,p.old_price_cents,p.image_url,p.thumbnail_url,p.tag,p.is_published,p.is_available,id,b.version).run();
-   if(result.meta.changes!==1)return problem(409,"VERSION_CONFLICT","Alteração concorrente detectada.");
-   await audit(DB(env),auth.email,"update",id,"Produto atualizado / versão "+(b.version+1));const row=await DB(env).prepare("SELECT * FROM products WHERE id=?").bind(id).first();return json({ok:true,product:dbRow(row)});
+   const result=await DB(env).prepare("UPDATE products SET name=?,description=?,category=?,price_cents=?,old_price_cents=?,image_url=?,thumbnail_url=?,tag=?,is_published=?,is_available=?,last_modified_by=?,version=version+1,updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE id=? AND version=?").bind(p.name,p.description,p.category,p.price_cents,p.old_price_cents,p.image_url,p.thumbnail_url,p.tag,p.is_published,p.is_available,auth.email,id,b.version).run();
+   if(result.meta.changes!==1)return problem(409,"VERSION_CONFLICT","Alteração concorrente detectada.");const row=await DB(env).prepare("SELECT * FROM products WHERE id=?").bind(id).first();return json({ok:true,product:dbRow(row)});
  }
  return problem(404,"NOT_FOUND","Rota administrativa desconhecida.");
 }
@@ -103,6 +126,8 @@ export default {async fetch(req,env){
    if(req.method==="GET"&&(p==="/"||p==="/index.html"))return new Response(FRONTEND_HTML,{headers:{...headers("text/html; charset=utf-8",true),"Content-Security-Policy":"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"}});
    if(p==="/api/health"&&req.method==="GET")return json({ok:true,service:"ck-sushi-backend",version:VERSION,environment:"staging",ordering:false},200,false);
    if(p==="/api/catalog"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return catalog(env)}
+   if(p==="/api/store/config"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return publicStoreConfig(env)}
+   if(p==="/api/checkout/quote"&&req.method==="POST"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return checkoutQuote(req,env)}
    if(p==="/api/orders"||p==="/api/checkout"||p.startsWith("/api/payments"))return problem(503,"ORDERING_DISABLED","Pedidos e pagamentos reais não estão habilitados.");
    if(p.startsWith("/api/admin/")){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return await adminAPI(req,env,url)}
    if(req.method==="GET"&&(p==="/admin"||p==="/admin/"))return new Response(ADMIN_HTML,{headers:{...headers("text/html; charset=utf-8",true),"Content-Security-Policy":"default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com https://images.unsplash.com; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"}});
