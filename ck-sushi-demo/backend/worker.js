@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.21.staging.4";
+const VERSION="2026.11.21.staging.5";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
@@ -204,4 +204,9 @@ export default {async fetch(req,env){
    console.error("CKSUSHI_BACKEND_INTERNAL_FAILURE",p);
    return problem(500,"INTERNAL_ERROR","Não foi possível concluir a operação.");
  }
-}};
+},
+ async scheduled(controller,env){
+   if(!env.CATALOG_DB)throw Error("STAGING_MAINTENANCE_DB_UNAVAILABLE");
+   await runStagingMaintenance(env.CATALOG_DB,controller?.scheduledTime??Date.now());
+ }
+};
