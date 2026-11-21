@@ -18,7 +18,7 @@ const bundle=[
   "const ADMIN_CSS="+JSON.stringify(adminCSS)+";",
   "const FRONTEND_HTML="+JSON.stringify(storefrontHTML)+";",
   "// Pure domain modules inlined by the staging build",
-  ...[quoteModule,orderModule,outboxModule,repositoryModule,paymentModule,ifoodModule,customerCryptoModule,idempotencyModule,maintenanceModule].map(src=>src.replace(/^export /gm,"")),
+  ...[quoteModule,orderModule,outboxModule,repositoryModule,paymentModule,mpOrdersModule,mpTestWebhookModule,ifoodModule,customerCryptoModule,idempotencyModule,maintenanceModule].map(src=>src.replace(/^export /gm,"").replace(/^import \{validateTransition\} from "\.\/order-machine\.mjs";\s*$/gm,"")),
   worker
 ].join("\n");
 await mkdir(file("./dist"),{recursive:true});
