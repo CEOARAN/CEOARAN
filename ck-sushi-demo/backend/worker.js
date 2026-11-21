@@ -48,7 +48,16 @@ async function validateAccess(request,env){
  }catch{return {error:problem(401,"INVALID_ACCESS_TOKEN","Falha na validação da sessão Cloudflare Access.")}}
 }
 function sameOriginMutation(req,csrf){const origin=req.headers.get("Origin");if(origin!==new URL(req.url).origin)return false;if(req.headers.get("X-CSRF-Token")!==csrf)return false;if(req.headers.get("Sec-Fetch-Site")==="cross-site")return false;return /^application\/json(?:;|$)/i.test(req.headers.get("Content-Type")||"")}
-async function bodyJSON(req){const text=await req.text();if(te.encode(text).byteLength>8192)throw Error("BODY_TOO_LARGE");try{return JSON.parse(text)}catch{throw Error("INVALID_JSON")}}
+async function bodyJSON(req){
+  const limit=8192,declared=Number(req.headers.get("Content-Length")||0);
+  if(declared>limit)throw Error("BODY_TOO_LARGE");
+  if(!req.body)throw Error("INVALID_JSON");
+  const reader=req.body.getReader();const chunks=[];let total=0;
+  try {while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>limit){await reader.cancel();throw Error("BODY_TOO_LARGE")}chunks.push(value)}}
+  finally{reader.releaseLock()}
+  const bytes=new Uint8Array(total);let pos=0;for(const chunk of chunks){bytes.set(chunk,pos);pos+=chunk.length}
+  try{return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(bytes))}catch{throw Error("INVALID_JSON")}
+}
 async function audit(db,actor,action,id,detail=""){await db.prepare("INSERT INTO admin_audit (actor,action,entity_type,entity_id,detail) VALUES (?,?,?,?,?)").bind(actor,action,"product",id,detail).run()}
 function dbRow(p){return {id:p.id,name:p.name,desc:p.description,cat:p.category,price:p.price_cents/100,oldPrice:p.old_price_cents===null?null:p.old_price_cents/100,photo:p.image_url,thumb:p.thumbnail_url,tag:p.tag,featured:p.sort_order<4,isPublished:!!p.is_published,isAvailable:!!p.is_available,version:p.version,updatedAt:p.updated_at}}
 async function catalog(env){const result=await DB(env).prepare("SELECT * FROM products WHERE is_published=1 ORDER BY sort_order,id LIMIT 500").all();return json({ok:true,mode:"homologacao",ordersEnabled:false,products:result.results.map(dbRow)},200,false)}
