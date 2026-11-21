@@ -1,0 +1,40 @@
+name: CK Sushi Backend — CI
+on:
+  push:
+    branches:
+      - ck-sushi-demo
+    paths:
+      - 'ck-sushi-demo/backend/**'
+      - 'ck-sushi-demo/index.html'
+      - '.github/workflows/ck-sushi-backend-ci.yml'
+  pull_request:
+    paths:
+      - 'ck-sushi-demo/backend/**'
+      - 'ck-sushi-demo/index.html'
+permissions:
+  contents: read
+concurrency:
+  group: ck-sushi-backend-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ck-sushi-demo/backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit tests
+        run: npm test
+      - name: Generate Worker bundle
+        run: npm run build
+      - name: Verify built bundle parses
+        run: |
+          test -s dist/worker.js
+          node --check dist/worker.js
