@@ -91,6 +91,7 @@ export default {async fetch(req,env){
  const url=new URL(req.url),p=url.pathname;
  if(req.method==="OPTIONS")return problem(405,"METHOD_NOT_ALLOWED","Não há CORS liberado para esta API.");
  try{
+   if(req.method==="GET"&&(p==="/"||p==="/index.html"))return new Response(FRONTEND_HTML,{headers:{...headers("text/html; charset=utf-8",true),"Content-Security-Policy":"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"}});
    if(p==="/api/health"&&req.method==="GET")return json({ok:true,service:"ck-sushi-backend",version:VERSION,environment:"staging",ordering:false},200,false);
    if(p==="/api/catalog"&&req.method==="GET"){if(!env.CATALOG_DB)return problem(503,"DATABASE_NOT_CONFIGURED","Banco de dados indisponível.");return catalog(env)}
    if(p==="/api/orders"||p==="/api/checkout"||p.startsWith("/api/payments"))return problem(503,"ORDERING_DISABLED","Pedidos e pagamentos reais não estão habilitados.");
