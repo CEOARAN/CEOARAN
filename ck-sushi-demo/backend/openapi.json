@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.21.staging.2",
+    "version": "2026.11.21.staging.3",
     "description": "No personal data collection, order creation or real payments. Amounts in cents. Edit operations require Cloudflare Access JWT and anti-CSRF."
   },
   "servers": [
@@ -102,6 +102,9 @@
               }
             }
           },
+          "400": {
+            "description": "JSON inválido"
+          },
           "403": {
             "description": "Blocked by design",
             "content": {
@@ -121,6 +124,9 @@
                 }
               }
             }
+          },
+          "413": {
+            "description": "JSON acima do limite de 8 KiB"
           },
           "415": {
             "description": "Blocked by design",
@@ -465,6 +471,43 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/health/ready": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "description": "No secrets or customer data. Returns 200 only if schema migration v4 and staging DB write-blocking triggers are intact, catalog exists, and all real commerce flags remain off.",
+        "responses": {
+          "200": {
+            "description": "Homologação pronta, transações reais bloqueadas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "const": true
+                    },
+                    "status": {
+                      "const": "ready"
+                    },
+                    "environment": {
+                      "const": "staging"
+                    },
+                    "commerceEnabled": {
+                      "const": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Homologação indisponível ou proteções ausentes"
           }
         }
       }
