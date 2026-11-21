@@ -65,6 +65,10 @@ async function catalog(env){const result=await DB(env).prepare("SELECT * FROM pr
 
 /** Public pricing preview: no names, address, phone, or payment data accepted/stored. */
 async function checkoutQuote(req,env){
+ if(!env.QUOTE_RATE_LIMIT)return problem(503,"RATE_LIMIT_NOT_CONFIGURED","Proteção de limite de consultas indisponível.");
+ const ip=req.headers.get("CF-Connecting-IP")||"unknown";
+ const limit=await env.QUOTE_RATE_LIMIT.limit({key:"checkout:"+ip});
+ if(!limit.success){const response=problem(429,"RATE_LIMITED","Muitas consultas em um período curto. Tente novamente depois.");response.headers.set("Retry-After","60");return response}
  const origin=new URL(req.url).origin;
  if(req.headers.get("Origin")!==origin||req.headers.get("Sec-Fetch-Site")==="cross-site")return problem(403,"ORIGIN_DENIED","Origem de checkout inválida.");
  if(!/^application\/json(?:;|$)/i.test(req.headers.get("Content-Type")||""))return problem(415,"JSON_REQUIRED","Envie JSON válido.");
