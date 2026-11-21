@@ -124,6 +124,14 @@ A **Public Key** não é segredo. Para Pix pela Orders API com chamadas exclusiv
 7. O cliente deseja administrar a infraestrutura na própria conta Cloudflare ou autoriza formalmente a hospedagem na conta CEOARAN?
 8. O cliente confirma que senhas, 2FA, saldo e banco ficam exclusivamente com ele?
 
+## Atenção: titularidade financeira e infraestrutura
+
+**Ter a aplicação e a conta bancária em nome do cliente não impede que um Access Token de produção seja usado pelo administrador do código que o acessa em runtime.** Se o Worker e o código estiverem sob uma conta Cloudflare administrada pela CEOARAN, a empresa operadora terá capacidade técnica de executar chamadas de pagamento via token, mesmo sem saber a senha do Mercado Pago ou visualizar o saldo no aplicativo.
+
+Por isso, para produção, a opção de menor dependência é: **Cloudflare em conta controlada pelo cliente**, papéis de equipe com privilégios mínimos para a CEOARAN, credenciais guardadas como Secret, revisão de mudanças e contrato formal de prestação de serviços com responsabilidade, revogação e auditoria. Se o cliente escolher operar em infraestrutura CEOARAN, isso precisa de **consentimento comercial explícito, responsabilidades documentadas, restrição de acessos e revisão jurídica**. Não prometer ausência absoluta de acesso financeiro apenas porque o token está em Secret.
+
+Na chamada de configuração: o cliente deve inserir os valores em campo protegido **de preferência dentro da própria conta Cloudflare**, sem compartilhar a tela enquanto o token está visível. A CEOARAN orienta os menus e os nomes de variáveis. Nenhuma credencial deve ser transcrita para chat ou nota de reunião.
+
 ## Regras de segurança inegociáveis
 
 - Não colocar tokens em GitHub, logs, query strings, frontend, IA/chat, e-mail, gravações, prints ou planilhas.
