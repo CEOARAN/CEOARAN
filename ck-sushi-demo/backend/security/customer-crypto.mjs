@@ -5,7 +5,7 @@
  */
 export class CustomerCryptoError extends Error{constructor(code){super(code);this.name="CustomerCryptoError";this.code=code}}
 const customerEncoder=new TextEncoder(),customerDecoder=new TextDecoder("utf-8",{fatal:true});
-function fromB64(b){if(typeof b!=="string"||!/^[a-zA-Z0-9+/_=-]{20,120}$/.test(b))throw new CustomerCryptoError("INVALID_KEY");try{return Uint8Array.from(atob(b.replace(/-/g,"+").replace(/_/g,"/")),x=>x.charCodeAt(0))}catch{throw new CustomerCryptoError("INVALID_KEY")}}
+function fromB64(b){if(typeof b!=="string"||!/^[a-zA-Z0-9+/_=-]{8,8000}$/.test(b))throw new CustomerCryptoError("INVALID_KEY");try{return Uint8Array.from(atob(b.replace(/-/g,"+").replace(/_/g,"/")),x=>x.charCodeAt(0))}catch{throw new CustomerCryptoError("INVALID_KEY")}}
 function toURL(bytes){return btoa(String.fromCharCode(...bytes)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 async function getKey(secret){const bytes=fromB64(secret);if(bytes.length!==32)throw new CustomerCryptoError("INVALID_KEY_LENGTH");return crypto.subtle.importKey("raw",bytes,{name:"AES-GCM",length:256},false,["encrypt","decrypt"])}
 function contextFor(orderId){if(typeof orderId!=="string"||!/^[A-Za-z0-9_-]{4,100}$/.test(orderId))throw new CustomerCryptoError("INVALID_ORDER_ID");return customerEncoder.encode("CKSUSHI:customer:v1:"+orderId)}
