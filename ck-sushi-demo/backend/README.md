@@ -76,3 +76,25 @@ O módulo integrations/ifood.mjs interpreta cotações oficiais de entrega exter
 A API exige acesso e elegibilidade aprovados pelo iFood; em staging o módulo NÃO solicita entregadores, não transmite endereços, não faz tracking ou cobranças, nem recebe dados pessoais. O frete do checkout permanece desconhecido até cotação autorizada.
 
 Testes automáticos: tests/ifood.test.mjs. O módulo participa do build do Worker, mas nenhuma rota de despacho está ativa.
+
+## Integração Mercado Pago — preparo da reunião (Orders API Pix)
+
+A Orders API é a opção recomendada pelo Mercado Pago para novas integrações Checkout Transparente. A antiga Payments API permanece apenas como validador legado. **Nenhum pagamento foi ativado**.
+
+Documento operacional: **[Plano da CEOARAN, plano do cliente e roteiro da reunião](operations/PLANO_OPERACAO_MERCADO_PAGO.md)**.
+
+### Componentes adicionados ao backend
+- `integrations/mercadopago-orders.mjs`: prepara payload Pix Orders e reconcilia referência, valor, usuário vendedor e status da resposta do provedor. Sem saída de rede e sem gerar cobranças.
+- `integrations/mercadopago-test-webhook.mjs`: valida assinatura, aplicação e sandbox; armazena apenas um hash temporário para deduplicar o evento. Nunca altera pedidos/pagamentos.
+- `GET /api/admin/integrations/mercadopago`: autenticado via Cloudflare Access e retorna apenas indicadores de configuração, nunca valores de credenciais.
+- `POST /api/webhooks/mercadopago/test`: endpoint HTTPS específico de TESTE; sem secrets retorna 503. Quando configurado, só reconhece eventos de teste assinados.
+
+### Configuração segura, apenas no staging
+- `MP_TEST_ACCESS_TOKEN` — **Secret** obtido no ambiente Teste da aplicação do restaurante.
+- `MP_TEST_WEBHOOK_SECRET` — **Secret** gerado no formulário de Webhooks de Teste.
+- `MP_TEST_APPLICATION_ID` — variável comum com o identificador da aplicação.
+- `MP_TEST_MERCHANT_ID` — variável opcional para verificação futura do titular recebedor.
+
+**Produção NÃO está configurada.** Criar Worker e banco independentes somente depois dos testes e da revisão jurídica. Administradores do Worker podem executar código que tenha acesso a Secrets em runtime; isso exige segregação de privilégios e contrato, mesmo que a pessoa não conheça a senha bancária do cliente.
+
+Fontes: https://www.mercadopago.com.br/developers/pt/docs/checkout-api-payments/overview • https://www.mercadopago.com.br/developers/pt/docs/checkout-api-orders/integration-test/pix • https://www.mercadopago.com.br/developers/pt/docs/checkout-api-orders/notifications • https://developers.cloudflare.com/workers/configuration/secrets/
