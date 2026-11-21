@@ -5,7 +5,7 @@
   "source": {
     "url": "https://instadelivery.com.br/cksushidelivery",
     "snapshotDate": "2026-11-21",
-    "images": "Miniaturas originais do cardápio; substituição por fotografias de alta qualidade pendente de revisão"
+    "images": "Imagem principal original em maior resolução quando disponível, com miniatura original para fallback; recomenda-se confirmar autorização e aprovação de uso para produção."
   },
   "approval": "A validar com o restaurante antes de ativar pedidos e pagamentos reais",
   "fields": {
@@ -29,11 +29,12 @@
       "cat": "Novidades",
       "price": 99.9,
       "oldPrice": 119.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924471686c3ef789d78_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924471686c3ef789d78.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924471686c3ef789d78_75_75.jpeg"
     },
     {
       "id": "CK-006",
@@ -42,11 +43,12 @@
       "cat": "Novidades",
       "price": 64.9,
       "oldPrice": 79.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924565686c3f55489cd_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924565686c3f55489cd.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924565686c3f55489cd_75_75.jpeg"
     },
     {
       "id": "CK-007",
@@ -55,11 +57,12 @@
       "cat": "Novidades",
       "price": 89.9,
       "oldPrice": 99.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751984152686d2818c7dd5_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751984152686d2818c7dd5.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751984152686d2818c7dd5_75_75.jpeg"
     },
     {
       "id": "CK-SRC-004",
@@ -68,11 +71,12 @@
       "cat": "Novidades",
       "price": 94.9,
       "oldPrice": 109.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924687686c3fcf74ef1_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924687686c3fcf74ef1.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924687686c3fcf74ef1_75_75.jpeg"
     },
     {
       "id": "CK-SRC-005",
@@ -81,11 +85,12 @@
       "cat": "Novidades",
       "price": 89.9,
       "oldPrice": 98.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924794686c403a4146d_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924794686c403a4146d.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924794686c403a4146d_75_75.jpeg"
     },
     {
       "id": "CK-SRC-006",
@@ -94,11 +99,12 @@
       "cat": "Novidades",
       "price": 29.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924880686c4090309ef_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924880686c4090309ef.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751924880686c4090309ef_75_75.jpeg"
     },
     {
       "id": "CK-011",
@@ -107,11 +113,12 @@
       "cat": "Novidades",
       "price": 54.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751925045686c4135659d5_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751925045686c4135659d5.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Novidades CK Sushi"
+      "sourceCategory": "Novidades CK Sushi",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1751925045686c4135659d5_75_75.jpeg"
     },
     {
       "id": "CK-SRC-008",
@@ -120,11 +127,12 @@
       "cat": "Promoções",
       "price": 42.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528200665f66887fcaa_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528200665f66887fcaa.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Itens em dobro"
+      "sourceCategory": "Itens em dobro",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528200665f66887fcaa_75_75.jpeg"
     },
     {
       "id": "CK-SRC-009",
@@ -133,11 +141,12 @@
       "cat": "Promoções",
       "price": 49.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528316665f66fcdf2a0_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528316665f66fcdf2a0.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Itens em dobro"
+      "sourceCategory": "Itens em dobro",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528316665f66fcdf2a0_75_75.jpeg"
     },
     {
       "id": "CK-SRC-010",
@@ -146,11 +155,12 @@
       "cat": "Promoções",
       "price": 39.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528442665f677a9df1c_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528442665f677a9df1c.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Itens em dobro"
+      "sourceCategory": "Itens em dobro",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528442665f677a9df1c_75_75.jpeg"
     },
     {
       "id": "CK-SRC-011",
@@ -159,11 +169,12 @@
       "cat": "Promoções",
       "price": 39.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528540665f67dc27219_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528540665f67dc27219.jpeg",
       "tag": "Mais pedido",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Itens em dobro"
+      "sourceCategory": "Itens em dobro",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528540665f67dc27219_75_75.jpeg"
     },
     {
       "id": "CK-SRC-012",
@@ -172,11 +183,12 @@
       "cat": "Promoções",
       "price": 54.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528730665f689aea23a_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528730665f689aea23a.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Itens em dobro"
+      "sourceCategory": "Itens em dobro",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528730665f689aea23a_75_75.jpeg"
     },
     {
       "id": "CK-SRC-013",
@@ -185,11 +197,12 @@
       "cat": "Promoções",
       "price": 34.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528855665f691767b76_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528855665f691767b76.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Itens em dobro"
+      "sourceCategory": "Itens em dobro",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717528855665f691767b76_75_75.jpeg"
     },
     {
       "id": "CK-018",
@@ -198,11 +211,12 @@
       "cat": "Combinados",
       "price": 42.9,
       "oldPrice": 49.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302666763b85c6b24216_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302666763b85c6b24216.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "combinados"
+      "sourceCategory": "combinados",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302666763b85c6b24216_75_75.jpeg"
     },
     {
       "id": "CK-SRC-015",
@@ -211,11 +225,12 @@
       "cat": "Combinados",
       "price": 59.9,
       "oldPrice": 64.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302694663b85d8283445_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302694663b85d8283445.jpeg",
       "tag": "Mais pedido",
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "combinados"
+      "sourceCategory": "combinados",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302694663b85d8283445_75_75.jpeg"
     },
     {
       "id": "CK-020",
@@ -224,11 +239,12 @@
       "cat": "Combinados",
       "price": 79.9,
       "oldPrice": 89.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302727163b85ec7ee4d7_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302727163b85ec7ee4d7.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "combinados"
+      "sourceCategory": "combinados",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302727163b85ec7ee4d7_75_75.jpeg"
     },
     {
       "id": "CK-SRC-017",
@@ -237,11 +253,12 @@
       "cat": "Combinados",
       "price": 89.9,
       "oldPrice": 99.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302775063b860a67e27e_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302775063b860a67e27e.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "combinados"
+      "sourceCategory": "combinados",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302775063b860a67e27e_75_75.jpeg"
     },
     {
       "id": "CK-SRC-018",
@@ -250,11 +267,12 @@
       "cat": "Combinados",
       "price": 22.9,
       "oldPrice": 29.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302802363b861b7da01c_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302802363b861b7da01c.jpeg",
       "tag": "Promoção",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "combinados"
+      "sourceCategory": "combinados",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/167302802363b861b7da01c_75_75.jpeg"
     },
     {
       "id": "CK-SRC-019",
@@ -263,11 +281,12 @@
       "cat": "Combinados",
       "price": 78.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138906196627e53b934df_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138906196627e53b934df.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "combinados"
+      "sourceCategory": "combinados",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138906196627e53b934df_75_75.jpeg"
     },
     {
       "id": "CK-SRC-020",
@@ -276,11 +295,12 @@
       "cat": "Pokes",
       "price": 49.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/FRa37UNLtDGcsYHVy7R0MOuWqRWDvgCUPpdtBOuh_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/FRa37UNLtDGcsYHVy7R0MOuWqRWDvgCUPpdtBOuh.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/FRa37UNLtDGcsYHVy7R0MOuWqRWDvgCUPpdtBOuh_75_75.jpeg"
     },
     {
       "id": "CK-025",
@@ -289,11 +309,12 @@
       "cat": "Pokes",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/171372944266256fa227117_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/171372944266256fa227117.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/171372944266256fa227117_75_75.jpeg"
     },
     {
       "id": "CK-SRC-022",
@@ -302,11 +323,12 @@
       "cat": "Pokes",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731449662577798df5e_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731449662577798df5e.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731449662577798df5e_75_75.jpeg"
     },
     {
       "id": "CK-027",
@@ -315,11 +337,12 @@
       "cat": "Pokes",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731561662577e9c0dda_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731561662577e9c0dda.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731561662577e9c0dda_75_75.jpeg"
     },
     {
       "id": "CK-028",
@@ -328,11 +351,12 @@
       "cat": "Pokes",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17137316786625785e375d9_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17137316786625785e375d9.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17137316786625785e375d9_75_75.jpeg"
     },
     {
       "id": "CK-SRC-025",
@@ -341,11 +365,12 @@
       "cat": "Pokes",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731804662578dcdf0d7_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731804662578dcdf0d7.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1713731804662578dcdf0d7_75_75.jpeg"
     },
     {
       "id": "CK-003",
@@ -354,11 +379,12 @@
       "cat": "Pokes",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846038667382560f213_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846038667382560f213.jpeg",
       "tag": null,
       "featured": true,
       "needsReview": true,
-      "sourceCategory": "Poke especial !!!!"
+      "sourceCategory": "Poke especial !!!!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846038667382560f213_75_75.jpeg"
     },
     {
       "id": "CK-SRC-027",
@@ -367,11 +393,12 @@
       "cat": "Combos",
       "price": 32.9,
       "oldPrice": 49.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/S4gWHhapaNNSeKRxLKBQY3NlSEEWKgz0cyE3gJCR_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/S4gWHhapaNNSeKRxLKBQY3NlSEEWKgz0cyE3gJCR.jpeg",
       "tag": "Promoção",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "combos"
+      "sourceCategory": "combos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/S4gWHhapaNNSeKRxLKBQY3NlSEEWKgz0cyE3gJCR_75_75.jpeg"
     },
     {
       "id": "CK-SRC-028",
@@ -393,11 +420,12 @@
       "cat": "Combos",
       "price": 59.9,
       "oldPrice": 74.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Dvk1CQocQzdohcBMMWhryCRVz9hH7E48blUqVuiw_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Dvk1CQocQzdohcBMMWhryCRVz9hH7E48blUqVuiw.jpeg",
       "tag": "Promoção",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "combos"
+      "sourceCategory": "combos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Dvk1CQocQzdohcBMMWhryCRVz9hH7E48blUqVuiw_75_75.jpeg"
     },
     {
       "id": "CK-SRC-030",
@@ -406,11 +434,12 @@
       "cat": "Combos",
       "price": 44.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Vj3bw8BaUUhpmOvwEzzYrI7irIK19L4RNBuNto24_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Vj3bw8BaUUhpmOvwEzzYrI7irIK19L4RNBuNto24.jpeg",
       "tag": "Promoção",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "combos"
+      "sourceCategory": "combos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Vj3bw8BaUUhpmOvwEzzYrI7irIK19L4RNBuNto24_75_75.jpeg"
     },
     {
       "id": "CK-004",
@@ -419,11 +448,12 @@
       "cat": "Combos",
       "price": 59.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529794665f6cc2ca554_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529794665f6cc2ca554.jpeg",
       "tag": "Mais pedido",
       "featured": true,
       "needsReview": false,
-      "sourceCategory": "combos"
+      "sourceCategory": "combos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529794665f6cc2ca554_75_75.jpeg"
     },
     {
       "id": "CK-SRC-032",
@@ -432,11 +462,12 @@
       "cat": "Combos",
       "price": 49.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529910665f6d369fe6f_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529910665f6d369fe6f.jpeg",
       "tag": "Promoção",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "combos"
+      "sourceCategory": "combos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529910665f6d369fe6f_75_75.jpeg"
     },
     {
       "id": "CK-001",
@@ -445,11 +476,12 @@
       "cat": "Combinados",
       "price": 109.9,
       "oldPrice": 189.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737218616678bda380f78e_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737218616678bda380f78e.jpeg",
       "tag": "Mais pedido",
       "featured": true,
       "needsReview": true,
-      "sourceCategory": "combinados mais pedido !!"
+      "sourceCategory": "combinados mais pedido !!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737218616678bda380f78e_75_75.jpeg"
     },
     {
       "id": "CK-SRC-034",
@@ -458,11 +490,12 @@
       "cat": "Combinados",
       "price": 79.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222103678be7d73f7cf_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222103678be7d73f7cf.jpeg",
       "tag": "Mais pedido",
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "combinados mais pedido !!"
+      "sourceCategory": "combinados mais pedido !!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222103678be7d73f7cf_75_75.jpeg"
     },
     {
       "id": "CK-002",
@@ -471,11 +504,12 @@
       "cat": "Combinados",
       "price": 54.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222431678be91f1618b_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222431678be91f1618b.jpeg",
       "tag": "Novidade",
       "featured": true,
       "needsReview": false,
-      "sourceCategory": "combinados mais pedido !!"
+      "sourceCategory": "combinados mais pedido !!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222431678be91f1618b_75_75.jpeg"
     },
     {
       "id": "CK-SRC-036",
@@ -484,11 +518,12 @@
       "cat": "Combinados",
       "price": 88.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222623678be9dfeb819_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222623678be9dfeb819.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "combinados mais pedido !!"
+      "sourceCategory": "combinados mais pedido !!",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737222623678be9dfeb819_75_75.jpeg"
     },
     {
       "id": "CK-037",
@@ -497,11 +532,12 @@
       "cat": "Rodízio",
       "price": 79.9,
       "oldPrice": 99.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138911636627e75b1e2dd_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138911636627e75b1e2dd.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "Rodízio por Delivery"
+      "sourceCategory": "Rodízio por Delivery",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138911636627e75b1e2dd_75_75.jpeg"
     },
     {
       "id": "CK-038",
@@ -510,11 +546,12 @@
       "cat": "Rodízio",
       "price": 169.9,
       "oldPrice": 199.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138914496627e87990a26_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138914496627e87990a26.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "Rodízio por Delivery"
+      "sourceCategory": "Rodízio por Delivery",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138914496627e87990a26_75_75.jpeg"
     },
     {
       "id": "CK-SRC-039",
@@ -523,11 +560,12 @@
       "cat": "Rodízio",
       "price": 68.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138918386627e9fe764b0_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138918386627e9fe764b0.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": true,
-      "sourceCategory": "Rodízio por Delivery"
+      "sourceCategory": "Rodízio por Delivery",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17138918386627e9fe764b0_75_75.jpeg"
     },
     {
       "id": "CK-040",
@@ -536,11 +574,12 @@
       "cat": "Sashimis",
       "price": 29.9,
       "oldPrice": 38.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/odQXJIDMKhQQ8ajQ6XOTXPgp4ErhA4QTBEfjyDmp_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/odQXJIDMKhQQ8ajQ6XOTXPgp4ErhA4QTBEfjyDmp.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sashimis"
+      "sourceCategory": "Sashimis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/odQXJIDMKhQQ8ajQ6XOTXPgp4ErhA4QTBEfjyDmp_75_75.jpeg"
     },
     {
       "id": "CK-041",
@@ -549,11 +588,12 @@
       "cat": "Sashimis",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/PtRseCRIyf13jzBTsYCVK9ATeEpAYu8aKlhX0SlX_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/PtRseCRIyf13jzBTsYCVK9ATeEpAYu8aKlhX0SlX.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sashimis"
+      "sourceCategory": "Sashimis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/PtRseCRIyf13jzBTsYCVK9ATeEpAYu8aKlhX0SlX_75_75.jpeg"
     },
     {
       "id": "CK-042",
@@ -562,11 +602,12 @@
       "cat": "Sashimis",
       "price": 34.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529967665f6d6f5e154_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529967665f6d6f5e154.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sashimis"
+      "sourceCategory": "Sashimis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717529967665f6d6f5e154_75_75.jpeg"
     },
     {
       "id": "CK-SRC-043",
@@ -575,11 +616,12 @@
       "cat": "Sashimis",
       "price": 28.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846155667382cb9028e_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846155667382cb9028e.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sashimis"
+      "sourceCategory": "Sashimis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846155667382cb9028e_75_75.jpeg"
     },
     {
       "id": "CK-044",
@@ -588,11 +630,12 @@
       "cat": "Temakis",
       "price": 28.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223039678beb7fc7445_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223039678beb7fc7445.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223039678beb7fc7445_75_75.jpeg"
     },
     {
       "id": "CK-045",
@@ -601,11 +644,12 @@
       "cat": "Temakis",
       "price": 28.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/F5QLKSj4akQ2DS2xfqUXTVvxGnrFQ94ocskwrevt_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/F5QLKSj4akQ2DS2xfqUXTVvxGnrFQ94ocskwrevt.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/F5QLKSj4akQ2DS2xfqUXTVvxGnrFQ94ocskwrevt_75_75.jpeg"
     },
     {
       "id": "CK-046",
@@ -614,11 +658,12 @@
       "cat": "Temakis",
       "price": 35.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668108683636d518b2e674_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668108683636d518b2e674.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668108683636d518b2e674_75_75.jpeg"
     },
     {
       "id": "CK-SRC-047",
@@ -627,11 +672,12 @@
       "cat": "Temakis",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/C7z1xxlQlDky7cQCBgdNzrDLnbMJGf1BseXL2TJB_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/C7z1xxlQlDky7cQCBgdNzrDLnbMJGf1BseXL2TJB.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/C7z1xxlQlDky7cQCBgdNzrDLnbMJGf1BseXL2TJB_75_75.jpeg"
     },
     {
       "id": "CK-048",
@@ -640,11 +686,12 @@
       "cat": "Temakis",
       "price": 28.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223063678beb9717a32_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223063678beb9717a32.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223063678beb9717a32_75_75.jpeg"
     },
     {
       "id": "CK-SRC-049",
@@ -653,11 +700,12 @@
       "cat": "Temakis",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/o80OWCxOUhYBGYztJBFDJHP0jRTShPV2CbQAtIVM_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/o80OWCxOUhYBGYztJBFDJHP0jRTShPV2CbQAtIVM.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/o80OWCxOUhYBGYztJBFDJHP0jRTShPV2CbQAtIVM_75_75.jpeg"
     },
     {
       "id": "CK-050",
@@ -666,11 +714,12 @@
       "cat": "Temakis",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/jcaUUI99O8t36crv4go8uErHDeFkmaRhbHanii41_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/jcaUUI99O8t36crv4go8uErHDeFkmaRhbHanii41.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/jcaUUI99O8t36crv4go8uErHDeFkmaRhbHanii41_75_75.jpeg"
     },
     {
       "id": "CK-051",
@@ -679,11 +728,12 @@
       "cat": "Temakis",
       "price": 28.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/VOq0jErHavmVLaBy6oeCc20EiOO6lrlKtBOmSDhf_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/VOq0jErHavmVLaBy6oeCc20EiOO6lrlKtBOmSDhf.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/VOq0jErHavmVLaBy6oeCc20EiOO6lrlKtBOmSDhf_75_75.jpeg"
     },
     {
       "id": "CK-SRC-052",
@@ -692,11 +742,12 @@
       "cat": "Temakis",
       "price": 26.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/eBJmr4Md4SFbFluoj5xKMYty20NNNheIi1xXlp9H_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/eBJmr4Md4SFbFluoj5xKMYty20NNNheIi1xXlp9H.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/eBJmr4Md4SFbFluoj5xKMYty20NNNheIi1xXlp9H_75_75.jpeg"
     },
     {
       "id": "CK-SRC-053",
@@ -705,11 +756,12 @@
       "cat": "Temakis",
       "price": 28.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223139678bebe3c825c_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223139678bebe3c825c.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Temakis"
+      "sourceCategory": "Temakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223139678bebe3c825c_75_75.jpeg"
     },
     {
       "id": "CK-SRC-054",
@@ -718,11 +770,12 @@
       "cat": "Especiais",
       "price": 38.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668023833636c0619ad828_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668023833636c0619ad828.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "duplas especais premium 4 dupla"
+      "sourceCategory": "duplas especais premium 4 dupla",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668023833636c0619ad828_75_75.jpeg"
     },
     {
       "id": "CK-SRC-055",
@@ -731,11 +784,12 @@
       "cat": "Especiais",
       "price": 32.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668024365636c082de48d2_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668024365636c082de48d2.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "duplas especais premium 4 dupla"
+      "sourceCategory": "duplas especais premium 4 dupla",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668024365636c082de48d2_75_75.jpeg"
     },
     {
       "id": "CK-SRC-056",
@@ -744,11 +798,12 @@
       "cat": "Especiais",
       "price": 32.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/YpNW7MCNJb3DgakEqWZqe8ijmfcf6IfHR2GkgHnD_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/YpNW7MCNJb3DgakEqWZqe8ijmfcf6IfHR2GkgHnD.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "duplas especais premium 4 dupla"
+      "sourceCategory": "duplas especais premium 4 dupla",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/YpNW7MCNJb3DgakEqWZqe8ijmfcf6IfHR2GkgHnD_75_75.jpeg"
     },
     {
       "id": "CK-SRC-057",
@@ -757,11 +812,12 @@
       "cat": "Especiais",
       "price": 42.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Md1HcVl3qcqmkFehlxxv0MzQWPcC82xXhAVDztAZ_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Md1HcVl3qcqmkFehlxxv0MzQWPcC82xXhAVDztAZ.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "duplas especais premium 4 dupla"
+      "sourceCategory": "duplas especais premium 4 dupla",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Md1HcVl3qcqmkFehlxxv0MzQWPcC82xXhAVDztAZ_75_75.jpeg"
     },
     {
       "id": "CK-SRC-058",
@@ -770,11 +826,12 @@
       "cat": "Especiais",
       "price": 42.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/etpZ3TwLmAUv2aZnFMHb18gcZEmRzLYbsazF50on_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/etpZ3TwLmAUv2aZnFMHb18gcZEmRzLYbsazF50on.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "duplas especais premium 4 dupla"
+      "sourceCategory": "duplas especais premium 4 dupla",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/etpZ3TwLmAUv2aZnFMHb18gcZEmRzLYbsazF50on_75_75.jpeg"
     },
     {
       "id": "CK-SRC-059",
@@ -783,11 +840,12 @@
       "cat": "Especiais",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223213678bec2dd9053_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223213678bec2dd9053.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "duplas especais premium 4 dupla"
+      "sourceCategory": "duplas especais premium 4 dupla",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223213678bec2dd9053_75_75.jpeg"
     },
     {
       "id": "CK-SRC-060",
@@ -796,11 +854,12 @@
       "cat": "Niguiris",
       "price": 44.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021011636bfb1382a48_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021011636bfb1382a48.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021011636bfb1382a48_75_75.jpeg"
     },
     {
       "id": "CK-SRC-061",
@@ -809,11 +868,12 @@
       "cat": "Niguiris",
       "price": 37.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021631636bfd7fec29f_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021631636bfd7fec29f.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021631636bfd7fec29f_75_75.jpeg"
     },
     {
       "id": "CK-SRC-062",
@@ -822,11 +882,12 @@
       "cat": "Niguiris",
       "price": 25.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/HwQjysJdMyPHjAT4MknCy4LO2FEM8Xyjde4F1W1o_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/HwQjysJdMyPHjAT4MknCy4LO2FEM8Xyjde4F1W1o.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/HwQjysJdMyPHjAT4MknCy4LO2FEM8Xyjde4F1W1o_75_75.jpeg"
     },
     {
       "id": "CK-SRC-063",
@@ -835,11 +896,12 @@
       "cat": "Niguiris",
       "price": 26.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021862636bfe66e99fe_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021862636bfe66e99fe.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668021862636bfe66e99fe_75_75.jpeg"
     },
     {
       "id": "CK-SRC-064",
@@ -848,11 +910,12 @@
       "cat": "Niguiris",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668023065636c03192a0e1_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668023065636c03192a0e1.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668023065636c03192a0e1_75_75.jpeg"
     },
     {
       "id": "CK-065",
@@ -861,11 +924,12 @@
       "cat": "Niguiris",
       "price": 24.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223257678bec5934b35_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223257678bec5934b35.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223257678bec5934b35_75_75.jpeg"
     },
     {
       "id": "CK-SRC-066",
@@ -874,11 +938,12 @@
       "cat": "Niguiris",
       "price": 22.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223298678bec8233a82_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223298678bec8233a82.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Sushi niguiri ( 8 unidades )"
+      "sourceCategory": "Sushi niguiri ( 8 unidades )",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1737223298678bec8233a82_75_75.jpeg"
     },
     {
       "id": "CK-SRC-067",
@@ -887,11 +952,12 @@
       "cat": "Quentes",
       "price": 16.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/PTs6MCpc39cpAd5Jmd7be88Xb5skXkXaO1tlboRt_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/PTs6MCpc39cpAd5Jmd7be88Xb5skXkXaO1tlboRt.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/PTs6MCpc39cpAd5Jmd7be88Xb5skXkXaO1tlboRt_75_75.jpeg"
     },
     {
       "id": "CK-068",
@@ -900,11 +966,12 @@
       "cat": "Quentes",
       "price": 22.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/B4rb7YOcSEIMnMoyzeMHgaB4JPLJnEhKTx58uSit_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/B4rb7YOcSEIMnMoyzeMHgaB4JPLJnEhKTx58uSit.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/B4rb7YOcSEIMnMoyzeMHgaB4JPLJnEhKTx58uSit_75_75.jpeg"
     },
     {
       "id": "CK-SRC-069",
@@ -913,11 +980,12 @@
       "cat": "Quentes",
       "price": 22.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/8RbM6eERW5VKZCIdROs2FvL6hDDzHHQqpolEqchu_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/8RbM6eERW5VKZCIdROs2FvL6hDDzHHQqpolEqchu.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/8RbM6eERW5VKZCIdROs2FvL6hDDzHHQqpolEqchu_75_75.jpeg"
     },
     {
       "id": "CK-070",
@@ -926,11 +994,12 @@
       "cat": "Quentes",
       "price": 22.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/vcrA2Dcr2DI9jSnSp8e8loiIt4V6xTKNXXsqwQpH_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/vcrA2Dcr2DI9jSnSp8e8loiIt4V6xTKNXXsqwQpH.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/vcrA2Dcr2DI9jSnSp8e8loiIt4V6xTKNXXsqwQpH_75_75.jpeg"
     },
     {
       "id": "CK-SRC-071",
@@ -939,11 +1008,12 @@
       "cat": "Quentes",
       "price": 16.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/no7ziuFQuFqDq0h5nW0vuggVomd0ifmlRGAofTE4_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/no7ziuFQuFqDq0h5nW0vuggVomd0ifmlRGAofTE4.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/no7ziuFQuFqDq0h5nW0vuggVomd0ifmlRGAofTE4_75_75.jpeg"
     },
     {
       "id": "CK-072",
@@ -952,11 +1022,12 @@
       "cat": "Quentes",
       "price": 24.9,
       "oldPrice": 42.9,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/UQ7Q90nIF46TTAO79175pfXKcYlbqjEkKf2MRv1I_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/UQ7Q90nIF46TTAO79175pfXKcYlbqjEkKf2MRv1I.jpeg",
       "tag": "Promoção",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/UQ7Q90nIF46TTAO79175pfXKcYlbqjEkKf2MRv1I_75_75.jpeg"
     },
     {
       "id": "CK-SRC-073",
@@ -965,11 +1036,12 @@
       "cat": "Quentes",
       "price": 44.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/sJJyIqQSCN3F0gWR4Ix5MvouX8XYAMIceroErqZl_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/sJJyIqQSCN3F0gWR4Ix5MvouX8XYAMIceroErqZl.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/sJJyIqQSCN3F0gWR4Ix5MvouX8XYAMIceroErqZl_75_75.jpeg"
     },
     {
       "id": "CK-SRC-074",
@@ -978,11 +1050,12 @@
       "cat": "Quentes",
       "price": 48.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/uk4VCVAcMlmmTfRTwGOUgXkR0LeB5zinoFSdsk6U_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/uk4VCVAcMlmmTfRTwGOUgXkR0LeB5zinoFSdsk6U.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/uk4VCVAcMlmmTfRTwGOUgXkR0LeB5zinoFSdsk6U_75_75.jpeg"
     },
     {
       "id": "CK-075",
@@ -991,11 +1064,12 @@
       "cat": "Quentes",
       "price": 38.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/p35ZMHqViLUvHJsJm8EqUBrqLnGaFAuBK5oFH8nJ_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/p35ZMHqViLUvHJsJm8EqUBrqLnGaFAuBK5oFH8nJ.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/p35ZMHqViLUvHJsJm8EqUBrqLnGaFAuBK5oFH8nJ_75_75.jpeg"
     },
     {
       "id": "CK-SRC-076",
@@ -1004,11 +1078,12 @@
       "cat": "Quentes",
       "price": 32.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/5zRaZZ6iQBKlgxYaReKsMOyY3o8QZRoZ0G20tGRi_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/5zRaZZ6iQBKlgxYaReKsMOyY3o8QZRoZ0G20tGRi.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/5zRaZZ6iQBKlgxYaReKsMOyY3o8QZRoZ0G20tGRi_75_75.jpeg"
     },
     {
       "id": "CK-SRC-077",
@@ -1030,11 +1105,12 @@
       "cat": "Quentes",
       "price": 54.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/6YiGZfyAIVDkEJsRFu0PtdVq96ylBlcJEgY2IsKs_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/6YiGZfyAIVDkEJsRFu0PtdVq96ylBlcJEgY2IsKs.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Pratos Quentes"
+      "sourceCategory": "Pratos Quentes",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/6YiGZfyAIVDkEJsRFu0PtdVq96ylBlcJEgY2IsKs_75_75.jpeg"
     },
     {
       "id": "CK-079",
@@ -1043,11 +1119,12 @@
       "cat": "Entradas",
       "price": 30.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846553667384591bcea_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846553667384591bcea.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Entradas"
+      "sourceCategory": "Entradas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846553667384591bcea_75_75.jpeg"
     },
     {
       "id": "CK-SRC-080",
@@ -1056,11 +1133,12 @@
       "cat": "Entradas",
       "price": 32.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530088665f6de852aaa_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530088665f6de852aaa.jpeg",
       "tag": "Novidade",
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Entradas"
+      "sourceCategory": "Entradas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530088665f6de852aaa_75_75.jpeg"
     },
     {
       "id": "CK-SRC-081",
@@ -1069,11 +1147,12 @@
       "cat": "Entradas",
       "price": 27.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668052107636c748bc4a09_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668052107636c748bc4a09.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Entradas"
+      "sourceCategory": "Entradas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668052107636c748bc4a09_75_75.jpeg"
     },
     {
       "id": "CK-082",
@@ -1082,11 +1161,12 @@
       "cat": "Entradas",
       "price": 14.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Z2bcqyPgSevvwkBMLvLcTYb8kn47D2uigTtFcjzW_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Z2bcqyPgSevvwkBMLvLcTYb8kn47D2uigTtFcjzW.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Entradas"
+      "sourceCategory": "Entradas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/Z2bcqyPgSevvwkBMLvLcTYb8kn47D2uigTtFcjzW_75_75.jpeg"
     },
     {
       "id": "CK-SRC-083",
@@ -1095,11 +1175,12 @@
       "cat": "Entradas",
       "price": 39.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846691667384e3dd9a9_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846691667384e3dd9a9.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Entradas"
+      "sourceCategory": "Entradas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1718846691667384e3dd9a9_75_75.jpeg"
     },
     {
       "id": "CK-SRC-084",
@@ -1108,11 +1189,12 @@
       "cat": "Makimonos",
       "price": 20.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/qh2rvtbUpT1qbgKbpRpElU92hhC8QaniL7hpjuqL_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/qh2rvtbUpT1qbgKbpRpElU92hhC8QaniL7hpjuqL.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Makimonos"
+      "sourceCategory": "Makimonos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/qh2rvtbUpT1qbgKbpRpElU92hhC8QaniL7hpjuqL_75_75.jpeg"
     },
     {
       "id": "CK-SRC-085",
@@ -1121,11 +1203,12 @@
       "cat": "Makimonos",
       "price": 22.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/NPGRHvGWfXV4KLIIH0pUK60fvwgbOUFtMs4aXYbH_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/NPGRHvGWfXV4KLIIH0pUK60fvwgbOUFtMs4aXYbH.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Makimonos"
+      "sourceCategory": "Makimonos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/NPGRHvGWfXV4KLIIH0pUK60fvwgbOUFtMs4aXYbH_75_75.jpeg"
     },
     {
       "id": "CK-SRC-086",
@@ -1134,11 +1217,12 @@
       "cat": "Makimonos",
       "price": 26.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/6rd02AwBvZfgKO7U3gwb1Dd4ePC1TvA0UgWEmfR0_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/6rd02AwBvZfgKO7U3gwb1Dd4ePC1TvA0UgWEmfR0.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Makimonos"
+      "sourceCategory": "Makimonos",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/6rd02AwBvZfgKO7U3gwb1Dd4ePC1TvA0UgWEmfR0_75_75.jpeg"
     },
     {
       "id": "CK-SRC-087",
@@ -1147,11 +1231,12 @@
       "cat": "Uramakis",
       "price": 24.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/ZhuBhHgJfKGkdDK0emwktql6ISz0TDcyk5CLLQS4_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/ZhuBhHgJfKGkdDK0emwktql6ISz0TDcyk5CLLQS4.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Uramakis"
+      "sourceCategory": "Uramakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/ZhuBhHgJfKGkdDK0emwktql6ISz0TDcyk5CLLQS4_75_75.jpeg"
     },
     {
       "id": "CK-088",
@@ -1173,11 +1258,12 @@
       "cat": "Uramakis",
       "price": 22.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/wiOMN1PgeTOHedZeOTFSqWqkg6xczXjV8qRkTdJb_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/wiOMN1PgeTOHedZeOTFSqWqkg6xczXjV8qRkTdJb.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Uramakis"
+      "sourceCategory": "Uramakis",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/wiOMN1PgeTOHedZeOTFSqWqkg6xczXjV8qRkTdJb_75_75.jpeg"
     },
     {
       "id": "CK-090",
@@ -1186,11 +1272,12 @@
       "cat": "Bebidas",
       "price": 6,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1U84t6yyhPvob63Wd3yovE8hjDh0xET7EY9Wn2UB_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1U84t6yyhPvob63Wd3yovE8hjDh0xET7EY9Wn2UB.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1U84t6yyhPvob63Wd3yovE8hjDh0xET7EY9Wn2UB_75_75.jpeg"
     },
     {
       "id": "CK-091",
@@ -1199,11 +1286,12 @@
       "cat": "Bebidas",
       "price": 6,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/c6LX0VVCpVhpWSKQfozGNp1FUJB73jUXcyrzbkMs_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/c6LX0VVCpVhpWSKQfozGNp1FUJB73jUXcyrzbkMs.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/c6LX0VVCpVhpWSKQfozGNp1FUJB73jUXcyrzbkMs_75_75.jpeg"
     },
     {
       "id": "CK-SRC-092",
@@ -1212,11 +1300,12 @@
       "cat": "Bebidas",
       "price": 6,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/ZjT7SpnYta7uNcouFMzEnQbPjtxqQok4nv0fWqe4_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/ZjT7SpnYta7uNcouFMzEnQbPjtxqQok4nv0fWqe4.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/ZjT7SpnYta7uNcouFMzEnQbPjtxqQok4nv0fWqe4_75_75.jpeg"
     },
     {
       "id": "CK-SRC-093",
@@ -1225,11 +1314,12 @@
       "cat": "Bebidas",
       "price": 6,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/mgAjR4PONfRDDvRLGHnUGnvuqKWng6NQkEIGocZ6_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/mgAjR4PONfRDDvRLGHnUGnvuqKWng6NQkEIGocZ6.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/mgAjR4PONfRDDvRLGHnUGnvuqKWng6NQkEIGocZ6_75_75.jpeg"
     },
     {
       "id": "CK-094",
@@ -1238,11 +1328,12 @@
       "cat": "Bebidas",
       "price": 4,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/rxErC84JV9okREeYCJtV8vzFNtecGsy8wvHFh6In_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/rxErC84JV9okREeYCJtV8vzFNtecGsy8wvHFh6In.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/rxErC84JV9okREeYCJtV8vzFNtecGsy8wvHFh6In_75_75.jpeg"
     },
     {
       "id": "CK-SRC-095",
@@ -1251,11 +1342,12 @@
       "cat": "Bebidas",
       "price": 5,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/56rQLOp7bzkz7oROnkfWWU5UucG4DyaVpbGtgFrK_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/56rQLOp7bzkz7oROnkfWWU5UucG4DyaVpbGtgFrK.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/56rQLOp7bzkz7oROnkfWWU5UucG4DyaVpbGtgFrK_75_75.jpeg"
     },
     {
       "id": "CK-SRC-096",
@@ -1264,11 +1356,12 @@
       "cat": "Bebidas",
       "price": 8.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/sJirmZqMcdXPWYY0fNAzBC53HGxzhUQmESGLGlQn_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/sJirmZqMcdXPWYY0fNAzBC53HGxzhUQmESGLGlQn.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/sJirmZqMcdXPWYY0fNAzBC53HGxzhUQmESGLGlQn_75_75.jpeg"
     },
     {
       "id": "CK-SRC-097",
@@ -1277,11 +1370,12 @@
       "cat": "Bebidas",
       "price": 8.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/EngkT6uvwWDwf03HJFlDIF9H1TVZc85788lRHZqP_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/EngkT6uvwWDwf03HJFlDIF9H1TVZc85788lRHZqP.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/EngkT6uvwWDwf03HJFlDIF9H1TVZc85788lRHZqP_75_75.jpeg"
     },
     {
       "id": "CK-SRC-098",
@@ -1290,11 +1384,12 @@
       "cat": "Bebidas",
       "price": 3,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530364665f6efc0fdb4_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530364665f6efc0fdb4.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530364665f6efc0fdb4_75_75.jpeg"
     },
     {
       "id": "CK-SRC-099",
@@ -1303,11 +1398,12 @@
       "cat": "Bebidas",
       "price": 9.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17134718986621819ad3f22_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17134718986621819ad3f22.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/17134718986621819ad3f22_75_75.jpeg"
     },
     {
       "id": "CK-SRC-100",
@@ -1316,11 +1412,12 @@
       "cat": "Bebidas",
       "price": 3,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530243665f6e83e12f0_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530243665f6e83e12f0.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530243665f6e83e12f0_75_75.jpeg"
     },
     {
       "id": "CK-SRC-101",
@@ -1329,11 +1426,12 @@
       "cat": "Bebidas",
       "price": 3,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530280665f6ea88e5ca_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530280665f6ea88e5ca.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530280665f6ea88e5ca_75_75.jpeg"
     },
     {
       "id": "CK-SRC-102",
@@ -1342,11 +1440,12 @@
       "cat": "Bebidas",
       "price": 3,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530324665f6ed4f14fa_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530324665f6ed4f14fa.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1717530324665f6ed4f14fa_75_75.jpeg"
     },
     {
       "id": "CK-SRC-103",
@@ -1355,11 +1454,12 @@
       "cat": "Bebidas",
       "price": 10.9,
       "oldPrice": null,
-      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668020441636bf8d993295_75_75.jpeg",
+      "photo": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668020441636bf8d993295.jpeg",
       "tag": null,
       "featured": false,
       "needsReview": false,
-      "sourceCategory": "Bebidas"
+      "sourceCategory": "Bebidas",
+      "thumb": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/1668020441636bf8d993295_75_75.jpeg"
     }
   ]
 }
