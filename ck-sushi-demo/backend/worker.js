@@ -187,6 +187,7 @@ async function adminAPI(req,env,url){
      const limitParam=url.searchParams.get("limit");
      const result=await listRecentOrdersForAdmin(DB(env),{
        status:url.searchParams.get("status")||null,
+       group:url.searchParams.get("group")||null,
        limit:limitParam===null?30:Number(limitParam),
        cursor:url.searchParams.get("cursor")
      });
