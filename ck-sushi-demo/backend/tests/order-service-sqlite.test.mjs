@@ -14,7 +14,7 @@ const customer={name:"Pessoa Exemplo",phone:"11999999999"};
 const productId="CK-SERVICE-TEST-001";
 const baseBody={items:[{product_id:productId,quantity:2}],fulfillment:"pickup",customer};
 const migrationNames=["0001_init.sql","0002_commerce.sql","0003_staging_guards.sql",
- "0004_financial_integrity.sql","0005_financial_snapshots.sql","0006_staging_feature_gates.sql"];
+ "0004_financial_integrity.sql","0005_financial_snapshots.sql","0006_staging_feature_gates.sql","0007_payment_order_reconciliation.sql"];
 async function fixture({allowCommerce=false}={}){
  const sqlite=new DatabaseSync(":memory:");
  sqlite.exec("PRAGMA foreign_keys=ON");
