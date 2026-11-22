@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.22.staging.10";
+const VERSION="2026.11.22.staging.11";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
