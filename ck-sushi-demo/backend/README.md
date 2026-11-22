@@ -132,3 +132,13 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - Novos testes em SQLite isolado (`tests/outbox-recovery.test.mjs` e `tests/order-persistence-sqlite.test.mjs`) verificam recuperação de tarefas, versões otimistas, eventos atômicos, replay idempotente e rollback de pedido se o preço do produto mudar.
 - O CI usa Node 22 para executar os testes SQLite reais. Em Node 20, esses testes são ignorados por falta do módulo `node:sqlite`; as demais verificações continuam.
 - **Ainda pendente para produção:** exercício da fila em execução distribuída, observabilidade dos processadores, testes de carga/recuperação, integrações e credenciais legítimas dos provedores, Cloudflare Access e validações LGPD.
+
+## Iteração de segurança — V8 (22/11/2026)
+
+- **Migração somente de homologação:** `migrations/0006_staging_feature_gates.sql`. Não transportar seus triggers `staging_*` para o banco definitivo de produção.
+- Protege quatro configurações `orders_enabled`, `payments_enabled`, `customer_data_enabled` e `tracking_enabled` contra ativação acidental por `INSERT`/`UPDATE`, renomeação e exclusão direta. A mudança de `catalog_reviewed` continua permitida.
+- Verificação de segurança `GET /api/health/ready` exige schema v6, **18 triggers SQL específicos**, catálogo ativo, nove tabelas financeiras/logísticas (inclusive tabelas legadas, eventos e itens) vazias e as quatro flags de comércio desligadas.
+- A migração foi aplicada no **D1 de staging**, com validação de ausência de registros comerciais antes de executar; não gera transações financeiras, dados pessoais nem entregas.
+- Testes SQLite `tests/schema-integrity.test.mjs` cobrem as tentativas rejeitadas e a alteração autorizada da revisão de catálogo.
+- Testes de persistência `tests/order-persistence-sqlite.test.mjs` removem somente no banco **em memória** os bloqueios de staging para exercitar cenários futuros, sem alteração de nenhum trigger remoto.
+- **Permanecem pendentes**: homologação CI completa, Cloudflare Access com MFA e aprovadores reais, credenciais de sandbox do Mercado Pago, aprovação de preços/dados e operação logística iFood.
