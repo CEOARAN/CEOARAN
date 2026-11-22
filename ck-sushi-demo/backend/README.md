@@ -194,3 +194,22 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 **Atenção: o endpoint público `/api/orders` continua respondendo `ORDERING_DISABLED` em staging**. A criação de pedidos não foi conectada a rotas públicas, porque ainda faltam sessão de pagamento real, políticas do restaurante e autorização explícita de coleta de dados pessoais. Os gatilhos de bloqueio v6 e as quatro flags `false` permanecem. Não utilizar os triggers `staging_*` em produção.
 
 **Pendente para liberar o ciclo comercial:** adaptação para checkout de entrega com cotação real, orquestração e reconciliação dos pagamentos, webhooks de produção, gestão de reembolsos, rotina de outbox em processadores distribuídos e revisões de segurança/LGPD.
+
+## Backend V13 — Pagamento, fila e operação (22/11/2026)
+
+### Implementado no código, sem ativar comércio real
+- Migração aditiva 0007 aplicada ao D1: provider_order_id para a Orders API do Mercado Pago; 18 gatilhos de proteção mantidos.
+- Pix Orders API: pré-verificação da identidade da conta recebedora em /users/me, processamento automático, chave de idempotência obrigatória, validação do valor e GET autenticado antes de confirmar.
+- Serviço de pagamentos: inicia pagamento uma vez por pedido, evita repetição de POST, guarda pagamento pendente com referência e confirma status por transação atômica no D1.
+- Transições administrativas: PATCH /api/admin/orders/{id}/status exige Cloudflare Access, CSRF, versão e autorização de produção; status pago/reembolsado exige lançamento financeiro correspondente.
+- Outbox: fila de trabalhos deduplicados, leases e processamento limitado com recuperação e política de tentativas, sem handlers de terceiros ativos no estágio.
+- Admin: lista de pedidos reais com agrupamento, cursor e detalhe sem dados pessoais.
+- Testes de SQLite em RAM para pagamentos, outbox, migração e segurança; mocks de API, nunca cobrando valores reais.
+
+### Dependências ainda não concluídas
+- Integrar e homologar webhooks reais do Mercado Pago em ambiente autorizado.
+- Conectar logística iFood ou transportador aprovado e definir preços/fluxo de entrega.
+- Validar consentimento/LGPD, titularidade das credenciais, Cloudflare Access e publicação em banco de produção isolado.
+- Homologar devoluções e reembolsos com estados confirmados pelo provedor.
+- Fazer teste completo de ponta a ponta e revisão final de segurança.
+- Em staging, o endpoint público /api/orders responde ORDERING_DISABLED e os gatilhos/flags bloqueiam dinheiro e dados de clientes.
