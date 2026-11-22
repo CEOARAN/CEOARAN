@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.21.staging.5";
+const VERSION="2026.11.22.staging.6";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
@@ -90,14 +90,31 @@ async function stagingReadiness(env){
  const report=await env.CATALOG_DB.prepare(String.raw`SELECT
   (SELECT COALESCE(MAX(version),0) FROM schema_migrations) AS schema_version,
   (SELECT COUNT(*) FROM products WHERE is_published=1) AS active_products,
-  (SELECT COUNT(*) FROM sqlite_master WHERE type='trigger' AND name LIKE 'staging_block_%') AS staging_guards,
+  (SELECT COUNT(*) FROM sqlite_master
+   WHERE type='trigger' AND name IN (
+    'staging_block_order_insert',
+    'staging_block_legacy_order_insert',
+    'staging_block_payment_insert',
+    'staging_block_delivery_insert',
+    'staging_block_payment_webhook_insert',
+    'staging_block_outbox_insert',
+    'commerce_line_snapshot_price_guard',
+    'commerce_line_immutable_guard',
+    'commerce_payment_amount_guard',
+    'commerce_order_version_guard',
+    'commerce_order_no_direct_terminal_reopen',
+    'commerce_order_financial_snapshot_immutable',
+    'commerce_order_line_delete_guard',
+    'commerce_payment_financial_snapshot_immutable',
+    'commerce_payment_delete_guard'
+   )) AS required_guards,
   (SELECT COUNT(*) FROM commerce_orders) AS orders,
   (SELECT COUNT(*) FROM commerce_payments) AS payments,
   (SELECT COUNT(*) FROM delivery_outbox) AS pending_tasks,
   (SELECT value FROM operational_settings WHERE key='orders_enabled') AS orders_enabled,
   (SELECT value FROM operational_settings WHERE key='payments_enabled') AS payments_enabled,
   (SELECT value FROM operational_settings WHERE key='customer_data_enabled') AS customer_data_enabled`).first();
- const ready=report?.schema_version>=4&&report.active_products>0&&report.staging_guards>=6&&report.orders===0&&report.payments===0&&report.pending_tasks===0&&report.orders_enabled==="false"&&report.payments_enabled==="false"&&report.customer_data_enabled==="false";
+ const ready=report?.schema_version>=5&&report.active_products>0&&report.required_guards===15&&report.orders===0&&report.payments===0&&report.pending_tasks===0&&report.orders_enabled==="false"&&report.payments_enabled==="false"&&report.customer_data_enabled==="false";
  return json({ok:ready,status:ready?"ready":"not_ready",environment:"staging",commerceEnabled:false},ready?200:503,true);
 }
 
