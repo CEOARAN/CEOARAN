@@ -8,9 +8,9 @@ import {claimOutboxTask,finishOutboxTask,failOutboxTask,recoverExpiredOutboxLeas
 export class OutboxProcessorError extends Error{
  constructor(code){super(code);this.name="OutboxProcessorError";this.code=code}
 }
-const KINDS=new Set(["payment_reconcile","delivery_request","delivery_status","notification"]);
-const HASH=/^[a-f0-9]{64}$/;
-const ISO=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+const JOB_KINDS=new Set(["payment_reconcile","delivery_request","delivery_status","notification"]);
+const JOB_HASH=/^[a-f0-9]{64}$/;
+const JOB_ISO=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 async function requireCommerceOps(db,releaseApproved,needsTracking=false){
  if(releaseApproved!==true)throw new OutboxProcessorError("COMMERCE_RELEASE_NOT_APPROVED");
  if(!db||typeof db.prepare!=="function")throw new OutboxProcessorError("DATABASE_REQUIRED");
@@ -24,10 +24,10 @@ export async function enqueueOutboxJob(db,{
  kind,dedupeHash,payloadEncrypted=null,nextAttemptAt=new Date().toISOString(),releaseApproved=false,
  idFactory=()=>crypto.randomUUID()
 }={}){
- if(!KINDS.has(kind)||typeof dedupeHash!=="string"||!HASH.test(dedupeHash)||
+ if(!JOB_KINDS.has(kind)||typeof dedupeHash!=="string"||!JOB_HASH.test(dedupeHash)||
     (payloadEncrypted!==null&&(typeof payloadEncrypted!=="string"||
      payloadEncrypted.length>8000||!payloadEncrypted.startsWith("CKOB1.")))||
-    typeof nextAttemptAt!=="string"||!ISO.test(nextAttemptAt))
+    typeof nextAttemptAt!=="string"||!JOB_ISO.test(nextAttemptAt))
   throw new OutboxProcessorError("INVALID_OUTBOX_JOB");
  await requireCommerceOps(db,releaseApproved,kind.startsWith("delivery_"));
  const id=idFactory();
