@@ -18,14 +18,15 @@ const quote={currency:"BRL",fulfillment:"pickup",subtotal_cents:1800,
 async function fixture(){
  const sqlite=new DatabaseSync(":memory:");
  sqlite.exec("PRAGMA foreign_keys=ON");
- for(const name of ["0001_init.sql","0002_commerce.sql","0003_staging_guards.sql","0004_financial_integrity.sql","0005_financial_snapshots.sql"]){
+ for(const name of ["0001_init.sql","0002_commerce.sql","0003_staging_guards.sql","0004_financial_integrity.sql","0005_financial_snapshots.sql","0006_staging_feature_gates.sql"]){
   sqlite.exec(await readFile(new URL("../migrations/"+name,import.meta.url),"utf8"));
  }
  sqlite.prepare("INSERT INTO products(id,name,category,price_cents,image_url) VALUES(?,?,?,?,?)")
   .run(productId,"Sushi de teste","Combinados",600,"https://example.test/sushi");
  // Only THIS in-memory fixture models future approved commerce.
  // The actual Cloudflare D1 retains this trigger and flags set to false.
- sqlite.exec("DROP TRIGGER staging_block_order_insert");
+ // Explicitly model a separate production database only inside this in-memory fixture.
+ sqlite.exec("DROP TRIGGER staging_block_order_insert; DROP TRIGGER staging_block_operational_insert; DROP TRIGGER staging_block_operational_update; DROP TRIGGER staging_block_operational_delete;");
  for(const key of ["orders_enabled","payments_enabled","customer_data_enabled"])
   sqlite.prepare("UPDATE operational_settings SET value='true' WHERE key=?").run(key);
  const d1={
