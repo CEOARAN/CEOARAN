@@ -47,7 +47,7 @@ export async function processOutboxBatch(db,{
  if(!handlers||typeof handlers!=="object"||Array.isArray(handlers)||
     !Number.isInteger(maxTasks)||maxTasks<1||maxTasks>20||typeof now!=="function")
   throw new OutboxProcessorError("INVALID_PROCESSOR_CONFIG");
- await requireCommerceOps(db,releaseApproved,true);
+ await requireCommerceOps(db,releaseApproved,false);
  const summary={claimed:0,completed:0,retried:0,exhausted:0,stale:0};
  await recoverExpiredOutboxLeases(db,{now:now(),limit:100});
  for(let count=0;count<maxTasks;count++){
