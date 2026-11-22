@@ -110,3 +110,16 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - O D1 disponibiliza Time Travel/recuperação pontual (Free: 7 dias; Paid: 30 dias). Antes de produção, definir exportação independente, testar restauração e documentar RPO/RTO. Fonte: https://developers.cloudflare.com/d1/reference/time-travel/
 
 **Segurança de segredos:** após cadastrá-los no Cloudflare, revisar o procedimento de deploy para preservar os bindings existentes, conferir nomes e evitar expor valores. No momento não há credenciais Mercado Pago instaladas; o Worker de staging só aceita simulações assinadas após configuração. O CI de GitHub compila e testa, mas não executa deploy nem troca Secrets.
+
+
+## Migração 0005 — integridade financeira (22/11/2026)
+
+- Migrada para a base D1 de homologação após conferir ausência de pedidos e pagamentos. Não liga comércio.
+- Novos triggers: `commerce_order_financial_snapshot_immutable`, `commerce_order_line_delete_guard`, `commerce_payment_financial_snapshot_immutable` e `commerce_payment_delete_guard`.
+- Valores, moeda, entrega, vínculo e referência de pedidos ficam imutáveis após persistência; itens de pedidos não podem ser excluídos diretamente.
+- Identificadores do provedor podem ser preenchidos uma única vez, e alterações posteriores ficam bloqueadas.
+- Registros financeiros não podem ser apagados diretamente até existir procedimento de retenção/descarte juridicamente aprovado. O processo de descarte deverá ser especificado antes da produção.
+- O endpoint `/api/health/ready` verifica os nomes exatos dos **15 gatilhos de segurança obrigatórios**, a versão 5 do esquema e os bloqueios comerciais; contar apenas gatilhos por prefixo era insuficiente.
+- `tests/schema-integrity.test.mjs` usa SQLite local, somente com dados sintéticos e sem rede, para exercitar migrações e tentativas de adulteração. Executa no Node 22+; não modifica o D1.
+- Primeiro cron de limpeza de fingerprints observado: **22/11/2026 às 03:00:32 UTC**, resultado `success`, 0 fingerprints expirados. Não é prova de política completa de retenção.
+- Permanecem pendentes: Cloudflare Access, dados e documentos do cliente, provedor Pix de teste, logística iFood, operação de reembolsos, restauração de backup validada e aceite jurídico.
