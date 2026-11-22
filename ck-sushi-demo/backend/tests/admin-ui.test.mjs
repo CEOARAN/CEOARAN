@@ -60,6 +60,6 @@ test("admin JS parses and never simulates orders, money or Access privileges",()
  assert.match(js,/chat-message user/);
  assert.doesNotMatch(js,/localStorage|sessionStorage|document\.cookie|eval\(/);
  assert.doesNotMatch(js,/\.innerHTML\s*=/);
- assert.match(html,/Nenhum pedido real/i);
+ assert.match(html,/SEM PEDIDOS REAIS/i);
  assert.match(html,/Sem GPS ou motorista fictício/i);
 });
