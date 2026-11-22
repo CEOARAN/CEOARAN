@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.22.staging.6",
-    "description": "Homologação de catálogo e cotação; Pix e pedidos reais bloqueados. Auditoria do D1 até migração 0005 com snapshots financeiros imutáveis e 15 gatilhos obrigatórios; webhook Mercado Pago apenas de teste assinado e limpeza diária de fingerprints."
+    "version": "2026.11.22.staging.7",
+    "description": "Homologação sem pedidos ou pagamentos reais, esquema v5 com proteção de snapshots, rotina cron e recuperação de outbox preparada (não ativada em staging)."
   },
   "servers": [
     {
