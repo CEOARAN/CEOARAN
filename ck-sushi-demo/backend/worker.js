@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.22.staging.11";
+const VERSION="2026.11.22.staging.12";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
@@ -177,6 +177,36 @@ async function adminAPI(req,env,url){
     test_application_id_configured:!!env.MP_TEST_APPLICATION_ID,
     orders_enabled:false,payments_enabled:false,production_integrated:false
    });
+ }
+ // Authorized read side; excludes customer ciphertext, names, phone and address.
+ // Staging continues to reject all commerce INSERTs and public order creation.
+ if(req.method==="GET"&&url.pathname==="/api/admin/orders"){
+   if(!["owner","editor"].includes(auth.role))
+     return problem(403,"ORDER_ACCESS_DENIED","Permissão administrativa necessária.");
+   try{
+     const limitParam=url.searchParams.get("limit");
+     const result=await listRecentOrdersForAdmin(DB(env),{
+       status:url.searchParams.get("status")||null,
+       limit:limitParam===null?30:Number(limitParam),
+       cursor:url.searchParams.get("cursor")
+     });
+     return json({ok:true,...result});
+   }catch(e){
+     if(e instanceof OrderQueryError)return problem(422,e.code,"Filtro ou paginação inválidos.");
+     throw e;
+   }
+ }
+ const orderDetailPath=url.pathname.match(/^\/api\/admin\/orders\/([A-Za-z0-9_-]{8,120})$/);
+ if(req.method==="GET"&&orderDetailPath){
+   if(!["owner","editor"].includes(auth.role))
+     return problem(403,"ORDER_ACCESS_DENIED","Permissão administrativa necessária.");
+   try{
+     const result=await getOrderDetailsForAdmin(DB(env),{orderId:orderDetailPath[1]});
+     return result?json({ok:true,...result}):problem(404,"ORDER_NOT_FOUND","Pedido não encontrado.");
+   }catch(e){
+     if(e instanceof OrderQueryError)return problem(422,e.code,"Consulta de pedido inválida.");
+     throw e;
+   }
  }
  if(req.method==="GET"&&url.pathname==="/api/admin/summary"){
    const [prod,settings]=await Promise.all([
