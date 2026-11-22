@@ -146,6 +146,10 @@ function overview(){
  $("#stat-categories").textContent=stats.categories.size;
  $("#stat-promotions").textContent=stats.promotions;
  $("#stat-available").textContent=stats.available;
+ $("#stat-published").textContent=stats.published;
+ const availableRatio=stats.published?Math.round(stats.available/stats.published*100):0;
+ $("#stat-available-ratio").textContent=availableRatio+"%";
+ $("#catalog-progress-fill").style.width=availableRatio+"%";
  $("#stat-available-label").textContent=stats.published+" produtos publicados";
  $("#prod-summary-total").textContent=stats.total;
  $("#prod-summary-live").textContent=stats.available;
@@ -364,7 +368,7 @@ function previewSupport(topic){
  if(!Object.hasOwn(SUPPORT,topic))return;
  $$("[data-topic]").forEach(button=>button.classList.toggle("active",button.dataset.topic===topic));
  const host=$("#chat-messages");host.replaceChildren();
- append(host,el("div","chat-message note","Exemplo de solicitação — não enviada"),el("div","chat-message assistant",SUPPORT[topic].intro),
+ append(host,el("div","chat-message note","CONVERSA EXEMPLIFICATIVA · NÃO ENVIADA"),el("div","chat-message user",SUPPORT[topic].intro),
   el("div","chat-message assistant",SUPPORT[topic].answer));
 }
 function csvCell(v){
@@ -391,7 +395,21 @@ function focusSearch(){
  input.focus({preventScroll:true});
 }
 function setToday(){
- $("#today-label").textContent=new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"long",year:"numeric"}).format(new Date());
+ const now=new Date();
+ const date=new Intl.DateTimeFormat("pt-BR",{weekday:"long",day:"numeric",month:"short",timeZone:"America/Sao_Paulo"}).format(now);
+ $("#today-label").textContent="CK SUSHI · "+date.toLocaleUpperCase("pt-BR");
+ const hour=Number(new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",hourCycle:"h23",timeZone:"America/Sao_Paulo"}).format(now));
+ $("#welcome-greeting").textContent=hour<12?"Bom dia, equipe CK.":hour<18?"Boa tarde, equipe CK.":"Boa noite, equipe CK.";
+}
+function orderFilter(value){
+ const labels={all:"Nenhum pedido real ainda.",pending:"Nenhum pedido em andamento.",done:"Nenhum pedido concluído.",cancelled:"Nenhum pedido cancelado."};
+ if(!Object.hasOwn(labels,value))return;
+ $("[data-order-filter]").forEach(button=>{
+  const selected=button.dataset.orderFilter===value;
+  button.classList.toggle("active",selected);
+  button.setAttribute("aria-pressed",String(selected));
+ });
+ $("#orders-empty-title").textContent=labels[value];
 }
 async function boot(){
  $$("#admin-layout [data-tab]").forEach(button=>button.addEventListener("click",()=>go(button.dataset.tab)));
@@ -408,6 +426,7 @@ async function boot(){
    event.preventDefault();focusSearch();
   }
  });
+ $("[data-order-filter]").forEach(button=>button.addEventListener("click",()=>orderFilter(button.dataset.orderFilter)));
  $("#product-search").addEventListener("input",renderTable);
  $("#category-filter").addEventListener("change",renderTable);
  $("#clear-filters").addEventListener("click",()=>{
