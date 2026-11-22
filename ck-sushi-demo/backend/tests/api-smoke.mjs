@@ -16,6 +16,8 @@ const admin=await request("/api/admin/session");assert([401,403,503].includes(ad
 const orders=await request("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customer:"do-not-store"})});assert(orders.status===503,"Customer orders unexpectedly enabled");
 const adminOrders=await request("/api/admin/orders");assert([401,403,503].includes(adminOrders.status),"Anonymous admin orders access unexpectedly allowed");
 const adminOrderDetail=await request("/api/admin/orders/CK-TEST-ORDER-001");assert([401,403,503].includes(adminOrderDetail.status),"Anonymous order details unexpectedly allowed");
+const adminOrderStatus=await request("/api/admin/orders/CK-TEST-ORDER-001/status",{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status:"paid",expected_version:1})});
+assert([401,403,503].includes(adminOrderStatus.status),"Unauthenticated order transition unexpectedly allowed");
 
 const mutation=await request("/api/admin/products",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:"test"})});assert([401,403,503].includes(mutation.status),"Unauthenticated write unexpectedly allowed");
 const config=await request("/api/store/config");assert(config.status===200&&!config.data.orders_enabled&&!config.data.payments_enabled,"Unsafe checkout configuration");
