@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.22.staging.11",
-    "description": "CK Sushi staging v11: painel de operações com navegação horizontal, tarefas de restaurante, catálogo real, categorias e filtros. Cloudflare Access necessário para escrita; pedidos e pagamentos bloqueados. Banco D1 v6 protegido por 18 gatilhos."
+    "version": "2026.11.22.staging.12",
+    "description": "Backend CK Sushi staging V12: cálculo de preços, serviço de criação de pedidos somente para futura retirada autorizado (sem rota pública), consulta administrativa PII-redacted via Access, integridade D1 v6 com 18 triggers. Compras e pagamentos reais continuam desativados."
   },
   "servers": [
     {
@@ -22,6 +22,9 @@
     },
     {
       "name": "Disabled"
+    },
+    {
+      "name": "Admin Orders"
     }
   ],
   "paths": {
@@ -561,6 +564,165 @@
           },
           "503": {
             "description": "Cloudflare Access not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/orders": {
+      "get": {
+        "tags": [
+          "Admin Orders"
+        ],
+        "summary": "Consultar pedidos sem dados pessoais",
+        "description": "Requer Access owner/editor. Parâmetros opcionais: status (estado permitido), limit (1..50) e cursor. Em staging, não há pedidos.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending_payment",
+                "paid",
+                "accepted",
+                "preparing",
+                "ready",
+                "awaiting_courier",
+                "courier_assigned",
+                "picked_up",
+                "delivery_exception",
+                "delivered",
+                "cancelled",
+                "refund_pending",
+                "refund_failed",
+                "refunded"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 30
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultados paginados sem PII.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token Access necessário.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Papel insuficiente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Cloudflare Access não configurado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/orders/{id}": {
+      "get": {
+        "tags": [
+          "Admin Orders"
+        ],
+        "summary": "Consultar itens e eventos de pedido",
+        "description": "Sem customer_encrypted, telefone, endereço, dados de pagamento ou identificadores externos.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 120
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes operacionais e histórico.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Papel insuficiente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pedido não existe.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Cloudflare Access não configurado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       }
