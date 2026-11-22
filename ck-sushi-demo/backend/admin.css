@@ -291,3 +291,25 @@ svg{flex-shrink:0}
 }
 @media(max-width:365px){.env-label{display:none}.brand{min-width:0}.page-intro h1{font-size:26px}.product-flex b{max-width:125px}.kpi strong{font-size:28px}.form-grid{grid-template-columns:1fr;gap:0}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* Operational order feed. No simulated orders or customer PII. */
+.order-feed{display:grid;margin:0;padding:0}
+.order-feed-row{display:flex;align-items:center;justify-content:space-between;text-align:left;gap:14px;
+ padding:14px 4px;border:0;border-bottom:1px solid var(--line);background:#fff;width:100%;color:var(--ink)}
+.order-feed-row:hover{background:#faf9f6}
+.order-feed-row:focus-visible{outline-offset:-2px}
+.order-feed-description,.order-feed-value{display:flex;flex-direction:column;gap:3px;min-width:0}
+.order-feed-description strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.order-feed-description small,.order-feed-value small{color:var(--sub);font-size:10px}
+.order-feed-value{text-align:right;flex:none}
+.order-feed-value strong{font-size:12px}
+#orders-load-more{display:flex;margin:16px auto 0}
+#orders-load-more[hidden],#orders-empty-state[hidden],#order-details[hidden]{display:none!important}
+.order-details{border-bottom:1px solid var(--line);margin-bottom:18px;padding-bottom:18px}
+.order-details h3{font-size:14px;word-break:break-word;margin:5px 0}
+.order-details>p{font-size:11px;color:var(--sub)}
+.order-details>strong{display:block;margin:5px 0 12px;font-size:18px}
+.order-detail-items{display:grid;gap:8px;margin-bottom:12px}
+.order-detail-items>div{display:flex;justify-content:space-between;gap:10px;font-size:11px}
+.order-detail-items strong{white-space:nowrap}
