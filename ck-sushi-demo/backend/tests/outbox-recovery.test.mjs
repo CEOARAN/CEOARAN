@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {webcrypto} from "node:crypto";
-import {DatabaseSync} from "node:sqlite";
+let DatabaseSync;
+try{({DatabaseSync}=await import("node:sqlite"))}catch{}
 import {claimOutboxTask,finishOutboxTask,failOutboxTask,recoverExpiredOutboxLeases,OUTBOX_MAX_ATTEMPTS} from "../domain/outbox.mjs";
 
 if(!globalThis.crypto)globalThis.crypto=webcrypto;
@@ -41,7 +42,7 @@ function fixture(){
  return {sqlite,d1,insert,close:()=>sqlite.close()};
 }
 
-test("expired final-attempt tasks become failed, leaving live and reclaimable leases untouched",async()=>{
+test("expired final-attempt tasks become failed, leaving live and reclaimable leases untouched",{skip:!DatabaseSync&&"Node 22+ SQLite required"},async()=>{
  const db=fixture();
  try{
   db.insert("dead-8","processing",8,old);
@@ -70,7 +71,7 @@ test("expired final-attempt tasks become failed, leaving live and reclaimable le
  }finally{db.close()}
 });
 
-test("recovery honors a strict batch limit, retries and rejects malformed limits",async()=>{
+test("recovery honors a strict batch limit, retries and rejects malformed limits",{skip:!DatabaseSync&&"Node 22+ SQLite required"},async()=>{
  const db=fixture();
  try{
   db.insert("dead-a","processing",8,old);
@@ -86,7 +87,7 @@ test("recovery honors a strict batch limit, retries and rejects malformed limits
  }finally{db.close()}
 });
 
-test("acknowledgement and final failure require the current, unexpired lease token",async()=>{
+test("acknowledgement and final failure require the current, unexpired lease token",{skip:!DatabaseSync&&"Node 22+ SQLite required"},async()=>{
  const db=fixture();
  try{
   db.insert("recoverable","processing",7,old);
