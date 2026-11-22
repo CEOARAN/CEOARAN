@@ -60,6 +60,7 @@ function go(tab){
  window.scrollTo({top:0,behavior:"instant"});
  if(tab==="audit"&&STATE.role==="owner")void loadAudit();
  if(tab==="integrations")void loadIntegrations();
+ if(tab==="orders"&&STATE.role)void loadOrders();
 }
 async function api(path,options={}){
  const response=await fetch(path,{...options,credentials:"same-origin",cache:"no-store",
@@ -99,6 +100,7 @@ function authorized(data){
  $("#int-access-state").className="integration-status ready";
  $("#int-access-detail").textContent="Permissão: "+(data.role==="owner"?"proprietário":"editor");
  renderTable();
+ if(STATE.tab==="orders")void loadOrders();
 }
 function barChart(groups){
  const host=$("#category-chart");host.replaceChildren();
@@ -428,6 +430,67 @@ function setToday(){
  const hour=Number(new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",hourCycle:"h23",timeZone:"America/Sao_Paulo"}).format(now));
  $("#welcome-greeting").textContent=hour<12?"Bom dia, equipe CK.":hour<18?"Boa tarde, equipe CK.":"Boa noite, equipe CK.";
 }
+
+const ORDER_STATUS_NAMES=Object.freeze({
+ pending_payment:"Aguardando pagamento",paid:"Pago",accepted:"Aceito",preparing:"Em preparo",
+ ready:"Pronto",awaiting_courier:"Aguardando entrega",courier_assigned:"Entregador atribuído",
+ picked_up:"Retirado",delivery_exception:"Problema na entrega",delivered:"Entregue",
+ cancelled:"Cancelado",refund_pending:"Reembolso pendente",refund_failed:"Falha no reembolso",refunded:"Reembolsado"
+});
+let orderPageCursor=null,orderGroup="all",loadedOrders=[];
+function renderOrderFeed(){
+ const host=$("#order-feed");host.replaceChildren();
+ $("#orders-count-label").textContent=loadedOrders.length+" REGISTRO(S) CARREGADOS";
+ $("#orders-empty-state").hidden=loadedOrders.length>0;
+ $("#orders-load-more").hidden=!orderPageCursor;
+ for(const order of loadedOrders){
+  if(!order||typeof order.id!=="string"||!ORDER_STATUS_NAMES[order.status])continue;
+  const button=el("button","order-feed-row");button.type="button";
+  const left=el("span","order-feed-description");
+  append(left,el("strong","",order.id),el("small","",String(order.placed_at||"").slice(0,16).replace("T"," ")));
+  const right=el("span","order-feed-value");
+  append(right,el("strong","",money(Number(order.total_cents)||0)),el("small","",ORDER_STATUS_NAMES[order.status]));
+  append(button,left,right);
+  button.addEventListener("click",()=>void showOrderDetail(order.id));host.append(button);
+ }
+}
+async function loadOrders({append=false}={}){
+ if(!STATE.role)return;
+ const params=new URLSearchParams({limit:"30"});
+ if(orderGroup!=="all")params.set("group",orderGroup);
+ if(append&&orderPageCursor)params.set("cursor",orderPageCursor);
+ try{
+  const res=await api("/api/admin/orders?"+params.toString());
+  if(!Array.isArray(res.orders))throw Error("INVALID_ORDERS_RESPONSE");
+  loadedOrders=append?[...loadedOrders,...res.orders]:res.orders;
+  orderPageCursor=typeof res.next_cursor==="string"?res.next_cursor:null;
+  renderOrderFeed();
+ }catch{
+  if(!append){loadedOrders=[];orderPageCursor=null;renderOrderFeed()}
+  $("#orders-empty-title").textContent="Não foi possível consultar os pedidos.";
+ }
+}
+async function showOrderDetail(id){
+ if(!STATE.role||!/^[A-Za-z0-9_-]{8,120}$/.test(String(id)))return;
+ const host=$("#order-details");host.hidden=false;host.replaceChildren(el("p","muted","Carregando detalhes…"));
+ try{
+  const res=await api("/api/admin/orders/"+encodeURIComponent(id));
+  if(res.order?.id!==id||!Array.isArray(res.items)||!Array.isArray(res.events))throw Error("INVALID_DETAILS");
+  host.replaceChildren();
+  append(host,el("span","eyebrow","PEDIDO"),el("h3","",id),
+    el("p","",ORDER_STATUS_NAMES[res.order.status]||"Em análise"),
+    el("strong","",money(Number(res.order.total_cents)||0)));
+  const lines=el("div","order-detail-items");
+  for(const item of res.items){
+   const row=el("div");
+   append(row,el("span","",String(item.quantity)+" × "+String(item.name_snapshot||"Item")),
+     el("strong","",money(Number(item.total_cents)||0)));
+   lines.append(row);
+  }
+  host.append(lines,el("small","muted",res.events.length+" evento(s) no histórico"));
+ }catch{host.replaceChildren(el("p","muted","Não foi possível carregar os detalhes do pedido."))}
+}
+
 function orderFilter(value){
  const labels={all:"Nenhum pedido real ainda.",pending:"Nenhum pedido em andamento.",done:"Nenhum pedido concluído.",cancelled:"Nenhum pedido cancelado."};
  if(!Object.hasOwn(labels,value))return;
@@ -436,7 +499,9 @@ function orderFilter(value){
   button.classList.toggle("active",selected);
   button.setAttribute("aria-pressed",String(selected));
  });
+ orderGroup=value;
  $("#orders-empty-title").textContent=labels[value];
+ if(STATE.role)void loadOrders();
 }
 async function boot(){
  $$("#admin-layout [data-tab]").forEach(button=>button.addEventListener("click",()=>go(button.dataset.tab)));
@@ -462,6 +527,7 @@ async function boot(){
   $("#product-search").value="";$("#category-filter").value="Todas";$("#product-status").value="all";$("#product-sort").value="original";renderTable();
  });
  $("#new-product").addEventListener("click",()=>openEditor(null));
+ $("#orders-load-more").addEventListener("click",()=>{if(orderPageCursor)void loadOrders({append:true})});
  $("#refresh-dashboard").addEventListener("click",refreshAll);
  $("#refresh-integrations").addEventListener("click",loadIntegrations);
  $("#export-catalog").addEventListener("click",exportCatalog);
