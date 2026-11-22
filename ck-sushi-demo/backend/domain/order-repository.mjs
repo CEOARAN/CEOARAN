@@ -69,6 +69,12 @@ export async function transitionPersistedOrder(db,{orderId,to,actor,expectedVers
  const providerVerified=providerEvidence?.verified===true&&providerEvidence?.reconciled===true;
  if(actor==="payment_provider"&&!providerVerified)throw new CommerceRepositoryError("PAYMENT_PROVIDER_EVIDENCE_REQUIRED");
  if(actor==="logistics_provider"&&!providerEvidence?.verified)throw new CommerceRepositoryError("LOGISTICS_PROVIDER_EVIDENCE_REQUIRED");
+ // A boolean claim of "verified" alone must never mark an order paid.
+ // A matching, approved, persisted Mercado Pago record is mandatory.
+ if(to==="paid"){
+  const approved=await db.prepare("SELECT id FROM commerce_payments WHERE order_id=? AND status='approved' AND currency='BRL' AND amount_cents=(SELECT total_cents FROM commerce_orders WHERE id=?) AND provider_payment_id IS NOT NULL AND provider_order_id IS NOT NULL LIMIT 1").bind(orderId,orderId).first();
+  if(!approved)throw new CommerceRepositoryError("APPROVED_PAYMENT_RECORD_REQUIRED");
+ }
  const paymentStatus=to==="paid"?"approved":to==="refunded"?"refunded":row.payment_status;
  validateTransition({from:row.status,to,actor,paymentStatus,fulfillment:row.fulfillment});
  const hash=await hashInput("CKSUSHI:order-transition:"+orderId+":"+expectedVersion+":"+row.status+":"+to);
