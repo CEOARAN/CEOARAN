@@ -39,12 +39,12 @@ function safeTicketUrl(raw){
  try{const u=new URL(raw);if(u.protocol!=="https:"||u.hostname!=="www.mercadopago.com.br"||u.username||u.password)return null;return u.href}catch{return null}
 }
 /** A webhook is NEVER enough to mark an order paid. Pass only a fresh GET /v1/orders/{id} response. */
-export function reconcilePixOrderResponse(provider,{orderId,totalCents,merchantId}){
+export function reconcilePixOrderResponse(provider,{orderId,totalCents,merchantId,merchantVerified=false}){
  if(!provider||typeof provider!=="object"||!ORDER_REF_RE.test(orderId)||
   !PROVIDER_ID_RE.test(String(provider.id||""))||provider.type!=="online"||
   provider.external_reference!==orderId)
     throw new MercadoPagoOrdersError("ORDER_REFERENCE_MISMATCH");
- if(!merchantId||String(provider.user_id)!==String(merchantId))
+ if(!merchantId||(provider.user_id==null?merchantVerified!==true:String(provider.user_id)!==String(merchantId)))
     throw new MercadoPagoOrdersError("MERCHANT_MISMATCH");
  if(parseMoneyCents(provider.total_amount)!==totalCents)
     throw new MercadoPagoOrdersError("AMOUNT_MISMATCH");
