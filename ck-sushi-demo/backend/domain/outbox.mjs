@@ -46,3 +46,31 @@ export async function failOutboxTask(db,{taskId,leaseToken,attempt,errorCode,now
  if(result.meta?.changes!==1)throw new OutboxError("STALE_LEASE");
  return {state:final?"failed":"pending",retryAt:final?null:at};
 }
+
+/**
+ * Crash recovery for tasks that exhausted every attempt while a Worker was
+ * interrupted. Reclaimable leases (attempts < max) remain untouched and will
+ * be picked up by claimOutboxTask after expiry.
+ *
+ * Runs only when explicitly called by a future authorized processor.
+ * No delivery requests, payments, network access or staging mutations are
+ * triggered by defining this helper.
+ */
+export async function recoverExpiredOutboxLeases(db,{now=new Date(),limit=100}={}){
+ if(!db||typeof db.prepare!=="function")throw new OutboxError("DATABASE_REQUIRED");
+ if(!Number.isInteger(limit)||limit<1||limit>500)throw new OutboxError("INVALID_RECOVERY_LIMIT");
+ const stamp=ISO(now);
+ const result=await db.prepare(String.raw`UPDATE delivery_outbox
+  SET state='failed',lease_token=NULL,lease_expires_at=NULL,
+      last_error_code='OUTBOX_LEASE_EXHAUSTED'
+  WHERE id IN (
+    SELECT id FROM delivery_outbox
+    WHERE state='processing' AND attempts>=? AND
+          lease_expires_at IS NOT NULL AND lease_expires_at<=?
+    ORDER BY lease_expires_at,id LIMIT ?
+  )`).bind(OUTBOX_MAX_ATTEMPTS,stamp,limit).run();
+ const recovered=result?.meta?.changes;
+ if(!Number.isSafeInteger(recovered)||recovered<0||recovered>limit)
+  throw new OutboxError("OUTBOX_RECOVERY_RESULT_INVALID");
+ return {recovered,at:stamp};
+}
