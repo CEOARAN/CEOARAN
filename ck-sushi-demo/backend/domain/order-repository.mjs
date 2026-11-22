@@ -75,6 +75,12 @@ export async function transitionPersistedOrder(db,{orderId,to,actor,expectedVers
   const approved=await db.prepare("SELECT id FROM commerce_payments WHERE order_id=? AND status='approved' AND currency='BRL' AND amount_cents=(SELECT total_cents FROM commerce_orders WHERE id=?) AND provider_payment_id IS NOT NULL AND provider_order_id IS NOT NULL LIMIT 1").bind(orderId,orderId).first();
   if(!approved)throw new CommerceRepositoryError("APPROVED_PAYMENT_RECORD_REQUIRED");
  }
+ // A refund is a financial side effect. Provider evidence must be recorded
+ // in the payment ledger before the state machine may mark it finalized.
+ if(to==="refunded"){
+  const refunded=await db.prepare("SELECT id FROM commerce_payments WHERE order_id=? AND status='refunded' AND currency='BRL' AND amount_cents=(SELECT total_cents FROM commerce_orders WHERE id=?) AND provider_order_id IS NOT NULL AND provider_payment_id IS NOT NULL LIMIT 1").bind(orderId,orderId).first();
+  if(!refunded)throw new CommerceRepositoryError("VERIFIED_REFUND_RECORD_REQUIRED");
+ }
  const paymentStatus=to==="paid"?"approved":to==="refunded"?"refunded":row.payment_status;
  validateTransition({from:row.status,to,actor,paymentStatus,fulfillment:row.fulfillment});
  const hash=await hashInput("CKSUSHI:order-transition:"+orderId+":"+expectedVersion+":"+row.status+":"+to);
