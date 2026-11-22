@@ -166,3 +166,15 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - Atendimento em prévia diferencia o exemplo de pergunta do comprador e a resposta; nenhum chat real está conectado.
 - Métricas exibidas vêm apenas do catálogo D1: total, categorias, promoções, disponibilidade, produtos publicados, distribuição. A proporção de disponibilidade é calculada no browser a partir do catálogo retornado pela API.
 - Interface continua usando endpoints e validação Cloudflare Access existentes. Sem Access configurado, todas as alterações de catálogo e a auditoria permanecem bloqueadas.
+
+## CK Sushi Operations Console V11 (22/11/2026)
+
+**Mudança arquitetural do frontend administrativo:** as folhas de estilo em camadas e o menu lateral permanente foram descartados. O painel agora usa uma navegação horizontal no desktop, ferramentas em menu contextual e dock de cinco acessos no mobile.
+
+- Visão geral voltada à operação diária: fila de pedidos (realmente vazia), pendências de ativação e quatro contadores do catálogo público, sem métricas comerciais fictícias.
+- Gestão de produtos: busca, categorias, filtro por disponibilidade/publicação, ordenação, consulta sem Access e edição somente com role/CSRF verificados no servidor.
+- Tela exclusiva de categorias, relatórios de catálogo com CSV, prévia de suporte de três colunas e configurações/privacidade/auditoria.
+- CSS único e reduzido (sem empilhar temas V9/V10), layouts responsivos e suporte a movimento reduzido.
+- Testes estáticos de navegação, integridade dos IDs, controles e ausência de atalhos de autorização, em `tests/admin-ui.test.mjs`.
+- Admin continua sem habilitar pedidos, pagamentos, dados de clientes ou rastreamento; os 18 gatilhos de staging e flags fechadas permanecem obrigatórios.
+- Cloudflare Access ainda precisa ser ativado pelo proprietário e auditado; este frontend por si só **não constitui** uma autenticação administrativa pronta.
