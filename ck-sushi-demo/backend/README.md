@@ -123,3 +123,12 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - `tests/schema-integrity.test.mjs` usa SQLite local, somente com dados sintéticos e sem rede, para exercitar migrações e tentativas de adulteração. Executa no Node 22+; não modifica o D1.
 - Primeiro cron de limpeza de fingerprints observado: **22/11/2026 às 03:00:32 UTC**, resultado `success`, 0 fingerprints expirados. Não é prova de política completa de retenção.
 - Permanecem pendentes: Cloudflare Access, dados e documentos do cliente, provedor Pix de teste, logística iFood, operação de reembolsos, restauração de backup validada e aceite jurídico.
+
+## Iteração de confiabilidade — V7 (22/11/2026)
+
+- `domain/outbox.mjs` inclui `recoverExpiredOutboxLeases`: tarefas cuja oitava tentativa foi interrompida e cujo lease expirou passam a `failed`, com erro genérico `OUTBOX_LEASE_EXHAUSTED`; tarefas em lease ativo e tarefas ainda recuperáveis permanecem intactas.
+- A recuperação é limitada por lote (1–500), valida o relógio, confere o número de registros afetados e não envia requisições a provedores.
+- O código de recuperação **não está ligado ao cron ou a rotas HTTP**. A base de homologação não aceita criar tarefas de entregas/pagamento.
+- Novos testes em SQLite isolado (`tests/outbox-recovery.test.mjs` e `tests/order-persistence-sqlite.test.mjs`) verificam recuperação de tarefas, versões otimistas, eventos atômicos, replay idempotente e rollback de pedido se o preço do produto mudar.
+- O CI usa Node 22 para executar os testes SQLite reais. Em Node 20, esses testes são ignorados por falta do módulo `node:sqlite`; as demais verificações continuam.
+- **Ainda pendente para produção:** exercício da fila em execução distribuída, observabilidade dos processadores, testes de carga/recuperação, integrações e credenciais legítimas dos provedores, Cloudflare Access e validações LGPD.
