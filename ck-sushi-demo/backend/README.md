@@ -178,3 +178,19 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - Testes estáticos de navegação, integridade dos IDs, controles e ausência de atalhos de autorização, em `tests/admin-ui.test.mjs`.
 - Admin continua sem habilitar pedidos, pagamentos, dados de clientes ou rastreamento; os 18 gatilhos de staging e flags fechadas permanecem obrigatórios.
 - Cloudflare Access ainda precisa ser ativado pelo proprietário e auditado; este frontend por si só **não constitui** uma autenticação administrativa pronta.
+
+## Backend V12 — domínio de pedidos e leitura administrativa (22/11/2026)
+
+**Implementado no código, sem liberar comércio real:**
+
+- `domain/order-service.mjs`: preparação transacional de pedido **somente para retirada**, após autorização explícita e três flags comerciais no banco. O servidor reconstrói o carrinho, consulta disponibilidade/preços atuais no D1, verifica pedido mínimo, gera ID não previsível, criptografa nome/telefone com AES-GCM e chama o repositório transacional de pedidos. **Não** cria cobrança, entregador nem notificação ao comprador.
+- `security/idempotency.mjs`: HMAC de identidade do pedido a partir de itens ordenados e dados normalizados; evita incluir telefone/nome em hash de fácil adivinhação. A repetição da mesma chave retorna o mesmo pedido e valor original, mesmo depois de uma alteração de preço no catálogo; reuso com dados diferentes retorna conflito.
+- `security/customer-crypto.mjs`: normalizador restrito de dados do cliente, reutilizado antes do cálculo da impressão digital e da criptografia.
+- `domain/order-queries.mjs`: leitura de até 50 pedidos por página com cursor validado, filtro de estado e visão de itens/eventos. SQL retorna **apenas dados operacionais**, nunca nome, telefone, endereço, ciphertext, IDs de pagamento nem segredos.
+- `GET /api/admin/orders` e `GET /api/admin/orders/{id}` conectados ao Worker; exigem Cloudflare Access autenticado e papel `owner` ou `editor`. Não têm ações de escrita.
+- Novas suítes `tests/order-service-sqlite.test.mjs` e extensões de `tests/security.test.mjs` cobrem bloqueios, idempotência, cálculo de preços, snapshots criptografados, rejeição de adulteração e consulta redigida.
+- `build.mjs` reúne ambos os novos módulos no Worker, removendo imports ESM apenas durante o bundle. A origem continua separada e testável.
+
+**Atenção: o endpoint público `/api/orders` continua respondendo `ORDERING_DISABLED` em staging**. A criação de pedidos não foi conectada a rotas públicas, porque ainda faltam sessão de pagamento real, políticas do restaurante e autorização explícita de coleta de dados pessoais. Os gatilhos de bloqueio v6 e as quatro flags `false` permanecem. Não utilizar os triggers `staging_*` em produção.
+
+**Pendente para liberar o ciclo comercial:** adaptação para checkout de entrega com cotação real, orquestração e reconciliação dos pagamentos, webhooks de produção, gestão de reembolsos, rotina de outbox em processadores distribuídos e revisões de segurança/LGPD.
