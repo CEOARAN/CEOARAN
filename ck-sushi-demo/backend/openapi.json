@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.21.staging.5",
-    "description": "Homologação de catálogo e cotação; Pix e pedidos reais bloqueados. Mercado Pago Orders API preparada em módulos puros, webhook test-only assinado e limpeza diária de fingerprints temporários."
+    "version": "2026.11.22.staging.6",
+    "description": "Homologação de catálogo e cotação; Pix e pedidos reais bloqueados. Auditoria do D1 até migração 0005 com snapshots financeiros imutáveis e 15 gatilhos obrigatórios; webhook Mercado Pago apenas de teste assinado e limpeza diária de fingerprints."
   },
   "servers": [
     {
@@ -480,7 +480,7 @@
         "tags": [
           "Public"
         ],
-        "description": "No secrets or customer data. Returns 200 only if schema migration v4 and staging DB write-blocking triggers are intact, catalog exists, and all real commerce flags remain off.",
+        "description": "Readiness público sem dados pessoais: exige schema v5, 15 gatilhos SQL críticos pelo nome, catálogo ativo, nenhuma escrita comercial e todas as flags de comércio desativadas.",
         "responses": {
           "200": {
             "description": "Homologação pronta, transações reais bloqueadas",
