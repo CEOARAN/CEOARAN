@@ -12,10 +12,10 @@ const provider={
 };
 test("Orders API Pix payload uses server-cents, correct payment method and no secrets",()=>{
  const payload=createPixOrderPayload({orderId,totalCents:amount,payer});
- assert.equal(payload.total_amount,"50.90");assert.equal(payload.transactions.payments[0].amount,"50.90");
+ assert.equal(payload.total_amount,"50.90");assert.equal(payload.processing_mode,"automatic");assert.equal(payload.transactions.payments[0].amount,"50.90");
  assert.equal(payload.transactions.payments[0].payment_method.type,"bank_transfer");
  assert.equal(payload.payer.email,"tester@example.test");
- assert.deepEqual(Object.keys(payload),["type","external_reference","total_amount","payer","transactions"]);
+ assert.deepEqual(Object.keys(payload),["type","processing_mode","external_reference","total_amount","payer","transactions"]);
  assert.equal(formatBRLCents(1),"0.01");
  assert.equal(parseMoneyCents("50.90"),amount);
 });
