@@ -2,8 +2,8 @@
 // Run with Node 20+: node backend/build.mjs
 import {readFile,writeFile,mkdir} from "node:fs/promises";
 const file=x=>new URL(x,import.meta.url);
-const [worker,adminHTML,adminJS,adminCSS,quoteModule,orderModule,outboxModule,repositoryModule,paymentModule,mpOrdersModule,mpTestWebhookModule,ifoodModule,customerCryptoModule,idempotencyModule,maintenanceModule,frontendSource]=await Promise.all([
-  readFile(file("./worker.js"),"utf8"),readFile(file("./admin.html"),"utf8"),readFile(file("./admin.js"),"utf8"),readFile(file("./admin.css"),"utf8"),readFile(file("./domain/quote.mjs"),"utf8"),readFile(file("./domain/order-machine.mjs"),"utf8"),readFile(file("./domain/outbox.mjs"),"utf8"),readFile(file("./domain/order-repository.mjs"),"utf8"),readFile(file("./integrations/mercadopago.mjs"),"utf8"),readFile(file("./integrations/mercadopago-orders.mjs"),"utf8"),readFile(file("./integrations/mercadopago-test-webhook.mjs"),"utf8"),readFile(file("./integrations/ifood.mjs"),"utf8"),readFile(file("./security/customer-crypto.mjs"),"utf8"),readFile(file("./security/idempotency.mjs"),"utf8"),readFile(file("./jobs/staging-maintenance.mjs"),"utf8"),readFile(file("../index.html"),"utf8")
+const [worker,adminHTML,adminJS,adminCSS,quoteModule,orderModule,outboxModule,repositoryModule,orderServiceModule,orderQueriesModule,paymentModule,mpOrdersModule,mpTestWebhookModule,ifoodModule,customerCryptoModule,idempotencyModule,maintenanceModule,frontendSource]=await Promise.all([
+  readFile(file("./worker.js"),"utf8"),readFile(file("./admin.html"),"utf8"),readFile(file("./admin.js"),"utf8"),readFile(file("./admin.css"),"utf8"),readFile(file("./domain/quote.mjs"),"utf8"),readFile(file("./domain/order-machine.mjs"),"utf8"),readFile(file("./domain/outbox.mjs"),"utf8"),readFile(file("./domain/order-repository.mjs"),"utf8"),readFile(file("./domain/order-service.mjs"),"utf8"),readFile(file("./domain/order-queries.mjs"),"utf8"),readFile(file("./integrations/mercadopago.mjs"),"utf8"),readFile(file("./integrations/mercadopago-orders.mjs"),"utf8"),readFile(file("./integrations/mercadopago-test-webhook.mjs"),"utf8"),readFile(file("./integrations/ifood.mjs"),"utf8"),readFile(file("./security/customer-crypto.mjs"),"utf8"),readFile(file("./security/idempotency.mjs"),"utf8"),readFile(file("./jobs/staging-maintenance.mjs"),"utf8"),readFile(file("../index.html"),"utf8")
 ]);
 const anchor="render();\nconst loaderEl=";
 if(!frontendSource.includes(anchor))throw new Error("Frontend sync anchor was removed; review changes before deploying.");
@@ -18,7 +18,7 @@ const bundle=[
   "const ADMIN_CSS="+JSON.stringify(adminCSS)+";",
   "const FRONTEND_HTML="+JSON.stringify(storefrontHTML)+";",
   "// Pure domain modules inlined by the staging build",
-  ...[quoteModule,orderModule,outboxModule,repositoryModule,paymentModule,mpOrdersModule,mpTestWebhookModule,ifoodModule,customerCryptoModule,idempotencyModule,maintenanceModule].map(src=>src.replace(/^export /gm,"").replace(/^import \{validateTransition\} from "\.\/order-machine\.mjs";\s*$/gm,"")),
+  ...[quoteModule,orderModule,outboxModule,repositoryModule,orderServiceModule,orderQueriesModule,paymentModule,mpOrdersModule,mpTestWebhookModule,ifoodModule,customerCryptoModule,idempotencyModule,maintenanceModule].map(src=>src.replace(/^export /gm,"").replace(/^import \{[^\n]+\} from "[^"]+";\s*$/gm,"")),
   worker
 ].join("\n");
 await mkdir(file("./dist"),{recursive:true});
