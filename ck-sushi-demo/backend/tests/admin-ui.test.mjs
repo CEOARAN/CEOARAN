@@ -30,6 +30,14 @@ test("admin page uses standalone same-origin assets and supports mobile",()=>{
  assert.match(css,/\prefers-reduced-motion/);
  assert.match(css,/\.mobile-tabbar/);
  assert.match(html,/id="mobile-more"/);
+ assert.match(html,/class="workbench-primary"/);
+ assert.match(html,/class="task-rail"/);
+ assert.match(html,/id="stat-available-ratio"/);
+ assert.match(html,/id="stat-published"/);
+ assert.doesNotMatch(html,/class="hero-summary"/);
+ assert.match(css,/\.workbench-primary/);
+ assert.match(css,/tbody tr\{display:grid/);
+ assert.match(css,/\.mobile-tabbar/);
 });
 test("all simple IDs used by admin UI exist",()=>{
  const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]));
@@ -46,6 +54,10 @@ test("admin JS parses and never simulates orders, money or Access privileges",()
  assert.match(js,/\/api\/store\/config/);
  assert.match(js,/\/api\/catalog/);
  assert.match(js,/function csvCell\(/);
+ assert.match(js,/function orderFilter\(/);
+ assert.match(js,/function setToday\(/);
+ assert.match(js,/stat-available-ratio/);
+ assert.match(js,/chat-message user/);
  assert.doesNotMatch(js,/localStorage|sessionStorage|document\.cookie|eval\(/);
  assert.doesNotMatch(js,/\.innerHTML\s*=/);
  assert.match(html,/Nenhum pedido real/i);
