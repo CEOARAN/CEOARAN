@@ -95,5 +95,5 @@ export async function fetchVerifiedPixOrder({
  return {provider_order_id:result.provider_order_id,
   provider_payment_id:result.payment_id,payment_status:result.payment_status,
   approved:result.approved,amount_cents:result.amount_cents,
-  reconciliation_verified:true};
+  qr_code:result.qr_code,ticket_url:result.ticket_url,reconciliation_verified:true};
 }
