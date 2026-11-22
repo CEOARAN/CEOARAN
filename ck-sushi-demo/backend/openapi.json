@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.22.staging.10",
-    "description": "CK Sushi staging: admin V10 responsivo, visual editorial baseado em referências, catálogo D1, relatórios reais e fluxos de suporte demonstrativos; comércio e dados pessoais bloqueados. D1 v6 com 18 gatilhos."
+    "version": "2026.11.22.staging.11",
+    "description": "CK Sushi staging v11: painel de operações com navegação horizontal, tarefas de restaurante, catálogo real, categorias e filtros. Cloudflare Access necessário para escrita; pedidos e pagamentos bloqueados. Banco D1 v6 protegido por 18 gatilhos."
   },
   "servers": [
     {
