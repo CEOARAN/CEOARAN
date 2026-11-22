@@ -10,7 +10,7 @@ import {createPixAtMercadoPago,fetchVerifiedPixOrder} from "../integrations/merc
 export class PaymentServiceError extends Error{
  constructor(code){super(code);this.name="PaymentServiceError";this.code=code}
 }
-const ID=/^[A-Za-z0-9_-]{16,120}$/, MP_ID=/^[A-Za-z0-9_-]{5,100}$/;
+const PAY_ORDER_ID=/^[A-Za-z0-9_-]{16,120}$/, PAY_PROVIDER_ID=/^[A-Za-z0-9_-]{5,100}$/;
 async function gate(db,releaseApproved){
  if(releaseApproved!==true)throw new PaymentServiceError("PAYMENTS_RELEASE_NOT_APPROVED");
  if(!db||typeof db.prepare!=="function"||typeof db.batch!=="function")
@@ -21,7 +21,7 @@ async function gate(db,releaseApproved){
   throw new PaymentServiceError("DATABASE_COMMERCE_GATES_DISABLED");
 }
 async function loadLocal(db,orderId){
- if(!ID.test(String(orderId||"")))throw new PaymentServiceError("INVALID_ORDER_ID");
+ if(!PAY_ORDER_ID.test(String(orderId||"")))throw new PaymentServiceError("INVALID_ORDER_ID");
  const order=await db.prepare("SELECT id,status,payment_status,total_cents,currency,version FROM commerce_orders WHERE id=?").bind(orderId).first();
  if(!order)throw new PaymentServiceError("ORDER_NOT_FOUND");
  if(order.currency!=="BRL"||!Number.isSafeInteger(order.total_cents)||order.total_cents<1)
@@ -55,7 +55,7 @@ export async function initializePixForPickup(db,{
   orderId,totalCents:order.total_cents,payer,idempotencyKey:key,merchantId,token,
   releaseApproved:true,fetchImpl
  });
- if(!MP_ID.test(verified.provider_order_id)||!MP_ID.test(verified.provider_payment_id))
+ if(!PAY_PROVIDER_ID.test(verified.provider_order_id)||!PAY_PROVIDER_ID.test(verified.provider_payment_id))
   throw new PaymentServiceError("INVALID_PROVIDER_PAYMENT_REFERENCE");
  const id="CKPAY-"+crypto.randomUUID();
  // This table's unique idempotency_hash and provider IDs protect concurrent
