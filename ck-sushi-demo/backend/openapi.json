@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.22.staging.12",
-    "description": "Backend CK Sushi staging V12: cálculo de preços, serviço de criação de pedidos somente para futura retirada autorizado (sem rota pública), consulta administrativa PII-redacted via Access, integridade D1 v6 com 18 triggers. Compras e pagamentos reais continuam desativados."
+    "version": "2026.11.22.staging.13",
+    "description": "Backend CK Sushi V13, D1 schema v7: listagem de pedidos, Pix Orders, verificação de conta/valor, reconciliação, outbox e transições com Access/CSRF. Comércio e entrega reais permanecem bloqueados."
   },
   "servers": [
     {
@@ -574,7 +574,7 @@
           "Admin Orders"
         ],
         "summary": "Consultar pedidos sem dados pessoais",
-        "description": "Requer Access owner/editor. Parâmetros opcionais: status (estado permitido), limit (1..50) e cursor. Em staging, não há pedidos.",
+        "description": "Exige owner/editor com Cloudflare Access. Filtros status ou group (mutuamente exclusivos), cursor opaco e até 50 itens, sem PII.",
         "parameters": [
           {
             "name": "status",
@@ -617,6 +617,19 @@
             "required": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "group",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "done",
+                "cancelled"
+              ]
             }
           }
         ],
@@ -716,6 +729,93 @@
           },
           "503": {
             "description": "Cloudflare Access não configurado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/orders/{id}/status": {
+      "patch": {
+        "tags": [
+          "Admin Orders"
+        ],
+        "summary": "Atualizar etapa comercial com CSRF e controle de versão",
+        "description": "Requer Access owner/editor, X-CSRF-Token, Origin correto, COMMERCE_RELEASE_APPROVED e banco de produção com flags de comércio ativas. Staging retorna ORDERING_DISABLED.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 120
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "status",
+                  "expected_version"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado confirmado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Não autorizado ou CSRF",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de versão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Recurso desativado",
             "content": {
               "application/json": {
                 "schema": {
