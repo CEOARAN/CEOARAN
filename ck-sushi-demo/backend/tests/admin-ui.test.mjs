@@ -63,3 +63,11 @@ test("admin JS parses and never simulates orders, money or Access privileges",()
  assert.match(html,/SEM PEDIDOS REAIS/i);
  assert.match(html,/Sem GPS ou motorista fictício/i);
 });
+
+test("order filters attach to every tab, not only the first element",()=>{
+ const selector='[data-order-filter]';
+ assert.match(js,/\$\$\("\[data-order-filter\]"\)\.forEach/);
+ assert.doesNotMatch(js,/^\s\$\("\[data-order-filter\]"\)\.forEach/m);
+ assert.match(html,/data-order-filter="all"/);
+ assert.match(html,/data-order-filter="done"/);
+});
