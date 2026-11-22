@@ -30,7 +30,7 @@ export function createPixOrderPayload({orderId,totalCents,payer}){
  if(typeof orderId!=="string"||!ORDER_REF_RE.test(orderId))throw new MercadoPagoOrdersError("INVALID_REFERENCE");
  const amount=formatBRLCents(totalCents),safePayer=validatePayer(payer);
  return {
-  type:"online",external_reference:orderId,total_amount:amount,payer:safePayer,
+  type:"online",processing_mode:"automatic",external_reference:orderId,total_amount:amount,payer:safePayer,
   transactions:{payments:[{amount,payment_method:{id:"pix",type:"bank_transfer"}}]}
  };
 }
