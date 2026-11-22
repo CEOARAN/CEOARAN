@@ -18,7 +18,7 @@ const quote={currency:"BRL",fulfillment:"pickup",subtotal_cents:1800,
 async function fixture(){
  const sqlite=new DatabaseSync(":memory:");
  sqlite.exec("PRAGMA foreign_keys=ON");
- for(const name of ["0001_init.sql","0002_commerce.sql","0003_staging_guards.sql","0004_financial_integrity.sql","0005_financial_snapshots.sql","0006_staging_feature_gates.sql"]){
+ for(const name of ["0001_init.sql","0002_commerce.sql","0003_staging_guards.sql","0004_financial_integrity.sql","0005_financial_snapshots.sql","0006_staging_feature_gates.sql","0007_payment_order_reconciliation.sql"]){
   sqlite.exec(await readFile(new URL("../migrations/"+name,import.meta.url),"utf8"));
  }
  sqlite.prepare("INSERT INTO products(id,name,category,price_cents,image_url) VALUES(?,?,?,?,?)")
