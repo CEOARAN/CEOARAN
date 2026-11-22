@@ -404,7 +404,7 @@ function setToday(){
 function orderFilter(value){
  const labels={all:"Nenhum pedido real ainda.",pending:"Nenhum pedido em andamento.",done:"Nenhum pedido concluído.",cancelled:"Nenhum pedido cancelado."};
  if(!Object.hasOwn(labels,value))return;
- $("[data-order-filter]").forEach(button=>{
+ $$("[data-order-filter]").forEach(button=>{
   const selected=button.dataset.orderFilter===value;
   button.classList.toggle("active",selected);
   button.setAttribute("aria-pressed",String(selected));
@@ -426,7 +426,7 @@ async function boot(){
    event.preventDefault();focusSearch();
   }
  });
- $("[data-order-filter]").forEach(button=>button.addEventListener("click",()=>orderFilter(button.dataset.orderFilter)));
+ $$("[data-order-filter]").forEach(button=>button.addEventListener("click",()=>orderFilter(button.dataset.orderFilter)));
  $("#product-search").addEventListener("input",renderTable);
  $("#category-filter").addEventListener("change",renderTable);
  $("#clear-filters").addEventListener("click",()=>{
