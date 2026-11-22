@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.22.staging.7",
-    "description": "Homologação sem pedidos ou pagamentos reais, esquema v5 com proteção de snapshots, rotina cron e recuperação de outbox preparada (não ativada em staging)."
+    "version": "2026.11.22.staging.8",
+    "description": "Homologação sem compras reais; D1 versão 6 com 18 gatilhos essenciais, incluindo bloqueio de ativação das flags comerciais, auditoria de tabelas vazias e tarefas de recuperação preparadas, mas não executadas."
   },
   "servers": [
     {
@@ -480,7 +480,7 @@
         "tags": [
           "Public"
         ],
-        "description": "Readiness público sem dados pessoais: exige schema v5, 15 gatilhos SQL críticos pelo nome, catálogo ativo, nenhuma escrita comercial e todas as flags de comércio desativadas.",
+        "description": "Sinal de saúde de homologação: requer versão 6, exatamente 18 triggers nomeados, pelo menos um produto público, 9 tabelas comerciais vazias e flags de pedido/pagamento/dados/rastreio desativadas.",
         "responses": {
           "200": {
             "description": "Homologação pronta, transações reais bloqueadas",
