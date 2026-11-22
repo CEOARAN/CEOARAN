@@ -142,3 +142,17 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - Testes SQLite `tests/schema-integrity.test.mjs` cobrem as tentativas rejeitadas e a alteração autorizada da revisão de catálogo.
 - Testes de persistência `tests/order-persistence-sqlite.test.mjs` removem somente no banco **em memória** os bloqueios de staging para exercitar cenários futuros, sem alteração de nenhum trigger remoto.
 - **Permanecem pendentes**: homologação CI completa, Cloudflare Access com MFA e aprovadores reais, credenciais de sandbox do Mercado Pago, aprovação de preços/dados e operação logística iFood.
+
+## Painel administrativo V9 — reformulação visual (22/11/2026)
+
+- Interface inspirada nas referências visuais fornecidas: navegação lateral no desktop e inferior no celular, painéis de indicadores, cartões com bordas suaves, tipografia limpa, contraste preto/branco e detalhes vermelhos da CK Sushi.
+- O dashboard exibe **somente dados reais do catálogo**: total, categorias, publicações/disponibilidade, promoções e gráfico de quantidade por categoria.
+- O relatório oferece preço médio dos produtos, distribuição por categoria, disponibilidade e exportação CSV dos produtos carregados. CSV é protegido contra fórmulas iniciadas por `=+-@`.
+- Produtos possuem pesquisa, filtros e consulta livre do catálogo público. A criação/edição usa Cloudflare Access, CSRF, versões otimistas e auditoria já presentes no Worker. Sem Access, todos os campos são somente leitura e os botões de escrita ficam bloqueados.
+- **Pedidos** apresenta estado vazio real e linha do tempo futura, sem inventar receitas, pedidos ou motoristas.
+- **Atendimento** permite pré-visualizar localmente três fluxos exemplificativos, sem guardar conversas nem recolher dados pessoais.
+- **Integrações** usa os endpoints de estado públicos e, quando autorizado, os indicadores de credenciais de teste do Mercado Pago; jamais exibe senhas/chaves.
+- Segurança, privacidade e auditoria têm áreas próprias, mantendo o histórico acessível apenas a proprietários autorizados.
+- O HTML não carrega script de CDN nem contém dados pessoais. A interface usa os ativos `/admin/app.js` e `/admin/style.css`, já permitidos pela CSP do Worker.
+- Testes de regressão de estrutura: `tests/admin-ui.test.mjs`.
+- Sem a configuração do Cloudflare Access na conta, a área permanece **consulta pública e painel demonstrativo**, não um ambiente administrativo operacional. A publicação visual não habilita vendas, pagamentos ou integrações.
