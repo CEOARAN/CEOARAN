@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "CK Sushi Backend — Staging",
-    "version": "2026.11.22.staging.8",
-    "description": "Homologação sem compras reais; D1 versão 6 com 18 gatilhos essenciais, incluindo bloqueio de ativação das flags comerciais, auditoria de tabelas vazias e tarefas de recuperação preparadas, mas não executadas."
+    "version": "2026.11.22.staging.9",
+    "description": "CK Sushi staging: interface administrativa V9 com dashboard, catálogo, relatórios e fluxos demonstrativos de suporte; nenhuma operação comercial ativa. D1 v6 com 18 gatilhos obrigatórios."
   },
   "servers": [
     {
