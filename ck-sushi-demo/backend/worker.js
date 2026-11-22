@@ -1,5 +1,5 @@
 /* CK Sushi backend — staging only. Authentication is fail-closed until Cloudflare Access is provisioned. */
-const VERSION="2026.11.22.staging.12";
+const VERSION="2026.11.22.staging.13";
 /* PURE_CHECKOUT_DOMAIN */
 const DB=env=>env.CATALOG_DB;
 const HOSTS=new Set(["instadelivery-public.nyc3.cdn.digitaloceanspaces.com","images.unsplash.com"]);
@@ -124,7 +124,7 @@ async function stagingReadiness(env){
   (SELECT value FROM operational_settings WHERE key='payments_enabled') AS payments_enabled,
   (SELECT value FROM operational_settings WHERE key='customer_data_enabled') AS customer_data_enabled,
   (SELECT value FROM operational_settings WHERE key='tracking_enabled') AS tracking_enabled`).first();
- const ready=report?.schema_version>=6&&report.active_products>0&&report.required_guards===18&&
+ const ready=report?.schema_version>=7&&report.active_products>0&&report.required_guards===18&&
   ["orders","payments","pending_tasks","legacy_orders","legacy_order_items","order_lines","order_events","payment_events","deliveries"].every(k=>report[k]===0)&&
   ["orders_enabled","payments_enabled","customer_data_enabled","tracking_enabled"].every(k=>report[k]==="false");
  return json({ok:ready,status:ready?"ready":"not_ready",environment:"staging",commerceEnabled:false},ready?200:503,true);
@@ -206,6 +206,39 @@ async function adminAPI(req,env,url){
    }catch(e){
      if(e instanceof OrderQueryError)return problem(422,e.code,"Consulta de pedido inválida.");
      throw e;
+   }
+ }
+ // Store staff may move an already-paid order through the allowed state
+ // machine, but cannot forge a payment or logistics confirmation.
+ // The staging Worker has no COMMERCE_RELEASE_APPROVED binding.
+ const orderStatusPath=url.pathname.match(/^\/api\/admin\/orders\/([A-Za-z0-9_-]{8,120})\/status$/);
+ if(req.method==="PATCH"&&orderStatusPath){
+   if(!["owner","editor"].includes(auth.role))return problem(403,"ORDER_ACCESS_DENIED","Permissão administrativa necessária.");
+   if(env.COMMERCE_RELEASE_APPROVED!=="true"||env.COMMERCE_DEPLOYMENT!=="production")
+     return problem(503,"ORDERING_DISABLED","Mudanças reais de pedidos ainda não estão habilitadas.");
+   const body=await bodyJSON(req);
+   if(!body||typeof body!=="object"||Array.isArray(body)||
+      Object.keys(body).some(k=>!["status","expected_version"].includes(k))||
+      typeof body.status!=="string"||!Number.isSafeInteger(body.expected_version)||
+      body.expected_version<1)
+     return problem(422,"INVALID_TRANSITION_REQUEST","Etapa do pedido inválida.");
+   try{
+     const next=await transitionPersistedOrder(DB(env),{
+       orderId:orderStatusPath[1],to:body.status,actor:"store",
+       expectedVersion:body.expected_version,releaseApproved:true
+     });
+     return json({ok:true,order:next});
+   }catch(error){
+     if(error instanceof CommerceRepositoryError||error instanceof OrderTransitionError){
+       const code=error.code;
+       if(code==="VERSION_CONFLICT"||code==="TRANSITION_CONFLICT")
+         return problem(409,code,"Este pedido foi atualizado por outra operação.");
+       if(code==="DATABASE_COMMERCE_GATES_DISABLED"||code==="COMMERCE_RELEASE_NOT_APPROVED")
+         return problem(503,"ORDERING_DISABLED","Operação comercial ainda bloqueada.");
+       if(code==="ORDER_NOT_FOUND")return problem(404,code,"Pedido não encontrado.");
+       return problem(422,"INVALID_ORDER_TRANSITION","Etapa incompatível com o estado atual.");
+     }
+     throw error;
    }
  }
  if(req.method==="GET"&&url.pathname==="/api/admin/summary"){
