@@ -478,7 +478,7 @@ async function boot(){
  const initial=location.hash.slice(1);
  window.addEventListener("hashchange",()=>{const t=location.hash.slice(1);if(Object.hasOwn(TABS,t)&&t!==STATE.tab)go(t)});
 
- if(Object.hasOwn(TABS,initial))go(initial);
+ go(Object.hasOwn(TABS,initial)?initial:"overview");
  try{await getPublicCatalog()}
  catch(error){
   $("#product-rows").replaceChildren();
