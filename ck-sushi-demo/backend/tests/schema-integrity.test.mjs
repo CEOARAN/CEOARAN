@@ -9,7 +9,7 @@ try{({DatabaseSync}=await import("node:sqlite"))}catch{}
 const migrationNames=[
  "0001_init.sql","0002_commerce.sql","0003_staging_guards.sql",
  "0004_financial_integrity.sql","0005_financial_snapshots.sql",
- "0006_staging_feature_gates.sql"
+ "0006_staging_feature_gates.sql","0007_payment_order_reconciliation.sql"
 ];
 const buildDb=async()=>{
  const db=new DatabaseSync(":memory:");
@@ -26,7 +26,7 @@ test("all staging migrations apply in order, preserving write-blocking triggers"
 },async()=>{
  const db=await buildDb();
  try{
-  assert.equal(db.prepare("SELECT MAX(version) AS version FROM schema_migrations").get().version,6);
+  assert.equal(db.prepare("SELECT MAX(version) AS version FROM schema_migrations").get().version,7);
   const names=db.prepare("SELECT name FROM sqlite_master WHERE type='trigger'").all().map(v=>v.name);
   for(const name of [
    "staging_block_order_insert","staging_block_payment_insert",
