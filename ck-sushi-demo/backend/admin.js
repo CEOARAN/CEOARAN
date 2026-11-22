@@ -1,6 +1,6 @@
 "use strict";
 
-/* CK Sushi Business Console v9.
+/* CK Sushi Operations Console v11.
  * All statistics below come from the public catalog or authorized admin API.
  * No fictional orders, revenue, couriers or customer records are generated.
  * Admin writes require a real Access identity and CSRF verified by the Worker.
@@ -8,7 +8,7 @@
 const $=selector=>document.querySelector(selector);
 const $$=selector=>[...document.querySelectorAll(selector)];
 const TABS=Object.freeze({
- overview:"Visão geral",products:"Produtos",orders:"Pedidos",analytics:"Relatórios",
+ overview:"Hoje",products:"Cardápio",orders:"Pedidos",categories:"Categorias",analytics:"Análises",
  support:"Atendimento",integrations:"Integrações",compliance:"Privacidade e LGPD",audit:"Histórico de ações"
 });
 const STATE={products:[],role:null,email:null,csrf:null,editing:null,tab:"overview",loading:false,inventorySource:"public",store:null};
@@ -54,6 +54,7 @@ function go(tab){
  });
  $$(".tab").forEach(n=>n.classList.toggle("active",n.id==="tab-"+tab));
  $("#section-heading").textContent=TABS[tab];
+ document.title=TABS[tab]+" — CK Sushi Operações";
  closeNav();
  if(location.hash!=="#"+tab)history.replaceState(null,"","#"+tab);
  window.scrollTo({top:0,behavior:"instant"});
@@ -140,6 +141,20 @@ function availabilityDonut({published,available}){
  append(legend,a,b);append(host,circle,legend);
  host.setAttribute("aria-label",available+" de "+published+" produtos publicados disponíveis");
 }
+
+function renderCategories(){
+ const host=$("#category-rows");host.replaceChildren();
+ const categories=[...calc().categories].sort((a,b)=>b[1]-a[1]);
+ if(!categories.length){host.textContent="Nenhuma categoria encontrada.";return}
+ categories.forEach(([name,count],index)=>{
+  const row=el("div","category-row");
+  append(row,el("span","category-row-number",String(index+1).padStart(2,"0")),
+    el("strong","",name),el("small","",count+" produtos"));
+  const open=el("button","", "Ver produtos");
+  open.type="button";open.addEventListener("click",()=>{go("products");$("#category-filter").value=name;renderTable()});
+  row.append(open);host.append(row);
+ });
+}
 function overview(){
  const stats=calc();
  $("#stat-total").textContent=stats.total;
@@ -158,6 +173,7 @@ function overview(){
  $("#analytics-unavailable").textContent=stats.unavailable;
  $("#analytics-price").textContent=stats.total?money(stats.mean):"—";
  barChart(stats.categories);
+ renderCategories();
  categoryBreakdown(stats.categories,stats.total);
  availabilityDonut(stats);
  const recent=$("#recent-products");recent.replaceChildren();
@@ -176,8 +192,19 @@ function overview(){
 function filtered(){
  const query=($("#product-search").value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
  const category=$("#category-filter").value;
- return STATE.products.filter(p=>(category==="Todas"||p.cat===category)&&[p.name,p.desc,p.id,p.cat].join(" ")
-  .normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().includes(query));
+ const status=$("#product-status").value,sort=$("#product-sort").value;
+ const list=STATE.products.filter(p=>{
+  if(category!=="Todas"&&p.cat!==category)return false;
+  if(status==="available"&&!(p.isPublished&&p.isAvailable))return false;
+  if(status==="unavailable"&&p.isAvailable)return false;
+  if(status==="hidden"&&p.isPublished)return false;
+  return [p.name,p.desc,p.id,p.cat].join(" ")
+   .normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().includes(query);
+ });
+ if(sort==="name")list.sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
+ if(sort==="price_asc")list.sort((a,b)=>a.price-b.price);
+ if(sort==="price_desc")list.sort((a,b)=>b.price-a.price);
+ return list;
 }
 function makeTextCell(strong,small){
  const td=el("td");td.append(el("b","",strong));if(small)td.append(el("small","",small));return td;
@@ -429,8 +456,10 @@ async function boot(){
  $$("[data-order-filter]").forEach(button=>button.addEventListener("click",()=>orderFilter(button.dataset.orderFilter)));
  $("#product-search").addEventListener("input",renderTable);
  $("#category-filter").addEventListener("change",renderTable);
+ $("#product-status").addEventListener("change",renderTable);
+ $("#product-sort").addEventListener("change",renderTable);
  $("#clear-filters").addEventListener("click",()=>{
-  $("#product-search").value="";$("#category-filter").value="Todas";renderTable();
+  $("#product-search").value="";$("#category-filter").value="Todas";$("#product-status").value="all";$("#product-sort").value="original";renderTable();
  });
  $("#new-product").addEventListener("click",()=>openEditor(null));
  $("#refresh-dashboard").addEventListener("click",refreshAll);
@@ -447,6 +476,8 @@ async function boot(){
  setToday();
  previewSupport("delivery");
  const initial=location.hash.slice(1);
+ window.addEventListener("hashchange",()=>{const t=location.hash.slice(1);if(Object.hasOwn(TABS,t)&&t!==STATE.tab)go(t)});
+
  if(Object.hasOwn(TABS,initial))go(initial);
  try{await getPublicCatalog()}
  catch(error){
