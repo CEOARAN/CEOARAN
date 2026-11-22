@@ -23,7 +23,7 @@ export async function deriveOrderRequestFingerprint({cart,customer,secret}={}){
  // The parser and customer normalizer must already have validated data.
  const canonical=JSON.stringify({
   fulfillment:cart.fulfillment,
-  items:[...cart.items].sort((a,b)=>a.product_id.localeCompare(b.product_id)).map(x=>[x.product_id,x.quantity]),
+  items:[...cart.items].sort((a,b)=>a.product_id<b.product_id?-1:a.product_id>b.product_id?1:0).map(x=>[x.product_id,x.quantity]),
   customer:{name:customer.name,phone:customer.phone,address:customer.address??null}
  });
  if(canonical.length>6000)throw new IdempotencyError("INVALID_REQUEST_FINGERPRINT");
