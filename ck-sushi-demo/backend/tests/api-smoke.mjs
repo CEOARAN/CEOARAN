@@ -3,7 +3,7 @@ const base=process.env.CK_SUSHI_STAGING_URL||"https://ck-sushi-backend-staging.c
 const assert=(condition,msg)=>{if(!condition)throw new Error(msg)};
 const request=async(path,options)=>{const response=await fetch(base+path,options);return{status:response.status,data:await response.json()}};
 const health=await request("/api/health");assert(health.status===200&&health.data.environment==="staging","Health route failed");
-// Health readiness requires schema v5 and the Worker verifies named safety triggers.
+// Health readiness requires schema v6, 18 named guards, empty commerce tables and four disabled flags.
 const ready=await request("/api/health/ready");assert(ready.status===200&&ready.data.status==="ready"&&ready.data.commerceEnabled===false,"Staging DB readiness failed");
 const catalog=await request("/api/catalog");assert(catalog.status===200&&Array.isArray(catalog.data.products),"Catalog response failed");
 assert(catalog.data.products.length===103,"Catalog count mismatch: "+catalog.data.products.length);
