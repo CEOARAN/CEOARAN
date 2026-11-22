@@ -8,7 +8,8 @@ let DatabaseSync;
 try{({DatabaseSync}=await import("node:sqlite"))}catch{}
 const migrationNames=[
  "0001_init.sql","0002_commerce.sql","0003_staging_guards.sql",
- "0004_financial_integrity.sql","0005_financial_snapshots.sql"
+ "0004_financial_integrity.sql","0005_financial_snapshots.sql",
+ "0006_staging_feature_gates.sql"
 ];
 const buildDb=async()=>{
  const db=new DatabaseSync(":memory:");
@@ -25,13 +26,14 @@ test("all staging migrations apply in order, preserving write-blocking triggers"
 },async()=>{
  const db=await buildDb();
  try{
-  assert.equal(db.prepare("SELECT MAX(version) AS version FROM schema_migrations").get().version,5);
+  assert.equal(db.prepare("SELECT MAX(version) AS version FROM schema_migrations").get().version,6);
   const names=db.prepare("SELECT name FROM sqlite_master WHERE type='trigger'").all().map(v=>v.name);
   for(const name of [
    "staging_block_order_insert","staging_block_payment_insert",
    "staging_block_outbox_insert","commerce_line_snapshot_price_guard",
    "commerce_order_financial_snapshot_immutable","commerce_order_line_delete_guard",
-   "commerce_payment_financial_snapshot_immutable","commerce_payment_delete_guard"
+   "commerce_payment_financial_snapshot_immutable","commerce_payment_delete_guard",
+   "staging_block_operational_insert","staging_block_operational_update","staging_block_operational_delete"
   ])assert(names.includes(name),"Missing trigger: "+name);
   assertAbort(()=>db.prepare(`INSERT INTO commerce_orders
     (id,idempotency_hash,request_fingerprint,status,payment_status,
@@ -75,5 +77,22 @@ test("financial records are immutable, while legitimate lifecycle transitions re
   db.prepare("UPDATE commerce_payments SET status='approved' WHERE id='PAY-OK-001'").run();
   assertAbort(()=>db.prepare("DELETE FROM commerce_payments WHERE id='PAY-OK-001'").run(),"COMMERCE_PAYMENT_DELETE_REQUIRES_REVIEW");
   assert.equal(db.prepare("SELECT COUNT(*) AS count FROM commerce_payments").get().count,1);
+ }finally{db.close()}
+});
+
+test("staging cannot activate, rename or delete commerce flags; catalog review remains editable",{
+ skip:!DatabaseSync&&"Requires Node 22+ built-in SQLite"
+},async()=>{
+ const db=await buildDb();
+ try{
+  for(const key of ["orders_enabled","payments_enabled","customer_data_enabled","tracking_enabled"]){
+   assertAbort(()=>db.prepare("UPDATE operational_settings SET value='true' WHERE key=?").run(key),"STAGING_COMMERCE_SETTINGS_IMMUTABLE");
+   assertAbort(()=>db.prepare("DELETE FROM operational_settings WHERE key=?").run(key),"STAGING_COMMERCE_SETTINGS_IMMUTABLE");
+   assert.equal(db.prepare("SELECT value FROM operational_settings WHERE key=?").get(key).value,"false");
+  }
+  assertAbort(()=>db.prepare("UPDATE operational_settings SET key='renamed_orders_flag' WHERE key='orders_enabled'").run(),"STAGING_COMMERCE_SETTINGS_IMMUTABLE");
+  assertAbort(()=>db.prepare("INSERT INTO operational_settings(key,value) VALUES('tracking_enabled','true')").run(),"STAGING_COMMERCE_SETTINGS_IMMUTABLE");
+  db.prepare("UPDATE operational_settings SET value='true' WHERE key='catalog_reviewed'").run();
+  assert.equal(db.prepare("SELECT value FROM operational_settings WHERE key='catalog_reviewed'").get().value,"true");
  }finally{db.close()}
 });
