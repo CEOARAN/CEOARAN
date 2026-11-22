@@ -12,6 +12,7 @@ export class MercadoPagoClientError extends Error{
  }
 }
 const MP_BASE="https://api.mercadopago.com/v1/orders";
+const MERCHANT_URL="https://api.mercadopago.com/users/me";
 const MP_ID=/^[A-Za-z0-9_-]{5,100}$/;
 const IDEMPOTENCY=/^[A-Za-z0-9_-]{16,128}$/;
 const jsonMime=/^application\/(?:[\w.+-]*\+)?json(?:;|$)/i;
@@ -25,7 +26,7 @@ function validateClient({token,merchantId,releaseApproved,fetchImpl,timeoutMs}){
  if(!Number.isInteger(timeoutMs)||timeoutMs<1000||timeoutMs>15000)
   throw new MercadoPagoClientError("INVALID_TIMEOUT");
 }
-async function providerRequest({token,fetchImpl,method,path,idempotencyKey=null,body=null,timeoutMs}){
+async function providerRequest({token,fetchImpl,method,path,idempotencyKey=null,body=null,timeoutMs,merchantLookup=false}){
  const controller=new AbortController();
  const timer=setTimeout(()=>controller.abort(),timeoutMs);
  try{
@@ -35,7 +36,7 @@ async function providerRequest({token,fetchImpl,method,path,idempotencyKey=null,
    headers["X-Idempotency-Key"]=idempotencyKey;
   }
   // Only the fixed Mercado Pago API host is reachable. Do not allow redirects.
-  const response=await fetchImpl(MP_BASE+path,{
+  const response=await fetchImpl(merchantLookup?MERCHANT_URL:MP_BASE+path,{
    method,headers,body:body===null?undefined:JSON.stringify(body),
    redirect:"error",signal:controller.signal
   });
@@ -61,6 +62,15 @@ async function providerRequest({token,fetchImpl,method,path,idempotencyKey=null,
   throw new MercadoPagoClientError("PROVIDER_NETWORK_ERROR",{retryable:true});
  }finally{clearTimeout(timer)}
 }
+async function checkMerchantAccount({token,fetchImpl,merchantId,timeoutMs}){
+ // Independent bearer-token identity proof: the Orders payload may omit
+ // user_id; the authenticated merchant MUST match the account configured.
+ const profile=await providerRequest({token,fetchImpl,method:"GET",path:"",
+  timeoutMs,merchantLookup:true});
+ if(String(profile.id||"")!==String(merchantId))
+  throw new MercadoPagoClientError("MERCHANT_IDENTITY_MISMATCH");
+ return true;
+}
 export async function createPixAtMercadoPago({
  orderId,totalCents,payer,idempotencyKey,token,merchantId,
  releaseApproved=false,fetchImpl=fetch,timeoutMs=8000
@@ -68,12 +78,13 @@ export async function createPixAtMercadoPago({
  validateClient({token,merchantId,releaseApproved,fetchImpl,timeoutMs});
  if(typeof idempotencyKey!=="string"||!IDEMPOTENCY.test(idempotencyKey))
   throw new MercadoPagoClientError("INVALID_PAYMENT_IDEMPOTENCY");
+ await checkMerchantAccount({token,fetchImpl,merchantId,timeoutMs});
  const body=createPixOrderPayload({orderId,totalCents,payer});
  const provider=await providerRequest({token,fetchImpl,method:"POST",path:"",
   idempotencyKey,body,timeoutMs});
  // Reject provider response that does not match the persisted local amount,
  // reference and merchant. This response alone never settles a payment.
- const verified=reconcilePixOrderResponse(provider,{orderId,totalCents,merchantId});
+ const verified=reconcilePixOrderResponse(provider,{orderId,totalCents,merchantId,merchantVerified:true});
  return {provider_order_id:verified.provider_order_id,
   provider_payment_id:verified.payment_id,
   payment_status:verified.payment_status,approved:verified.approved,
@@ -86,11 +97,12 @@ export async function fetchVerifiedPixOrder({
  validateClient({token,merchantId,releaseApproved,fetchImpl,timeoutMs});
  if(typeof providerOrderId!=="string"||!MP_ID.test(providerOrderId))
   throw new MercadoPagoClientError("INVALID_PROVIDER_ORDER_ID");
+ await checkMerchantAccount({token,fetchImpl,merchantId,timeoutMs});
  const provider=await providerRequest({token,fetchImpl,method:"GET",
   path:"/"+encodeURIComponent(providerOrderId),timeoutMs});
  if(String(provider.id)!==providerOrderId)
   throw new MercadoPagoClientError("PROVIDER_ORDER_ID_MISMATCH");
- const result=reconcilePixOrderResponse(provider,{orderId,totalCents,merchantId});
+ const result=reconcilePixOrderResponse(provider,{orderId,totalCents,merchantId,merchantVerified:true});
  // Only GET verified status may be used downstream to approve payment.
  return {provider_order_id:result.provider_order_id,
   provider_payment_id:result.payment_id,payment_status:result.payment_status,
