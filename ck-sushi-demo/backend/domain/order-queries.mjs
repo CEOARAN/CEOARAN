@@ -10,6 +10,12 @@ export class OrderQueryError extends Error{
 const ORDER_QUERY_ID=/^[A-Za-z0-9_-]{8,120}$/;
 const ORDER_CURSOR_TIME=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const ORDER_READ_LIMIT=50;
+const ORDER_STATUS_GROUPS=Object.freeze({
+ pending:["pending_payment","paid","accepted","preparing","ready","awaiting_courier",
+  "courier_assigned","picked_up","delivery_exception","refund_pending","refund_failed"],
+ done:["delivered","refunded"],
+ cancelled:["cancelled"]
+});
 
 function parseCursor(cursor){
  if(cursor===null||cursor===undefined||cursor==="")return null;
@@ -27,13 +33,15 @@ function makeCursor(row){
  const raw=JSON.stringify([row.placed_at,row.id]);
  return btoa(raw).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
 }
-export async function listRecentOrdersForAdmin(db,{status=null,limit=30,cursor=null}={}){
+export async function listRecentOrdersForAdmin(db,{status=null,group=null,limit=30,cursor=null}={}){
  if(!db||typeof db.prepare!=="function")throw new OrderQueryError("DATABASE_REQUIRED");
  if(status!==null&&!ORDER_STATES.includes(status))throw new OrderQueryError("INVALID_STATUS_FILTER");
+ if(group!==null&&(!Object.hasOwn(ORDER_STATUS_GROUPS,group)||status!==null))throw new OrderQueryError("INVALID_STATUS_GROUP");
  if(!Number.isInteger(limit)||limit<1||limit>ORDER_READ_LIMIT)throw new OrderQueryError("INVALID_PAGE_SIZE");
  const position=parseCursor(cursor);
  const conditions=[],values=[];
  if(status!==null){conditions.push("status=?");values.push(status)}
+ if(group!==null){const valuesForGroup=ORDER_STATUS_GROUPS[group];conditions.push("status IN ("+valuesForGroup.map(()=>"?").join(",")+")");values.push(...valuesForGroup)}
  if(position){conditions.push("(placed_at<? OR (placed_at=? AND id<?))");values.push(position[0],position[0],position[1])}
  const where=conditions.length?" WHERE "+conditions.join(" AND "):"";
  const rows=await db.prepare("SELECT id,status,payment_status,fulfillment,currency,subtotal_cents,discount_cents,delivery_fee_cents,total_cents,placed_at,updated_at,version FROM commerce_orders"+
