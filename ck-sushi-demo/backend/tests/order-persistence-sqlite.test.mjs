@@ -2,7 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFile} from "node:fs/promises";
 import {webcrypto} from "node:crypto";
-import {DatabaseSync} from "node:sqlite";
+let DatabaseSync;
+try{({DatabaseSync}=await import("node:sqlite"))}catch{}
 import {persistPreparedOrder,transitionPersistedOrder} from "../domain/order-repository.mjs";
 
 // No Cloudflare credentials or network: every transaction runs in isolated RAM.
@@ -58,7 +59,7 @@ const counts=db=>({
  lines:db.prepare("SELECT COUNT(*) n FROM commerce_order_lines").get().n,
  events:db.prepare("SELECT COUNT(*) n FROM commerce_order_events").get().n
 });
-test("SQL transaction stores one order, immutable lines and creation event; identical retries replay",async()=>{
+test("SQL transaction stores one order, immutable lines and creation event; identical retries replay",{skip:!DatabaseSync&&"Node 22+ SQLite required"},async()=>{
  const f=await fixture();
  try{
   assert.deepEqual(await create(f.d1),{orderId,replay:false});
@@ -72,7 +73,7 @@ test("SQL transaction stores one order, immutable lines and creation event; iden
   assert.deepEqual(counts(f.sqlite),{orders:1,lines:1,events:1});
  }finally{f.close()}
 });
-test("SQL rollback prevents orphan order header when item price changes before commit",async()=>{
+test("SQL rollback prevents orphan order header when item price changes before commit",{skip:!DatabaseSync&&"Node 22+ SQLite required"},async()=>{
  const f=await fixture();
  try{
   f.sqlite.prepare("UPDATE products SET price_cents=700 WHERE id=?").run(productId);
@@ -80,7 +81,7 @@ test("SQL rollback prevents orphan order header when item price changes before c
   assert.deepEqual(counts(f.sqlite),{orders:0,lines:0,events:0});
  }finally{f.close()}
 });
-test("SQL transitions update order and append event atomically with version checks",async()=>{
+test("SQL transitions update order and append event atomically with version checks",{skip:!DatabaseSync&&"Node 22+ SQLite required"},async()=>{
  const f=await fixture();
  try{
   await create(f.d1);
