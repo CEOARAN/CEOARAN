@@ -156,3 +156,13 @@ O Worker de homologação possui `scheduled()` vinculado ao agendamento Cloudfla
 - O HTML não carrega script de CDN nem contém dados pessoais. A interface usa os ativos `/admin/app.js` e `/admin/style.css`, já permitidos pela CSP do Worker.
 - Testes de regressão de estrutura: `tests/admin-ui.test.mjs`.
 - Sem a configuração do Cloudflare Access na conta, a área permanece **consulta pública e painel demonstrativo**, não um ambiente administrativo operacional. A publicação visual não habilita vendas, pagamentos ou integrações.
+
+## Admin V10 — linguagem de produto real
+
+- Removido o grande banner de marketing da página inicial. Layout principal com saudação contextual, cartão compacto escuro para o total do catálogo, status de pedidos e barra de disponibilidade.
+- Os atalhos foram convertidos em quatro ícones de acesso rápido, com hierarquia de aplicativo mobile. Métricas adicionais aparecem em blocos assimétricos escuro e papel.
+- Lista de produtos em celular se apresenta como cartões com miniatura, preço, status e ação, sem rolagem horizontal de tabela. Tabelas desktop seguem utilizáveis.
+- Filtros da tela de pedidos (todos, em andamento, concluídos, cancelados) são funcionais na interface, mas refletem um ambiente sem pedidos reais; não geram dados falsos.
+- Atendimento em prévia diferencia o exemplo de pergunta do comprador e a resposta; nenhum chat real está conectado.
+- Métricas exibidas vêm apenas do catálogo D1: total, categorias, promoções, disponibilidade, produtos publicados, distribuição. A proporção de disponibilidade é calculada no browser a partir do catálogo retornado pela API.
+- Interface continua usando endpoints e validação Cloudflare Access existentes. Sem Access configurado, todas as alterações de catálogo e a auditoria permanecem bloqueadas.
