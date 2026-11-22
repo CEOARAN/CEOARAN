@@ -647,7 +647,7 @@ h1,h2,h3,strong,b{font-feature-settings:"ss01" on}
  .app-welcome{margin:19px 0 22px}
  .welcome-overline{font-size:9px;margin-bottom:11px}
  .app-welcome h1{font-size:36px;line-height:1.06;letter-spacing:-.07em}
- .welcome-secondary{font-weight:450}
+ .welcome-secondary{font-weight:450;font-size:.77em;letter-spacing:-.055em;white-space:nowrap}
  .app-welcome p{font-size:11px;margin-top:8px}
  .welcome-tools{align-items:start;gap:6px}
  .welcome-refresh{width:33px;height:33px}
