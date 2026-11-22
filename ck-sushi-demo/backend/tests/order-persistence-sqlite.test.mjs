@@ -26,7 +26,7 @@ async function fixture(){
  // Only THIS in-memory fixture models future approved commerce.
  // The actual Cloudflare D1 retains this trigger and flags set to false.
  // Explicitly model a separate production database only inside this in-memory fixture.
- sqlite.exec("DROP TRIGGER staging_block_order_insert; DROP TRIGGER staging_block_operational_insert; DROP TRIGGER staging_block_operational_update; DROP TRIGGER staging_block_operational_delete;");
+ sqlite.exec("DROP TRIGGER staging_block_order_insert; DROP TRIGGER staging_block_payment_insert; DROP TRIGGER staging_block_operational_insert; DROP TRIGGER staging_block_operational_update; DROP TRIGGER staging_block_operational_delete;");
  for(const key of ["orders_enabled","payments_enabled","customer_data_enabled"])
   sqlite.prepare("UPDATE operational_settings SET value='true' WHERE key=?").run(key);
  const d1={
@@ -86,6 +86,9 @@ test("SQL transitions update order and append event atomically with version chec
  const f=await fixture();
  try{
   await create(f.d1);
+  // Approved payment is test-only evidence stored in isolated RAM SQLite.
+  f.sqlite.prepare("INSERT INTO commerce_payments (id,order_id,provider,provider_order_id,provider_payment_id,amount_cents,currency,status,idempotency_hash) VALUES(?,?,'mercadopago',?,?,1800,'BRL','approved',?)")
+   .run("CK-TEST-PAY-001",orderId,"ORDTEST001","PAYTEST001","c".repeat(64));
   const args={orderId,to:"paid",actor:"payment_provider",expectedVersion:1,
    providerEvidence:{verified:true,reconciled:true},releaseApproved:true};
   assert.deepEqual(await transitionPersistedOrder(f.d1,args),{orderId,status:"paid",version:2});
